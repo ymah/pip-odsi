@@ -1,94 +1,197 @@
 /*
- * NW_Manager.c
+ * manageNW_simple.c
  *
  *  Created on: 14 déc. 2017
  *      Author: hzgf0437
  */
 
+#undef UNICODE
+#define WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x0501
 
 
+// Need to link with Ws2_32.lib
+//#pragma comment (lib, "Ws2_32.lib")//normally done in the makefile
+// #pragma comment (lib, "Mswsock.lib")
+
+#define DEFAULT_BUFLEN 512
+#define DEFAULT_PORT "1337"
+
+/* Windows includes */
+#include <windows.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+//#include <stddef.h>
 /* Standard includes. */
 #include "CommonStructure.h"
 #include "MyAppConfig.h"
-#include "validateToken_Interface.h"
 #include "ResponseCode.h"
 #include "debug.h"
 #include "string.h"
 #include "structcopy.h"
+#include "parser.h"
+#include "NWManager_Interface.h"
+#include "stdint.h"
 /* Kernel includes. */
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
 
 /*-----------------------------------------------------------*/
+#undef UNICODE
 
-void NW_Task( void *pvParameters )
-{
-	QueueHandle_t xQueue_2IC = ( (QueueHandle_t*) pvParameters)[1];
-	SemaphoreHandle_t xSem_2IC = ( (SemaphoreHandle_t*) pvParameters)[5];
+#define WIN32_LEAN_AND_MEAN
+//#define _WIN32_WINNT 0x0501
 
+#include <windows.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-	TickType_t xNextWakeTime;
+#define DEFAULT_BUFLEN 512
+#define DEFAULT_IP NULL
+#define DEFAULT_PORT "1337"
+/*-----------------------------------------------------------*/
 
-	event_t EventRequest;
-	incomingMessage_t ValueToSend;
-	incomingMessage_t VTS[12];
+void* initialize(){
+	WSADATA wsaData;
+	uint32_t iResult;
+	SOCKET* LSocket;
 
-	const TickType_t xBlockTime = pdMS_TO_TICKS( NW_MANAGER_SEND_FREQUENCY_MS );
+	struct addrinfo *result = NULL;
+	struct addrinfo hints;
 
-	event_t EventResponse;
-	response_t MessageToReturn;
+	iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+	if (iResult != 0) {
+		printf("WSAStartup failed with error: %d\n", iResult);
+		return NULL;
+	}
+	ZeroMemory(&hints, sizeof(hints));
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+	hints.ai_flags = AI_PASSIVE;
 
-	char buffer[8*sizeof(int)];
-	/* Remove compiler warning in the case that configASSERT() is not
-	defined. */
-	( void ) pvParameters;
-
-	int i=0;
-
-	/*Reset & Inititialize the messages to be sent*/
-	for (i=0;i<12;i++){
-		incomingMessagereset(&VTS[i]);
+	// Resolve the server address and port
+	iResult = getaddrinfo(DEFAULT_IP, DEFAULT_PORT, &hints, &result);
+	if ( iResult != 0 ) {
+		printf("getaddrinfo failed with error: %d\n", iResult);
+		WSACleanup();
+		return NULL;
+	}
+	// Create a SOCKET for connecting to server
+	LSocket = (SOCKET*) calloc(1,sizeof(SOCKET));
+	*LSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+	if (*LSocket == INVALID_SOCKET) {
+		printf("socket failed with error: %i\n", WSAGetLastError());
+		freeaddrinfo(result);
+		WSACleanup();
+		return NULL;
 	}
 
-	incomingMessageinit(&VTS[0], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","\0",READ_DOMID);
-	incomingMessageinit(&VTS[1], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0", DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[2], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","\0", READ_DOMID);
-	incomingMessageinit(&VTS[3], "20171214100001\0", "Dev1\0", "P1\0", "Pirate\0",DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[4], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","1:\0",READ_KEY);
-	incomingMessageinit(&VTS[5], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","2:",READ_KEY);
-	incomingMessageinit(&VTS[6], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","2:18", ADD_KEY);
-	incomingMessageinit(&VTS[7], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","2:", READ_KEY);
-	incomingMessageinit(&VTS[8], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","2:", DELETE_KEY);
-	incomingMessageinit(&VTS[9], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","2:",READ_KEY);
-	incomingMessageinit(&VTS[10], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","1:18",UPDATE_KEY);
-	incomingMessageinit(&VTS[11], "20171214100001\0", "Dev1\0", "P1\0", "Friend\0","1:",READ_KEY);
-
-	/* Initialise xNextWakeTime - this only needs to be done once. */
-	xNextWakeTime = xTaskGetTickCount();
-
-	i=0;
-	debug("NW Manager started\n");
-	for( i=0;;i=(i+1)%12 )
-	{
-		debug("iteration ");
-		debug(itoa(i,buffer,10));
-		debug("\n");
-		incomingMessagecpy(&ValueToSend,&VTS[i]);
-
-		/* Place this task in the blocked state until it is time to run again.
-		The block time is specified in ticks, the constant used converts ticks
-		to ms.  While in the Blocked state this task will not consume any CPU
-		time. */
-		vTaskDelayUntil( &xNextWakeTime, xBlockTime );
-
+	// Setup the TCP listening socket
+	iResult = bind( *LSocket, result->ai_addr, (int)result->ai_addrlen);
+	if (iResult == SOCKET_ERROR) {
+		printf("bind failed with error: %d\n", WSAGetLastError());
+		freeaddrinfo(result);
+		closesocket(*LSocket);
+		WSACleanup();
+		return NULL;
 	}
 
-	EventRequest.eventType=INMESSAGE;
-	incomingMessagecpy( &EventRequest.eventData.incomingMessage, &ValueToSend);
-	xQueueSend( xQueue_2IC, &EventRequest, 0U );
-	xSemaphoreGive(xSem_2IC);
+	//freeaddrinfo(result);
+	return LSocket;
+}
 
-	/* Receive Response data*/
 
+uint32_t ext_listen( void* LSocket){
+	uint32_t iResult = 0;
+	iResult = listen(*(SOCKET*)LSocket, SOMAXCONN);
+	if (iResult == SOCKET_ERROR) {
+		printf("listen failed with error: %d\n", WSAGetLastError());
+		closesocket(*(SOCKET*)LSocket);
+		WSACleanup();
+		return 1;
+	}
+	return 0;
+}
+
+
+void* getConnection(void* ListenSocket){
+	// Accept a client socket
+	SOCKET* CSocket=NULL;
+	CSocket = (SOCKET*) calloc(1,sizeof(SOCKET));
+	*CSocket = accept(*(SOCKET*)ListenSocket, NULL, NULL);
+
+	if (*(SOCKET*)CSocket == INVALID_SOCKET) {
+		printf("accept failed with error: %d\n", WSAGetLastError());
+		closesocket(*(SOCKET*)ListenSocket);
+		WSACleanup();
+		return NULL;
+	}
+
+	return CSocket;
+}
+
+uint32_t ext_receive(void* ClientSocket, char* data){
+	uint32_t iResult=0;
+	uint32_t len=0;
+	uint32_t recvbuflen1 = 4;
+	uint32_t recvbuflen2;
+
+		//Receive the first message with the size of the data to be received
+		iResult = recv(*(SOCKET*)ClientSocket, data, recvbuflen1, 0);
+		recvbuflen2=*((int*)data);
+		printf("length to read: %lu", recvbuflen2);
+		//Receive the second message of size
+		iResult = recv(*(SOCKET*)ClientSocket, data, recvbuflen2, 0);
+
+		len=strlen(data);
+		if (iResult > 0) {
+			printf("Bytes received: %lu\n", iResult);
+			printf("Buffer content : %s\n", data);
+		}
+		else if (iResult == 0)
+			printf("Connection closing...\n");
+		else  {
+			printf("recv failed with error: %d\n", WSAGetLastError());
+			closesocket(*(SOCKET*)ClientSocket);
+			WSACleanup();
+			return 1;
+		}
+
+	return len;
+}
+
+
+void ext_send(void* ClientSocket, char* outData, uint32_t size){
+	uint32_t iSendResult=0;
+
+	iSendResult=send( *(SOCKET*)ClientSocket, (char*)&size, sizeof(size), 0 );
+	iSendResult=send( *(SOCKET*)ClientSocket, outData, size, 0 );
+
+	if (iSendResult == SOCKET_ERROR) {
+		printf("send failed with error: %d\n", WSAGetLastError());
+		closesocket(*(SOCKET*)ClientSocket);
+		WSACleanup();
+	}
+
+	printf("Bytes sent: %d\n", iSendResult);
+}
+
+void mycloseSocket(void* Socket){
+	int iResult = 0;
+	iResult = shutdown(*(SOCKET*)Socket, SD_SEND);
+
+	if (iResult == SOCKET_ERROR) {
+		printf("shutdown failed with error: %d\n", WSAGetLastError());
+		closesocket(*(SOCKET*)Socket);
+		WSACleanup();
+	}
+
+	// cleanup
+	closesocket(*(SOCKET*) Socket);
+	*(SOCKET*) Socket = INVALID_SOCKET;
+	//WSACleanup();
 }

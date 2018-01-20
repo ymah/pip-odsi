@@ -5,6 +5,7 @@
  *      Author: hzgf0437
  */
 
+#include <stdio.h>
 
 /* Standard includes. */
 #include "CommonStructure.h"
@@ -37,7 +38,11 @@ void* get_connection(void* ListenSocket){
 	return NULL;
 }
 
-uint32_t ext_listen(void* ClientSocket, char* data)
+uint32_t ext_listen( void* LSocket){
+	return 0;
+}
+
+uint32_t ext_receive(void* ClientSocket, char* data)
 {
 
 	TickType_t xNextWakeTime;
@@ -50,27 +55,37 @@ uint32_t ext_listen(void* ClientSocket, char* data)
 	//response_t MessageToReturn;
 
 	char buffer[8*sizeof(uint32_t)];
+	char token_f[TOKEN_SIZE];
+	char token_p[TOKEN_SIZE];
 
-	uint32_t i=0;
+	uint32_t i,j=0;
 	uint32_t size=0;
+
+	for(j=0;j<TOKEN_SIZE;j++){
+		token_f[j]=0xff;
+		token_p[j]=0;
+	}
 
 	/*Reset & Inititialize the messages to be sent*/
 	for (i=0;i<12;i++){
 		incomingMessagereset(&VTS[i]);
 	}
 
-	incomingMessageinit(&VTS[0], 1, 1, 1, "Friend\0","\0",READ_DOMID);
-	incomingMessageinit(&VTS[1], 1, 1, 1, "Friend\0", DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[2], 1, 1, 1, "Friend\0","\0", READ_DOMID);
-	incomingMessageinit(&VTS[3], 1, 1, 1, "Pirate\0",DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[4], 1, 1, 1, "Friend\0","1:\0",READ_KEY);
-	incomingMessageinit(&VTS[5], 1, 1, 1, "Friend\0","2:",READ_KEY);
-	incomingMessageinit(&VTS[6], 1, 1, 1, "Friend\0","2:18", ADD_KEY);
-	incomingMessageinit(&VTS[7], 1, 1, 1, "Friend\0","2:", READ_KEY);
-	incomingMessageinit(&VTS[8], 1, 1, 1, "Friend\0","2:", DELETE_KEY);
-	incomingMessageinit(&VTS[9], 1, 1, 1, "Friend\0","2:",READ_KEY);
-	incomingMessageinit(&VTS[10], 1, 1, 1, "Friend\0","1:18",UPDATE_KEY);
-	incomingMessageinit(&VTS[11], 1, 1, 1, "Friend\0","1:",READ_KEY);
+
+
+	incomingMessageinit(&VTS[0], 1, 1, 1, token_f,"\0",READ_DOMID);
+	incomingMessageinit(&VTS[1], 1, 1, 1, token_f, DOM_ID_UPDATE, UPDATE_DOMID);
+	incomingMessageinit(&VTS[2], 1, 1, 1, token_f,"\0", READ_DOMID);
+	incomingMessageinit(&VTS[3], 1, 1, 1, token_p, DOM_ID_UPDATE, UPDATE_DOMID);
+	incomingMessageinit(&VTS[4], 1, 1, 1, token_f,"1:\0",READ_KEY);
+	incomingMessageinit(&VTS[5], 1, 1, 1, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[6], 1, 1, 1, token_f,"2:18", ADD_KEY);
+	incomingMessageinit(&VTS[7], 1, 1, 1, token_f,"2:", READ_KEY);
+	incomingMessageinit(&VTS[8], 1, 1, 1, token_f,"2:", DELETE_KEY);
+	incomingMessageinit(&VTS[9], 1, 1, 1, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[10], 1, 1, 1, token_f,"1:18",UPDATE_KEY);
+	incomingMessageinit(&VTS[11], 1, 1, 1, token_f,"1:",READ_KEY);
+
 
 	/* Initialise xNextWakeTime - this only needs to be done once. */
 	xNextWakeTime = xTaskGetTickCount();
@@ -114,6 +129,6 @@ void ext_send(void* ClientSocket, char* outData, uint32_t size){
 	debug("\n\n");
 }
 
-void close(void* Socket){
+void mycloseSocket(void* Socket){
 
 }

@@ -15,6 +15,7 @@
 #include "structcopy.h"
 #include "parser.h"
 #include "stdint.h"
+#include "mystdlib.h"
 
 #include "CommunicateSimple.h"
 
@@ -35,9 +36,9 @@ uint32_t receive_simple(char* data, QueueHandle_t xQueue_P2IC){
 	xQueueReceive( xQueue_P2IC, &Event, portMAX_DELAY ); //receive(data, src)
 	switch(Event.eventType){
 	case NW_IN:
-		memset(data, 0, IN_MAX_MESSAGE_SIZE);
+		mymemset(data, 0, IN_MAX_MESSAGE_SIZE);
 		debug("Internal Communication received a message\n");
-		memcpy(data, Event.eventData.nw.stream, Event.eventData.nw.size);
+		mymemcpy(data, Event.eventData.nw.stream, Event.eventData.nw.size);
 		return Event.eventData.nw.size;
 	default:
 		return GENERAL_ERROR;
@@ -47,7 +48,7 @@ uint32_t receive_simple(char* data, QueueHandle_t xQueue_P2IC){
 void send_simple(char* data, QueueHandle_t xQueue_IC2P, uint32_t datasize){
 	event_t Event;
 	Event.eventType=NW_OUT;
-	memcpy(Event.eventData.nw.stream, data, datasize);
+	mymemcpy(Event.eventData.nw.stream, data, datasize);
 	Event.eventData.nw.size=datasize;
 
 	xQueueSend( xQueue_IC2P, &Event, 0U ); //send(dest, data)

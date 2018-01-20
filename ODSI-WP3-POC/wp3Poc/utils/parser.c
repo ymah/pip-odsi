@@ -33,7 +33,7 @@ uint32_t serialize_incomingMessage(incomingMessage_t message, char* data){
 	//debug("I am the parser. I will serialize your message.\n");
 
 	size_data=strlen(message.command.data);
-	size_token=strlen(message.token);
+	size_token=strlen(message.token);// modify structure incoming message
 
 	size_total=sizeof(message.userID)
 						+sizeof(message.deviceID)
@@ -97,7 +97,7 @@ uint32_t serialize_response(response_t response, char* data){
 	//debug( itoa(total_len, debug_buffer, 10) );
 	//debug("\n");
 
-	char buffer[size_total];
+	//char buffer[size_total];
 
 	if (size_total <= OUT_MAX_MESSAGE_SIZE){
 		ID=myhtonl(response.userID);
