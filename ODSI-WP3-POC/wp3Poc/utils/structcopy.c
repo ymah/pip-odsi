@@ -37,7 +37,7 @@ incomingMessage_t *incomingMessageinit(incomingMessage_t *dest, uint32_t userID,
 	dest->userID = userID;
 	dest->deviceID=deviceID;
 	dest->domainID = domainID;
-	strcpy(dest->token, token);
+	mymemcpy(dest->token, token, TOKEN_SIZE);
 	commandinit(&dest->command, data, ins, userID);
 
 	return dest;
@@ -47,7 +47,7 @@ incomingMessage_t *incomingMessagecpy(incomingMessage_t *dest, incomingMessage_t
 	dest->userID=src->userID;
 	dest->deviceID=src->deviceID;
 	dest->domainID =src->domainID;
-	strcpy(dest->token,src->token);
+	mymemcpy(dest->token,src->token, TOKEN_SIZE);
 	commandcpy(&dest->command, &src->command);
 
 	return dest;
@@ -64,7 +64,7 @@ incomingMessage_t *incomingMessagereset(incomingMessage_t *dest){
 
 response_t* responseinit(response_t *dest, int responsecode, char* data, uint32_t userID){
 	dest->responsecode=responsecode;
-	strcpy(dest->data,data);
+	mymemcpy(dest->data,data, DATA_SIZE);
 	dest->userID= userID;
 	return dest;
 }

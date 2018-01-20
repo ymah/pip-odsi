@@ -23,7 +23,7 @@ INTCOM_OBJ = obj/InternalCommunication_SimpleAdaptor.o
 
 APP_OBJ= obj/main.o obj/main_myapp.o obj/Run-time-stats-utils.o $(CORE_OBJ) $(CLIENT_OBJ) $(CONFIG_OBJ) $(KEY_OBJ) $(TOKEN_OBJ) $(INTCOM_OBJ)
 APP_LIB= lib/libfreertos.a lib/libfreertos_trace.a lib/libutils.a lib/libtoken_simple.a lib/libclient_simple.a lib/libconfig_simple.a lib/libkey_simple.a lib/libmanageNW.a lib/libcom_simple.a
-APP_LLIB=  -lfreertos -lfreertos_trace -lutils -ltoken_simple -lclient_simple -lconfig_simple -lkey_simple -lmanageNW -lcom_simple -lwinmm -Llib 
+APP_LLIB=  -lfreertos -lfreertos_trace -lutils -ltoken_simple -lclient_simple -lconfig_simple -lkey_simple -lmanageNW -lcom_simple -lwinmm -lws2_32 -Llib 
 
 CORE_INCLUDE = -Isrc/include
 CORE_OBJ = obj/AdminManager.o obj/ConfigManager.o obj/KeyManager.o obj/InternalCommunication.o obj/TokenValidator.o
@@ -102,7 +102,7 @@ lib/libcom_simple.a:
 ####### NW Manager
 
 lib/libmanageNW.a:
-	cd NWManager && make TARGET="Simple" install
+	cd NWManager && make TARGET="WIN32" install
 
 
 ######SimpleAdaptors

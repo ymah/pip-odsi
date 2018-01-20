@@ -5,6 +5,7 @@
  *      Author: HZGF0437
  */
 
+
 /* Kernel includes. */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -18,6 +19,14 @@
  * @return ListenSocket
  */
 void* initialize();
+
+/**
+ * Listens to socket
+ * @param LSocket
+ * @return status code
+ */
+uint32_t ext_listen( void* LSocket);
+
 
 /**
  * Receives a connection on the ListenSocket and sends back a ConnectionSocket from which the data can be retrieved
@@ -40,12 +49,12 @@ void ext_send(void* ClientSocket, char* outData, uint32_t size);
  * @param data
  * @return
  */
-uint32_t ext_listen(void* ClientSocket, char* data);
+uint32_t ext_receive(void* ClientSocket, char* data);
 
 /**
  * Close the socket
  * @param Socket Socket to be closed
  */
-void close(void* Socket);
+void mycloseSocket(void* Socket);
 
 #endif /* NWMANAGER_INCLUDE_NWMANAGER_INTERFACE_H_ */
