@@ -17,7 +17,7 @@ command_t *commandreset(command_t* dest);
 
 incomingMessage_t *incomingMessagecpy(incomingMessage_t *dest, incomingMessage_t *src);
 incomingMessage_t *incomingMessagereset(incomingMessage_t *dest);
-incomingMessage_t *incomingMessageinit(incomingMessage_t *dest, uint32_t userID, uint32_t deviceID, uint32_t domainID, char* token, char* data, uint32_t ins);
+incomingMessage_t *incomingMessageinit(incomingMessage_t *dest, uint32_t userID, uint32_t deviceID, uint32_t domainID, uint32_t tokenSize, char* token, char* data, uint32_t ins);
 
 response_t * responsecpy(response_t *dest, response_t *src);
 response_t* responsereset(response_t *dest);

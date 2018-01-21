@@ -43,6 +43,7 @@ typedef struct incomingMessage{
 	uint32_t userID;
 	uint32_t deviceID;
 	uint32_t domainID;
+	uint32_t tokenSize;
 	char token[TOKEN_SIZE];
 	command_t command;
 }incomingMessage_t;

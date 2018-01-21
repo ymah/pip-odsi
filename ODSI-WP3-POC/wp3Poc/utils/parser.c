@@ -26,23 +26,21 @@ uint32_t serialize_incomingMessage(incomingMessage_t message, char* data){
 	data[0]='\0';
 	uint32_t size_total;
 	uint32_t size_data;
-	uint32_t size_token;
 	char* p=data;
 	uint32_t ID;
 
 	debug("I am the parser. I will serialize your message.\n");
 
 	size_data=strlen(message.command.data);
-	size_token=strlen(message.token);// modify structure incoming message
 
 	size_total=sizeof(message.userID)
 						+sizeof(message.deviceID)
 						+sizeof(message.domainID)
 						+sizeof(message.command.instruction)
-						+sizeof(uint32_t) //size of data length
+						+sizeof(size_data)
 						+size_data
-						+sizeof(uint32_t) //size of token length
-						+size_token;
+						+sizeof(message.tokenSize)
+						+message.tokenSize;
 
 
 	if (size_total <= IN_MAX_MESSAGE_SIZE){
@@ -69,19 +67,18 @@ uint32_t serialize_incomingMessage(incomingMessage_t message, char* data){
 		mymemcpy(p, message.command.data, size_data);
 		p += size_data;
 
-		ID=myhtonl(size_token);
+		ID=myhtonl(message.tokenSize);
 		mymemcpy(p, &ID, sizeof(ID));
 		p += sizeof(ID);
 
-		mymemcpy(p, message.token, size_token);
-		p += size_token ;
-
+		mymemcpy(p, message.token, message.tokenSize);
+		p += message.tokenSize ;
 
 		debug("Serialization completed\n");
 		return size_total;
 	}
 	else {
-		debug("ERROR");
+		debug("ERROR\n");
 		return GENERAL_ERROR;
 	}
 
@@ -118,7 +115,7 @@ uint32_t serialize_response(response_t response, char* data){
 		return size_total;
 	}
 	else {
-		debug("ERROR");
+		debug("ERROR\n");
 		return GENERAL_ERROR;
 	}
 
@@ -129,7 +126,6 @@ incomingMessage_t deserialize_incomingMessage(char* data, uint32_t size_total){
 
 	incomingMessage_t message;
 
-	uint32_t size_token;
 	uint32_t size_data;
 
 	incomingMessagereset(&message);
@@ -163,12 +159,14 @@ incomingMessage_t deserialize_incomingMessage(char* data, uint32_t size_total){
 		data += size_data;
 
 		mymemcpy(&ID, data, sizeof(ID));
-		size_token=myntohl(ID);
+		message.tokenSize=myntohl(ID);
 		data += sizeof(ID);
 
-		mymemcpy(&(message.token), data, size_token);
-		data += size_token;
+		mymemcpy(&(message.token), data, message.tokenSize);
+		data += message.tokenSize;
 
+	}	else {
+		debug("ERROR\n");
 	}
 	return message;
 }
@@ -196,6 +194,9 @@ response_t deserialize_response(char* data, uint32_t size_total){
 		size_data = size_total - ( 2*sizeof(ID) );
 		mymemcpy(&(response.data), data, size_data);
 		data += size_data;
+	}
+	else {
+		debug("ERROR\n");
 	}
 	return response;
 }

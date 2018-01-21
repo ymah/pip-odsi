@@ -73,18 +73,18 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 
 
 
-	incomingMessageinit(&VTS[0], 1, 1, 1, token_f,"\0",READ_DOMID);
-	incomingMessageinit(&VTS[1], 1, 1, 1, token_f, DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[2], 1, 1, 1, token_f,"\0", READ_DOMID);
-	incomingMessageinit(&VTS[3], 1, 1, 1, token_p, DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[4], 1, 1, 1, token_f,"1:\0",READ_KEY);
-	incomingMessageinit(&VTS[5], 1, 1, 1, token_f,"2:",READ_KEY);
-	incomingMessageinit(&VTS[6], 1, 1, 1, token_f,"2:18", ADD_KEY);
-	incomingMessageinit(&VTS[7], 1, 1, 1, token_f,"2:", READ_KEY);
-	incomingMessageinit(&VTS[8], 1, 1, 1, token_f,"2:", DELETE_KEY);
-	incomingMessageinit(&VTS[9], 1, 1, 1, token_f,"2:",READ_KEY);
-	incomingMessageinit(&VTS[10], 1, 1, 1, token_f,"1:18",UPDATE_KEY);
-	incomingMessageinit(&VTS[11], 1, 1, 1, token_f,"1:",READ_KEY);
+	incomingMessageinit(&VTS[0], 1, 1, 1, TOKEN_SIZE, token_f,"\0",READ_DOMID);
+	incomingMessageinit(&VTS[1], 1, 1, 1, TOKEN_SIZE, token_f, DOM_ID_UPDATE, UPDATE_DOMID);
+	incomingMessageinit(&VTS[2], 1, 1, 1,TOKEN_SIZE, token_f,"\0", READ_DOMID);
+	incomingMessageinit(&VTS[3], 1, 1, 1,TOKEN_SIZE, token_p, DOM_ID_UPDATE, UPDATE_DOMID);
+	incomingMessageinit(&VTS[4], 1, 1, 1,TOKEN_SIZE, token_f,"1:\0",READ_KEY);
+	incomingMessageinit(&VTS[5], 1, 1, 1,TOKEN_SIZE, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[6], 1, 1, 1,TOKEN_SIZE, token_f,"2:18", ADD_KEY);
+	incomingMessageinit(&VTS[7], 1, 1, 1,TOKEN_SIZE, token_f,"2:", READ_KEY);
+	incomingMessageinit(&VTS[8], 1, 1, 1,TOKEN_SIZE, token_f,"2:", DELETE_KEY);
+	incomingMessageinit(&VTS[9], 1, 1, 1,TOKEN_SIZE, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[10], 1, 1, 1,TOKEN_SIZE, token_f,"1:18",UPDATE_KEY);
+	incomingMessageinit(&VTS[11], 1, 1, 1,TOKEN_SIZE, token_f,"1:",READ_KEY);
 
 
 	/* Initialise xNextWakeTime - this only needs to be done once. */
