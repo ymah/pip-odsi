@@ -29,7 +29,7 @@ uint32_t serialize_incomingMessage(incomingMessage_t message, char* data){
 	char* p=data;
 	uint32_t ID;
 
-	debug("I am the parser. I will serialize your message.\n");
+	DEBUG(INFO, "I am the parser. I will serialize your message.\n");
 
 	size_data=strlen(message.command.data);
 
