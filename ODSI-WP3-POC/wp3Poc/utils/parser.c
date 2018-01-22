@@ -13,6 +13,7 @@
 #include "mystdlib.h"
 #include "parser.h"
 #include "ResponseCode.h"
+#include <stdarg.h>
 
 uint32_t myhtonl(uint32_t hostlong){
 	return hostlong;
@@ -29,7 +30,7 @@ uint32_t serialize_incomingMessage(incomingMessage_t message, char* data){
 	char* p=data;
 	uint32_t ID;
 
-	DEBUG(INFO, "I am the parser. I will serialize your message.\n");
+	DEBUG(INFO,"%s\n","I am the parser. I will serialize your message.");
 
 	size_data=strlen(message.command.data);
 

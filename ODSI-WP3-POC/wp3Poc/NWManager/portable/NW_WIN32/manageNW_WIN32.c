@@ -20,8 +20,8 @@
 /* Windows includes */
 #include <windows.h>
 #include <winsock2.h>
+#include <stddef.h>
 #include <ws2tcpip.h>
-//#include <stddef.h>
 /* Standard includes. */
 #include "CommonStructure.h"
 #include "MyAppConfig.h"
