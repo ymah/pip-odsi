@@ -30,7 +30,7 @@ CORE_OBJ = obj/AdminManager.o obj/ConfigManager.o obj/KeyManager.o obj/InternalC
 
 ####ALL
 all: bin/wp3app_freertos
-	rm -f lib/*
+	#rm -f lib/*
 
 ####CLEAN
 clean:

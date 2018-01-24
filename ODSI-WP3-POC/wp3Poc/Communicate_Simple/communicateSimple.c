@@ -37,7 +37,7 @@ uint32_t receive_simple(char* data, QueueHandle_t xQueue_P2IC){
 	switch(Event.eventType){
 	case NW_IN:
 		mymemset(data, 0, IN_MAX_MESSAGE_SIZE);
-		debug("Internal Communication received a message\n");
+		DEBUG(TRACE, "Internal Communication received a message\n");
 		mymemcpy(data, Event.eventData.nw.stream, Event.eventData.nw.size);
 		return Event.eventData.nw.size;
 	default:
@@ -50,7 +50,7 @@ void send_simple(char* data, QueueHandle_t xQueue_IC2P, uint32_t datasize){
 	Event.eventType=NW_OUT;
 	mymemcpy(Event.eventData.nw.stream, data, datasize);
 	Event.eventData.nw.size=datasize;
-
-	xQueueSend( xQueue_IC2P, &Event, 0U ); //send(dest, data)
+	DEBUG(TRACE, "Internal Communication sent a message\n");
+	xQueueSend( xQueue_IC2P, &Event, 0U );
 }
 
