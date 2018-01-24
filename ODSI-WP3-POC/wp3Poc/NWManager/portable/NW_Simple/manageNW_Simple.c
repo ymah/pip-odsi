@@ -47,7 +47,7 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 
 	TickType_t xNextWakeTime;
 	incomingMessage_t VTS[12];
-	//incomingMessage_t Check;
+	incomingMessage_t Check;
 
 	const TickType_t xBlockTime = pdMS_TO_TICKS( NW_MANAGER_SEND_FREQUENCY_MS );
 
@@ -90,21 +90,14 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 	/* Initialise xNextWakeTime - this only needs to be done once. */
 	xNextWakeTime = xTaskGetTickCount();
 
-	debug("NW Manager started\n");
+	DEBUG(TRACE,"NW Manager started\n");
 
-	debug("iteration ");
-	debug(itoa(iteration,buffer,10));
-	debug("\n");
+	DEBUG(INFO,"iteration %lu\n", iteration);
 
 	size=serialize_incomingMessage(VTS[iteration], data);
-	//Check=deserialize_incomingMessage(data, size);
 
-	/*debug("Command Data: ");
-	debug(Check.command.data);
-	debug("\n");
-	debug("Token: ");
-	debug(Check.token);
-	debug("\n");*/
+	Check=deserialize_incomingMessage(data, size);
+	DEBUG(TRACE,"Command Data: %s, Token: %x \n", Check.command.data, Check.token );
 
 	iteration=(iteration+1)%12 ;
 
@@ -122,11 +115,7 @@ void ext_send(void* ClientSocket, char* outData, uint32_t size){
 
 	response=deserialize_response(outData, size);
 
-	debug("NW-Response code: ");
-	debug(itoa(response.responsecode,buffer,16));
-	debug(" and data: ");
-	debug(response.data);
-	debug("\n\n");
+	DEBUG(INFO,"Response code: %lu Data : %s \n\n", response.responsecode, response.data);
 }
 
 void mycloseSocket(void* Socket){

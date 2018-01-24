@@ -36,4 +36,8 @@ the queue empty. */
 #define TOKEN_KEY_ID                         ( "Key1\0" )
 #define TOKEN_KEY                            ( "17\0" )
 
+#define DEFAULT_BUFLEN 512
+#define DEFAULT_IP NULL
+#define DEFAULT_PORT "1337"
+
 #endif /* MYAPPCONFIG_H_ */
