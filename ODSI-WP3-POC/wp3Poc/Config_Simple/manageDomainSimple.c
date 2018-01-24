@@ -18,30 +18,25 @@
 //domain_t CurrentDomain = {DOM_ID_OWNER,NB_CHILD_DOM_DEFAULT};
 
 uint32_t createDomain(){
-	debug("Create Domain\n");
+	DEBUG(TRACE, "Create Domain\n");
 	return SUCCESS;
 }
 
 
 uint32_t readDomID(domain_t *dom, char* readData){
-	debug("Read ID: ");
-	debug(dom->DomId);
-	debug("\n)");
+	DEBUG(TRACE,"Read ID: %s \n", dom->DomId);
 	strcpy(readData, dom->DomId);
 	return SUCCESS;
 }
 
 
 uint32_t updateDomID(domain_t *dom, char* domId){
-	debug("Update Domain ID: Old");
-	debug(dom->DomId);
-	debug("\n)");
+	DEBUG(TRACE,"Update Domain ID: Old ( %s )\n", dom->DomId);
 
 	strcpy(dom->DomId,domId);
 
-	debug("Update Domain ID: New");
-	debug(dom->DomId);
-	debug("\n)");
+	DEBUG(TRACE,"Update Domain ID: New ( %s )\n", dom->DomId);
+
 	return SUCCESS;
 }
 
