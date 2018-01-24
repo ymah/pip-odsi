@@ -30,7 +30,6 @@ void ConfigManagerTask( void *pvParameters ){
 	event_t EventToSend;
 	response_t ResponseToSend;
 	event_t ReceivedValue;
-	char buffer[8*sizeof(uint32_t)];
 
 	/*Initialize current domain*/
 	domain_t CurrentDomain;
@@ -54,7 +53,7 @@ void ConfigManagerTask( void *pvParameters ){
 		FreeRTOSConfig.h. */
 		xQueueReceive( xQueue_2CM, &ReceivedValue, portMAX_DELAY );
 
-		debug("Hello! I am the Config Manager !\n");
+		DEBUG(TRACE,"Config Manager !\n");
 
 		ResponseToSend.responsecode=ManageDomain(ReceivedValue,&CurrentDomain,responseData);
 
@@ -67,11 +66,7 @@ void ConfigManagerTask( void *pvParameters ){
 		EventToSend.eventData.response=ResponseToSend;
 		xQueueSend( xQueue_2AM, &EventToSend, 0U );
 
-		debug("Config-Response code: ");
-		debug(itoa(ResponseToSend.responsecode,buffer,16));
-		debug(" and data: ");
-		debug(ResponseToSend.data);
-		debug("\n");
+		DEBUG(TRACE,"Config-Response code: %#04X, Data: %s\n", ResponseToSend.responsecode, ResponseToSend.data);
 	}
 
 }

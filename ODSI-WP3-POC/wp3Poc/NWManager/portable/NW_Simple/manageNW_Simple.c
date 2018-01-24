@@ -54,7 +54,6 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 	//event_t EventResponse;
 	//response_t MessageToReturn;
 
-	char buffer[8*sizeof(uint32_t)];
 	char token_f[TOKEN_SIZE];
 	char token_p[TOKEN_SIZE];
 
@@ -97,7 +96,7 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 	size=serialize_incomingMessage(VTS[iteration], data);
 
 	Check=deserialize_incomingMessage(data, size);
-	DEBUG(TRACE,"Command Data: %s, Token: %x \n", Check.command.data, Check.token );
+	DEBUG(TRACE,"Command Data: %s, Token: %X \n", Check.command.data, Check.token );
 
 	iteration=(iteration+1)%12 ;
 
@@ -111,11 +110,10 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 
 void ext_send(void* ClientSocket, char* outData, uint32_t size){
 	response_t response;
-	char buffer[8*sizeof(uint32_t)];
 
 	response=deserialize_response(outData, size);
 
-	DEBUG(INFO,"Response code: %lu Data : %s \n\n", response.responsecode, response.data);
+	DEBUG(INFO,"Response code: %04X Data : %s \n\n", response.responsecode, response.data);
 }
 
 void mycloseSocket(void* Socket){

@@ -51,7 +51,7 @@ void AdminManagerTask( void *pvParameters ){
 
 		switch(ReceivedEvent.eventType){
 		case INMESSAGE:
-			debug("Hello! I am the Admin Manager ! I send your command to the token validator\n");
+			DEBUG(INFO,"Sending command to token validator\n");
 			eventcpy( &TokenRequest , &ReceivedEvent );
 			xQueueSend( xQueue_2TV, &TokenRequest, 0U );
 
@@ -59,13 +59,13 @@ void AdminManagerTask( void *pvParameters ){
 			xQueueReceive( xQueue_2AM, &TokenResponse, portMAX_DELAY );
 
 			if (TokenResponse.eventType == RESPONSE && TokenResponse.eventData.response.responsecode == SUCCESS){
-				debug("I will send your command to destination\n");
+				DEBUG(INFO,"Sending command to destination\n");
 				commandcpy( &ValueToSend.eventData.command , &ReceivedEvent.eventData.incomingMessage.command );
 				ValueToSend.eventType=COMMAND;
 				routeCommand( ValueToSend, xQueue_AM2CM, xQueue_AM2KM);
 			}
 			else{
-				debug("I will send the response\n");
+				DEBUG(INFO,"Sending response\n");
 				eventcpy(&EventToSend, &TokenResponse);
 				xQueueSend( xQueue_2IC, &EventToSend, 0U );
 			}
