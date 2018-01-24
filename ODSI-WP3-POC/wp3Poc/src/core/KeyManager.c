@@ -28,7 +28,6 @@ void KeyManagerTask( void *pvParameters ){
 	QueueHandle_t xQueue_2TV = ( (QueueHandle_t*) pvParameters)[2];
 	QueueHandle_t xQueue_2KM = ( (QueueHandle_t*) pvParameters)[4];
 
-	char buffer[8*sizeof(uint32_t)];
 	event_t ReceivedValue;
 	char responseData[DATA_SIZE]={};
 	uint32_t result;
@@ -38,7 +37,7 @@ void KeyManagerTask( void *pvParameters ){
 	/* Initiatilize token key. This part may not be necessary in an implementation where the keys are stored in a file or a DB*/
 	key_t * List_TokenKey=NULL;
 
-	debug("Initialize Token Key List\n");
+	DEBUG(TRACE,"Initialize Token Key List\n");
 
 	command_t InitValue={0,ADD_KEY,"1:17"};
 	ManageKey(InitValue, &List_TokenKey, NULL);
@@ -50,7 +49,6 @@ void KeyManagerTask( void *pvParameters ){
 
 	for( ;; )
 	{
-		buffer[0]='\0';
 		eventreset(&ReceivedValue);
 		result=0;
 		strcpy(responseData,"\0");
@@ -61,16 +59,12 @@ void KeyManagerTask( void *pvParameters ){
 		indefinitely provided INCLUDE_vTaskSuspend is set to 1 in
 		FreeRTOSConfig.h. */
 		xQueueReceive( xQueue_2KM, &ReceivedValue, portMAX_DELAY );
-		debug("Hello! I am the Key Manager !\n");
+		DEBUG(TRACE,"Hello! I am the Key Manager !\n");
 
 		switch(ReceivedValue.eventType){
 		case GET_KEY:
 			result = ManageKey(ReceivedValue.eventData.command, &List_TokenKey, responseData);
-			debug("Get key for token validation: Result : ");
-			debug(itoa(result,buffer,16));
-			debug(" and data: ");
-			debug(responseData);
-			debug("\n");
+			DEBUG(TRACE,"Get key for token validation: Result : %#04X. Data: %s\n", result, responseData);
 
 			ResponseToSend.userID = ReceivedValue.eventData.command.userID;
 			strcpy(ResponseToSend.data,responseData);
@@ -84,11 +78,7 @@ void KeyManagerTask( void *pvParameters ){
 		case COMMAND:
 			result = ManageKey(ReceivedValue.eventData.command, &List_TokenKey, responseData);
 
-			debug("Manage Key: Result : ");
-			debug(itoa(result,buffer,16));
-			debug(" and data: ");
-			debug(responseData);
-			debug("\n");
+			DEBUG(TRACE,"Manage Key: Result : %#04X. Data: %s\n", result, responseData);
 
 			ResponseToSend.userID = ReceivedValue.eventData.command.userID;
 			strcpy(ResponseToSend.data,responseData);
