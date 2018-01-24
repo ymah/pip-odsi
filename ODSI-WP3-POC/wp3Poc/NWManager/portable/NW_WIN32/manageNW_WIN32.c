@@ -14,6 +14,7 @@
 //#pragma comment (lib, "Ws2_32.lib")//normally done in the makefile
 // #pragma comment (lib, "Mswsock.lib")
 
+//TODO place these lines in another .h
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "1337"
 
@@ -118,7 +119,7 @@ uint32_t ext_listen( void* LSocket){
 }
 
 
-void* getConnection(void* ListenSocket){
+void* get_connection(void* ListenSocket){
 	// Accept a client socket
 	SOCKET* CSocket=NULL;
 	CSocket = (SOCKET*) calloc(1,sizeof(SOCKET));
