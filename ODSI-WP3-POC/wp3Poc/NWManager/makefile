@@ -24,10 +24,10 @@ obj/libmanageNW.a: $(OBJ)
 obj/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) $(FREERTOS_INCLUDE) $(FREERTOS_TRACE_INCLUDE) $(UTILS_INCLUDE) #$(WIN_INCLUDE)
 
-#obj/manageNW.o: portable/NW_WIN32/manageNW_WIN32.c
-#	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) $(FREERTOS_INCLUDE) $(FREERTOS_TRACE_INCLUDE) $(UTILS_INCLUDE) #$(WIN_INCLUDE)
+obj/manageNW.o: portable/NW_WIN32/manageNW_WIN32.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) $(FREERTOS_INCLUDE) $(FREERTOS_TRACE_INCLUDE) $(UTILS_INCLUDE) #$(WIN_INCLUDE)
 
-obj/manageNW.o: portable/NW_Simple/manageNW_simple.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) $(FREERTOS_INCLUDE) $(FREERTOS_TRACE_INCLUDE) $(UTILS_INCLUDE)
+#obj/manageNW.o: portable/NW_Simple/manageNW_simple.c
+#	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) $(FREERTOS_INCLUDE) $(FREERTOS_TRACE_INCLUDE) $(UTILS_INCLUDE)
 
 	
