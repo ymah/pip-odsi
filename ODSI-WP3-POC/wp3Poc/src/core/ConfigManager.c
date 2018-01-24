@@ -46,7 +46,6 @@ void ConfigManagerTask( void *pvParameters ){
 		eventreset(&EventToSend);
 		responsereset(&ResponseToSend);
 		eventreset(&ReceivedValue);
-		buffer[0]='\0';
 
 		/* Wait until something arrives in the queue - this task will block
 		indefinitely provided INCLUDE_vTaskSuspend is set to 1 in

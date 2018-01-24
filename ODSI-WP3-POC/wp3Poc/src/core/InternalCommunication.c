@@ -36,7 +36,6 @@ void InternalCommunicationTask( void *pvParameters )
 	event_t EventResponse;
 	event_t MessageToReturn;
 
-	char buffer[8*sizeof(uint32_t)];
 	char INMES[IN_MAX_MESSAGE_SIZE];
 	char OUTMES[OUT_MAX_MESSAGE_SIZE];
 	uint32_t sizeout;
@@ -57,11 +56,7 @@ void InternalCommunicationTask( void *pvParameters )
 		case RESPONSE:
 			eventcpy(&MessageToReturn,&EventResponse);
 
-			debug("IntComm-Response code: ");
-			debug(itoa(MessageToReturn.eventData.response.responsecode,buffer,16));
-			debug(" and data: ");
-			debug(MessageToReturn.eventData.response.data);
-			debug("\n");
+			DEBUG(TRACE,"IntComm-Response code: %#004X. Data: %s \n", MessageToReturn.eventData.response.responsecode, MessageToReturn.eventData.response.data );
 
 			/* Send Data to Network manager*/
 			sizeout=serialize_response(EventResponse.eventData.response, OUTMES);
@@ -74,7 +69,7 @@ void InternalCommunicationTask( void *pvParameters )
 			break;
 
 		default:
-			debug("Internal Communication: Unknown Event Type\n");
+			DEBUG(TRACE,"Internal Communication: Unknown Event Type\n");
 			/*Reinitialize events*/
 			eventreset(&MessageToReturn);
 			eventreset(&EventResponse);
