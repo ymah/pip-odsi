@@ -17,7 +17,7 @@
 #define TRACE 3 //verbose output
 
 #ifndef LOGLEVEL
-#define LOGLEVEL TRACE
+#define LOGLEVEL INFO
 #endif
 
 #define DEBUG(l,a,...) if (l<=LOGLEVEL){printf( "[" #l "] [%s:%d]: " a, __FILE__, __LINE__, ##__VA_ARGS__ );}

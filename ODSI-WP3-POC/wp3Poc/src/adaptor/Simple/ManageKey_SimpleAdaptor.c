@@ -49,7 +49,7 @@ int ManageKey(command_t com, key_t** l_key, char* readData){
 		return result;
 		break;
 	case DELETE_KEY :
-		debug("delete Key\n");
+		DEBUG(TRACE, "delete Key\n");
 		return deleteKey(l_key, key_ID);
 	default:
 		DEBUG(TRACE,"command is not supported\n");

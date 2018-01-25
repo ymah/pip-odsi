@@ -41,7 +41,7 @@ void NW_Task( void *pvParameters )
 	ServerSocket=initialize();
 	l_result=ext_listen( ServerSocket);
 	if (l_result ==1 ){
-		debug("Error when listening");
+		DEBUG(INFO, "Error when listening\n");
 	}
 
 	for(;;){
@@ -55,8 +55,6 @@ void NW_Task( void *pvParameters )
 		EventRequest.eventData.nw.size=size_in;
 
 		xQueueSend( xQueue_2IC, &EventRequest, 0U );
-		//xSemaphoreGive(xSem_2IC);
-		debug("I am the NW manager. I will send the message\n");
 
 		/* Receive Response data*/
 		xQueueReceive( xQueue_2NW, &ICEvent, portMAX_DELAY );

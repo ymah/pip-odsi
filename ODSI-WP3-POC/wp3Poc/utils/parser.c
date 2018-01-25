@@ -30,7 +30,7 @@ uint32_t serialize_incomingMessage(incomingMessage_t message, char* data){
 	char* p=data;
 	uint32_t ID;
 
-	DEBUG(INFO,"%s\n","I am the parser. I will serialize your message.");
+	DEBUG(TRACE,"%s\n","Serialize your message.");
 
 	size_data=strlen(message.command.data);
 
@@ -75,11 +75,11 @@ uint32_t serialize_incomingMessage(incomingMessage_t message, char* data){
 		mymemcpy(p, message.token, message.tokenSize);
 		p += message.tokenSize ;
 
-		debug("Serialization completed\n");
+		DEBUG(TRACE,"Serialization completed\n");
 		return size_total;
 	}
 	else {
-		debug("ERROR\n");
+		DEBUG(INFO,"ERROR\n");
 		return GENERAL_ERROR;
 	}
 
@@ -92,7 +92,7 @@ uint32_t serialize_response(response_t response, char* data){
 	char* p=data;
 	uint32_t ID;
 
-	//debug("I am the parser. I will serialize your response.\n");
+	DEBUG(TRACE,"Serializing response.\n");
 
 	size_total=sizeof(response.userID) + sizeof(response.responsecode) + size_data;
 	//debug("Total length is");
@@ -112,11 +112,11 @@ uint32_t serialize_response(response_t response, char* data){
 		mymemcpy(p, response.data, size_data);
 		p += size_data;
 
-		//debug("Serialization completed\n");
+		DEBUG(TRACE,"Serialization of response completed\n");
 		return size_total;
 	}
 	else {
-		debug("ERROR\n");
+		DEBUG(INFO,"ERROR\n");
 		return GENERAL_ERROR;
 	}
 
@@ -134,7 +134,7 @@ incomingMessage_t deserialize_incomingMessage(char* data, uint32_t size_total){
 	uint32_t ID;
 
 	if( size_total < IN_MAX_MESSAGE_SIZE){
-		//debug("I am the parser. I will deserialize your message\n");
+		DEBUG(TRACE,"Deserializing message\n");
 		mymemcpy(&ID, data, sizeof(ID));
 		message.userID=myntohl(ID);
 		message.command.userID=myntohl(ID);
@@ -167,7 +167,7 @@ incomingMessage_t deserialize_incomingMessage(char* data, uint32_t size_total){
 		data += message.tokenSize;
 
 	}	else {
-		debug("ERROR\n");
+		DEBUG(INFO,"ERROR\n");
 	}
 	return message;
 }
@@ -183,7 +183,7 @@ response_t deserialize_response(char* data, uint32_t size_total){
 	responsereset(&response);
 
 	if( size_total < OUT_MAX_MESSAGE_SIZE){
-		//debug("I am the parser. I will deserialize your response\n");
+		DEBUG(TRACE,"Deserializing response\n");
 		mymemcpy(&ID, data, sizeof(ID));
 		response.userID=myntohl(ID);
 		data += sizeof(ID);
@@ -197,7 +197,7 @@ response_t deserialize_response(char* data, uint32_t size_total){
 		data += size_data;
 	}
 	else {
-		debug("ERROR\n");
+		DEBUG(INFO,"ERROR\n");
 	}
 	return response;
 }

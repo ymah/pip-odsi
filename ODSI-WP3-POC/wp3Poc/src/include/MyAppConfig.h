@@ -16,9 +16,9 @@
 #define CONFIG_MANAGER_TASK_PRIORITY        ( tskIDLE_PRIORITY + 5 )
 #define KEY_MANAGER_TASK_PRIORITY           ( tskIDLE_PRIORITY + 6 )
 
-/* The rate at which data is sent to the queue.  The 200ms value is converted
+/* The rate at which data is sent to the queue.  The 2000ms value is converted
 to ticks using the portTICK_PERIOD_MS constant. */
-#define NW_MANAGER_SEND_FREQUENCY_MS			( 4000 / portTICK_PERIOD_MS )
+#define NW_MANAGER_SEND_FREQUENCY_MS			( 2000 / portTICK_PERIOD_MS )
 
 /* The number of items the queue can hold.  This is 1 as the receive task
 will remove items as they are added, meaning the send task should always find

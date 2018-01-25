@@ -51,7 +51,7 @@ void AdminManagerTask( void *pvParameters ){
 
 		switch(ReceivedEvent.eventType){
 		case INMESSAGE:
-			DEBUG(INFO,"Sending command to token validator\n");
+			DEBUG(TRACE,"Sending command to token validator\n");
 			eventcpy( &TokenRequest , &ReceivedEvent );
 			xQueueSend( xQueue_2TV, &TokenRequest, 0U );
 
@@ -59,27 +59,27 @@ void AdminManagerTask( void *pvParameters ){
 			xQueueReceive( xQueue_2AM, &TokenResponse, portMAX_DELAY );
 
 			if (TokenResponse.eventType == RESPONSE && TokenResponse.eventData.response.responsecode == SUCCESS){
-				DEBUG(INFO,"Sending command to destination\n");
+				DEBUG(TRACE,"Sending command to destination\n");
 				commandcpy( &ValueToSend.eventData.command , &ReceivedEvent.eventData.incomingMessage.command );
 				ValueToSend.eventType=COMMAND;
 				routeCommand( ValueToSend, xQueue_AM2CM, xQueue_AM2KM);
 			}
 			else{
-				DEBUG(INFO,"Sending response\n");
+				DEBUG(TRACE,"Sending response\n");
 				eventcpy(&EventToSend, &TokenResponse);
 				xQueueSend( xQueue_2IC, &EventToSend, 0U );
 			}
 			break;
 		case COMMAND:
-			debug("AdminManager: COMMAND Event Type not supported\n");
+			DEBUG(TRACE,"AdminManager: COMMAND Event Type not supported\n");
 			break;
 		case RESPONSE:
-			debug("Hello! I am the Admin Manager ! I will proceed this response\n");
+			DEBUG(TRACE,"Proceeding response\n");
 			eventcpy( &EventToSend , &ReceivedEvent );
 			xQueueSend( xQueue_2IC, &EventToSend, 0U );
 			break;
 		default:
-			debug("AdminManager: Unknown Event Type\n");
+			DEBUG(TRACE,"AdminManager: Unknown Event Type\n");
 			break;
 		}
 

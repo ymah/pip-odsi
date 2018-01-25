@@ -92,7 +92,7 @@ void KeyManagerTask( void *pvParameters ){
 		case INMESSAGE :
 		case RESPONSE :
 		default :
-			debug("KeyManager: Unknown Event Type\n");
+			DEBUG(INFO, "KeyManager: Unknown Event Type\n");
 			break;
 		}
 	}
