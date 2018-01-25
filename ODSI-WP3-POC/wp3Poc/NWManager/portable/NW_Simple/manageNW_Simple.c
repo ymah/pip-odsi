@@ -62,9 +62,10 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 
 	for(j=0;j<TOKEN_SIZE;j++){
 		token_f[j]=0xff;
-		token_p[j]=0;
+		token_p[j]=0x00;
 	}
-
+	DEBUG(INFO, "VALID TOKEN: %X\n", token_f);
+	DEBUG(INFO, "INVALID TOKEN: %X\n", token_p);
 	/*Reset & Inititialize the messages to be sent*/
 	for (i=0;i<12;i++){
 		incomingMessagereset(&VTS[i]);
@@ -96,7 +97,7 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 	size=serialize_incomingMessage(VTS[iteration], data);
 
 	Check=deserialize_incomingMessage(data, size);
-	DEBUG(TRACE,"Command Data: %s, Token: %X \n", Check.command.data, Check.token );
+	DEBUG(TRACE,"UserID: %lu, DeviceID: %lu, DomainID: %lu, Instructin: %lu, Command Data: %s, Token: %X, \n", Check.userID, Check.deviceID, Check.domainID, Check.command.instruction, Check.command.data, Check.token);
 
 	iteration=(iteration+1)%12 ;
 

@@ -7,7 +7,6 @@
 
 #include <stdarg.h>
 #include <stdarg.h>
-#include <stdio.h>
 
 #ifndef UTILS_INCLUDE_DEBUG_H_
 #define UTILS_INCLUDE_DEBUG_H_
@@ -20,7 +19,7 @@
 #define LOGLEVEL INFO
 #endif
 
-#define DEBUG(l,a,...) if (l<=LOGLEVEL){printf( "[" #l "] [%s:%d]: " a, __FILE__, __LINE__, ##__VA_ARGS__ );}
+#define DEBUG(l,a,...) if (l<=LOGLEVEL){debug1( "[" #l "] [%s:%d]: " a, __FILE__, __LINE__, ##__VA_ARGS__ );}
 
 void debug(const char*string);
 void debug1(const char *format, ...);

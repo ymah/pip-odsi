@@ -45,6 +45,7 @@ void NW_Task( void *pvParameters )
 	}
 
 	for(;;){
+		DEBUG(INFO, "Listening\n");
 		ClientSocket=get_connection(ServerSocket);
 
 		mymemset(InValue, 0, IN_MAX_MESSAGE_SIZE*sizeof(char));
