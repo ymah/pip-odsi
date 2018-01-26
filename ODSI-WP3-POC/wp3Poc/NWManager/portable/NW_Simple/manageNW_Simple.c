@@ -61,11 +61,22 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 	uint32_t size=0;
 
 	for(j=0;j<TOKEN_SIZE;j++){
-		token_f[j]=0xff;
-		token_p[j]=0x00;
+		token_f[j]=0xf;
+		token_p[j]=0x0;
 	}
-	DEBUG(INFO, "VALID TOKEN: %X\n", token_f);
-	DEBUG(INFO, "INVALID TOKEN: %X\n", token_p);
+	DEBUG(TRACE, "VALID TOKEN:");
+	j=0;
+	for(j=0 ; j<TOKEN_SIZE ; j++){
+		debug1("%X", token_f[j]);
+	}
+	debug1("\n");
+	DEBUG(TRACE, "INVALID TOKEN: ");
+	j=0;
+	for(j=0 ; j<TOKEN_SIZE ; j++){
+		debug1("%X", token_p[j]);
+	}
+	debug1("\n");
+
 	/*Reset & Inititialize the messages to be sent*/
 	for (i=0;i<12;i++){
 		incomingMessagereset(&VTS[i]);
@@ -75,16 +86,16 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 
 	incomingMessageinit(&VTS[0], 1, 1, 1, TOKEN_SIZE, token_f,"\0",READ_DOMID);
 	incomingMessageinit(&VTS[1], 1, 1, 1, TOKEN_SIZE, token_f, DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[2], 1, 1, 1,TOKEN_SIZE, token_f,"\0", READ_DOMID);
-	incomingMessageinit(&VTS[3], 1, 1, 1,TOKEN_SIZE, token_p, DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[4], 1, 1, 1,TOKEN_SIZE, token_f,"1:\0",READ_KEY);
-	incomingMessageinit(&VTS[5], 1, 1, 1,TOKEN_SIZE, token_f,"2:",READ_KEY);
-	incomingMessageinit(&VTS[6], 1, 1, 1,TOKEN_SIZE, token_f,"2:18", ADD_KEY);
-	incomingMessageinit(&VTS[7], 1, 1, 1,TOKEN_SIZE, token_f,"2:", READ_KEY);
-	incomingMessageinit(&VTS[8], 1, 1, 1,TOKEN_SIZE, token_f,"2:", DELETE_KEY);
-	incomingMessageinit(&VTS[9], 1, 1, 1,TOKEN_SIZE, token_f,"2:",READ_KEY);
-	incomingMessageinit(&VTS[10], 1, 1, 1,TOKEN_SIZE, token_f,"1:18",UPDATE_KEY);
-	incomingMessageinit(&VTS[11], 1, 1, 1,TOKEN_SIZE, token_f,"1:",READ_KEY);
+	incomingMessageinit(&VTS[2], 1, 1, 1, TOKEN_SIZE, token_f,"\0", READ_DOMID);
+	incomingMessageinit(&VTS[3], 1, 1, 1, TOKEN_SIZE, token_p, DOM_ID_UPDATE, UPDATE_DOMID);
+	incomingMessageinit(&VTS[4], 1, 1, 1, TOKEN_SIZE, token_f,"1:\0",READ_KEY);
+	incomingMessageinit(&VTS[5], 1, 1, 1, TOKEN_SIZE, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[6], 1, 1, 1, TOKEN_SIZE, token_f,"2:18", ADD_KEY);
+	incomingMessageinit(&VTS[7], 1, 1, 1, TOKEN_SIZE, token_f,"2:", READ_KEY);
+	incomingMessageinit(&VTS[8], 1, 1, 1, TOKEN_SIZE, token_f,"2:", DELETE_KEY);
+	incomingMessageinit(&VTS[9], 1, 1, 1, TOKEN_SIZE, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[10], 1, 1, 1, TOKEN_SIZE, token_f,"1:18",UPDATE_KEY);
+	incomingMessageinit(&VTS[11], 1, 1, 1, TOKEN_SIZE, token_f,"1:",READ_KEY);
 
 
 	/* Initialise xNextWakeTime - this only needs to be done once. */

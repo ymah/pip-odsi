@@ -30,6 +30,7 @@
 #include "NWManager_Interface.h"
 #include "stdint.h"
 #include "mystdlib.h"
+#include <stdlib.h>
 /* Kernel includes. */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -119,7 +120,7 @@ void* get_connection(void* ListenSocket){
 
 uint32_t ext_receive(void* ClientSocket, char* data){
 	uint32_t iResult=0;
-	uint32_t len=0;
+	uint32_t i=0;
 	uint32_t recvbuflen1 = 4;
 	uint32_t recvbuflen2;
 
@@ -130,10 +131,15 @@ uint32_t ext_receive(void* ClientSocket, char* data){
 		//Receive the second message of size
 		iResult = recv(*(SOCKET*)ClientSocket, data, recvbuflen2, 0);
 
-		len=strlen(data);
 		if (iResult > 0) {
 			DEBUG(INFO,"Bytes received: %lu\n", iResult);
 			DEBUG(TRACE,"Buffer content : %s\n", data);
+			DEBUG(INFO,"Buffer content:");
+			for (i=0;i<recvbuflen2;i++){
+				debug1("%X",data[i]);
+			}
+			debug1("\n");
+
 		}
 		else if (iResult == 0){
 			DEBUG(INFO,"Connection closing...\n");
@@ -145,12 +151,13 @@ uint32_t ext_receive(void* ClientSocket, char* data){
 			return 1;
 		}
 
-	return len;
+	return recvbuflen2;
 }
 
 
 void ext_send(void* ClientSocket, char* outData, uint32_t size){
 	uint32_t iSendResult=0;
+	uint32_t i=0;
 
 	iSendResult=send( *(SOCKET*)ClientSocket, (char*)&size, sizeof(size), 0 );
 	iSendResult=send( *(SOCKET*)ClientSocket, outData, size, 0 );
@@ -162,6 +169,11 @@ void ext_send(void* ClientSocket, char* outData, uint32_t size){
 	}
 
 	DEBUG(INFO,"Bytes sent: %d\n", iSendResult);
+	DEBUG(INFO,"Buffer content:");
+	for (i=0;i<size;i++){
+		debug1("%X",outData[i]);
+	}
+	debug1("\n");
 }
 
 void mycloseSocket(void* Socket){

@@ -28,16 +28,12 @@
 event_t myreceive(char* data, QueueHandle_t xQueue_P2IC){
 	uint32_t result;
 	event_t EventToReturn;
-	incomingMessage_t Check;
 
 	eventreset(&EventToReturn);
 	result=receive_simple(data, xQueue_P2IC);
 	if (result != 0){
 		EventToReturn.eventData.incomingMessage=deserialize_incomingMessage(data, result);
 		EventToReturn.eventType=INMESSAGE;
-
-		incomingMessagecpy(&Check, &(EventToReturn.eventData.incomingMessage) );
-		DEBUG(INFO,"UserID: %lu, DeviceID: %lu, DomainID: %lu, Instructin: %lu, Command Data: %s, Token: %X, \n", Check.userID, Check.deviceID, Check.domainID, Check.command.instruction, Check.command.data, Check.token);
 
 		return EventToReturn;
 	}

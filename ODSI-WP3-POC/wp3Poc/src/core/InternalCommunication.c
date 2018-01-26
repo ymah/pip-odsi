@@ -35,10 +35,12 @@ void InternalCommunicationTask( void *pvParameters )
 	event_t EventPartition;
 	event_t EventResponse;
 	event_t MessageToReturn;
+	incomingMessage_t Check;
 
 	char INMES[IN_MAX_MESSAGE_SIZE];
 	char OUTMES[OUT_MAX_MESSAGE_SIZE];
 	uint32_t sizeout;
+	uint32_t j;
 
 	/* Remove compiler warning in the case that configASSERT() is not
 	defined. */
@@ -47,6 +49,15 @@ void InternalCommunicationTask( void *pvParameters )
 	{
 		/* Receive data from Network manager or from Administration Manager*/
 		EventPartition=myreceive(INMES, xQueue_P2IC);
+
+		incomingMessagecpy(&Check, &(EventPartition.eventData.incomingMessage) );
+		DEBUG(INFO,"UserID: %lu, DeviceID: %lu, DomainID: %lu, Instruction: %lu, Command Data: %s\n", Check.userID, Check.deviceID, Check.domainID, Check.command.instruction, Check.command.data);
+
+		DEBUG(INFO,"Token:");
+		for(j=0 ; j<Check.tokenSize ; j++){
+			debug1("%X", Check.token[j]);
+		}
+		debug1("\n");
 
 		xQueueSend( xQueue_2AM, &EventPartition, 0U );
 
