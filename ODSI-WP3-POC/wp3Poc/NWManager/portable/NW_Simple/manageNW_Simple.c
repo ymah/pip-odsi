@@ -64,13 +64,13 @@ uint32_t ext_receive(void* ClientSocket, char* data)
 		token_f[j]=0xf;
 		token_p[j]=0x0;
 	}
-	DEBUG(TRACE, "VALID TOKEN:");
+	DEBUG(INFO, "VALID TOKEN:");
 	j=0;
 	for(j=0 ; j<TOKEN_SIZE ; j++){
 		debug1("%X", token_f[j]);
 	}
 	debug1("\n");
-	DEBUG(TRACE, "INVALID TOKEN: ");
+	DEBUG(INFO, "INVALID TOKEN: ");
 	j=0;
 	for(j=0 ; j<TOKEN_SIZE ; j++){
 		debug1("%X", token_p[j]);

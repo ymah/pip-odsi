@@ -1,3 +1,5 @@
+export NW_TARGET = Scenario ###NW_TARGET= WIN32 or Scenario
+
 CC = gcc
 AR = ar
 CFLAGS = -std=c99 -Wall -g
@@ -63,46 +65,47 @@ obj/Run-time-stats-utils.o: src/Run-time-stats-utils.c
 ####### FREERTOS
 
 lib/libfreertos.a:
-	cd FreeRTOS && make install
+	cd FreeRTOS && $(MAKE) install
 
 ######## FreeRTOS Plus Trace
 
 lib/libfreertos_trace.a:
-	cd FreeRTOSPlusTrace && make install
+	cd FreeRTOSPlusTrace && $(MAKE) install
 
 ######## Utils
 
 lib/libutils.a:
-	cd utils && make install
+	cd utils && $(MAKE) install
 	
 ######## Simple Token validator
 
 lib/libtoken_simple.a:
-	cd TokenSimple && make install
+	cd TokenSimple && $(MAKE) install
 	
 ####### Simple Client	
 lib/libclient_simple.a:
-	cd Client_Simple && make install
+	cd Client_Simple && $(MAKE) install
 
 ####### Simple Config Manager	
 
 lib/libconfig_simple.a:
-	cd Config_Simple && make install
+	cd Config_Simple && $(MAKE) install
 
 ####### Simple Key Vault	
 
 lib/libkey_simple.a:
-	cd KeyVault_Simple && make install
+	cd KeyVault_Simple && $(MAKE) install
 	
 ####### Internal Compunication
 
 lib/libcom_simple.a:
-	cd Communicate_Simple && make install
+	cd Communicate_Simple && $(MAKE) install
 	
 ####### NW Manager
 
 lib/libmanageNW.a:
-	cd NWManager && make TARGET="WIN32" install
+	cd NWManager && $(MAKE) install
+#	cd NWManager && $(MAKE) TARGET="WIN32" install
 
 
 ######SimpleAdaptors

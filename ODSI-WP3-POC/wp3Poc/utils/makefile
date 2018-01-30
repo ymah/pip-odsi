@@ -2,6 +2,7 @@
 CC = gcc
 AR = ar
 CFLAGS = -std=c99 -Wall -g
+CFLAGS += -D LOGLEVEL=INFO
 
 INCLUDE = -Iinclude -I../src/include
 OBJ = obj/string.o obj/debug_stdio_adaptor.o obj/structcopy.o obj/parser.o obj/mystdlib.o

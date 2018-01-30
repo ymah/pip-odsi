@@ -166,7 +166,6 @@ void main_myapp( void )
 	xQueue_2CM  = xQueueCreate( mainQUEUE_LENGTH, sizeof (event_t) );
 	xQueue_2KM  = xQueueCreate( mainQUEUE_LENGTH, sizeof (event_t) );
 	xQueue_2NW  = xQueueCreate( mainQUEUE_LENGTH, sizeof (event_t) );
-	xQueue_P2IC  = xQueueCreate( mainQUEUE_LENGTH, sizeof (event_t) );
 
 	Tab[0] = xQueue_2AM ;
 	Tab[1] = xQueue_2IC ;
