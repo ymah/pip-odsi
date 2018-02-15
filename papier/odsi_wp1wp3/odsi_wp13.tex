@@ -1,0 +1,391 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{todonotes}
+%\todo{Make a cake}
+\usepackage{url}
+% Basically, \url{my_url_here}.
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% \cite{} output to follow that of the IEEE.
+% The documentation is contained in the cite.sty file itself.
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+% *** ALIGNMENT PACKAGES ***
+\usepackage{array}
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Title of the article}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Mahieddine Yaker\\ and Julien Cartigny \\and Gilles Grimaud}
+\IEEEauthorblockA{IRCICA\\
+University of Lille\\
+address in Lille\\
+Email: yyy@yyy.com}
+\and
+\IEEEauthorblockN{Chrystel Gaber \\ and Xiao Han}
+\IEEEauthorblockA{Orange Labs,\\
+Ch\^{a}tillon, France\\
+Email: firstname.lastname@orange.com\\}
+}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract
+\begin{abstract}
+Abstract \todo[inline]{TBD}
+\end{abstract}
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+\label{sec:Intro}
+% no \IEEEPARstart
+Introduction to be written. \todo[inline]{TBD}
+
+\hfill mds
+ 
+\hfill March 05, 2018
+
+\section{Isolation model}
+\label{sec:Isolation_model}
+Part for Lille \todo[inline]{Lille}
+
+\section{Industrial ecosystem}
+\label{sec:Industrial_ecosystem}
+This section aims at identifying and defining stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described. In this section, we consider that a domain is an isolated area which belongs to an entity. The notion of domain is further precised in section \ref{sec:Domain_def}.
+
+\subsection{Actors}
+\label{sec:Actors}
+We identify 6 stakeholders, namely the manufacturer, maintainer, owner, administrator, service provider and user, which interact with the IOT ot M2M device.
+\subsubsection{Manufacturer}
+It issues the device and the isolation solution. It also provides each device an identifier that will subsequently allow it to be identified as well as intial secrets that will allow the owner to access the device. It may also provide the drivers and software components for the sensors or actuators on the device. 
+\subsubsection{Maintainer}
+It maintains the device, monitors the hardware components status and applies the patches deliveres by the manufacturer. This role can either be assumed or delegated to a third party by the manufacturer. 
+\subsubsection{Owner}
+The device belongs to the Owner who defines an access policy to authorize which other entities are authorized to use or manage the device or domains within the device. The Owner can possess several devices. It receives initial credentials from the manufacturer that allows it to access each device in his fleet. 
+\subsubsection{Administrator}
+It enforces the policy defined by the owner for his fleet of devices. If any modification, such as adding a new entity or modifying its granted permissions,  is required, it requests a decision from the owner. This role can either be assumed or delegated to a third party by the owner. 
+\subsubsection{Service Provider}
+It delivers a user-friedly service on one or multiple devices using the ressources authorized by the Owner. It installs or activates a service within the device. Muliple Service Providers can co-exist on the same device. 
+\subsubsection{User}
+Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article we focus on platform users. 
+\subsection{Responsibilities model}
+\label{sec:Resp_model}
+The responsibilities described in this section are described in table \ref{tab:resp_table}.\\
+
+The manufacturer provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The manufacturer is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The manufacturer provides a platform in a safe state to the owner and does not keep any access to the manufacturer domain. In particular, the manufacturer does not manage access control to the drivers.\\
+
+The Owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
+
+If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.\\
+
+The maintainer keeps the firmware, driver or any software in his perimeter up to date. This responsibility is key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to the commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the Internet Of Things (IoT) Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
+
+Any entity which owns a partition (administrator, service provider, and maintainer) has to authenticate the machine (or user) who is sending the commands to the partition. This entity can choose to not perform and access control verification, thus reducing the security of the system. Any entity which owns a partition (administrator, service provider, and maintainer) is responsible for modifying the temporary credentials of its associated domains.\\
+
+\begin{table*}[!ht]
+% increase table row spacing, adjust to taste
+\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+\caption{Responsibilities matrix}
+\label{tab:resp_table}
+\centering
+% Some packages, such as MDW tools, offer better commands for making tables
+% than the plain LaTeX2e tabular which is used here.
+\begin{tabular}{|p{7cm}||c|c|c|c|c|c|}
+\hline
+Requirements & Manufacturer & Maintainer & Owner & Administrator & Service Provider\\
+\hline
+Provide mechanisms \& temporary credentials for initial device personalization before delivery to the owner & X & & & &\\
+\hline
+Provide drivers compatible with virtualization \& multi-tenant usage & X & & & &\\
+\hline
+Provide temporary credentials for initial domain personalization to entities after delivery to the owner & & & X & X & \\
+\hline
+Update regularly the credentials to access the domain under its responsibility & X & X & X & X & X\\
+\hline
+Provide the device to owner without a remote backdoor access & X & & & & \\
+\hline
+Create / Modify / Delete a domain before delivery to owner & X & & & & \\
+\hline
+Create / Modify / Delete a domain after delivery to owner & & & X & X & \\
+\hline
+Configure the access policy of the device ressources & & & X & & \\
+\hline
+Enforce the device ressource access policy & & & X & X & \\
+\hline
+Configure the domain ressource access policy & X & X & X & X & X \\
+\hline
+Enforce the domain ressource access policy & X & X & X & X & X \\
+\hline
+Keep the firmware \& drivers up to date & X & X & & & \\
+\hline
+Keep the service applications up to date & & & & & X \\
+\hline
+\end{tabular}
+\end{table*}
+
+\subsection{Architecture requirements}
+\label{sec:Arch_req}
+
+\subsubsection{Domain isolation}
+
+\subsubsection{Owner non-interference}
+In particular, the owner or the administrator who have access to a privileged domain must not have any control or visibility on the actions performed by other entities if these actions do not involve device ressources which are under the responsibility of the owner.
+
+
+\subsubsection{Ressource access control}
+A device ressource access policy under the control of the owner or the administrator is mandatory. For each domain, a domain ressource access policy under the control of the domain owner (maintainer, service provider) is optional. 
+\todo[inline]{TBD}
+
+\section{Architecture \& Security model proposed}
+\label{sec:Architecture}
+To be done by Orange \& Lille
+\subsection{Definition of a domain}
+\label{sec:Domain_def}
+
+\subsection{Components of a domain}
+\label{sec:Domain_comp}
+
+\subsubsection{Configuration Manager}
+\label{sec:Config_Mgr}
+The Configuration Manager can be divided into two functions and sub-components, the isolation manager and the internal communication manager. The isolation manager provides the tools to create, read, modify or delete a domain. This module also contains a security policy which indicates which tasks and partitions should be started when the domain is started. This security policy also creates the communication channels between the tasks and partitions in the domain. The internal communication manager is the unique entry point of the domain. 
+
+\subsubsection{Virtual sensors or actuators}
+\label{sec:virtual_sensor}
+The drivers are provided by the manufacturer of the device and are stored in a separate domain. Each domain contains a virtual sensor or actuator which exposes the functions of the actual sensor or actuator and acts as an interface with it. This allows the entity which owns the domain to see his domain as an actual device without knowledge of the isolation. The instruction and response are transmitted to and from the real driver using the internal communication mechanism.  
+
+\subsubsection{Administration Manager}
+\label{sec:Admin_Mgr}
+This module exposes the domain's ressources to an external server managed by the entity which owns the domain. It routes the command to read, write, execute the ressource to the expected manager or virtual sensor, actuator. It sends each command received to the Token \& Security Validator. 
+
+\subsubsection{Token \& Security Validator}
+\label{sec:Token_Validator}
+
+\subsubsection{Key Vault}
+\label{sec:Key_Vault}
+This module stores the keys that are used by the domain. In particular, the keys used by the Token \& Security Valdiator are stored here. It also provides the functions to add a new key, modify or delete an existing key. 
+
+
+\subsection{Communication model}
+\label{sec:Communication_model}
+Section to be completed by Lille
+\todo[inline]{Lille}
+
+
+\subsection{Management model}
+\label{sec:Management_model}
+
+
+\section{Evaluation}
+section to show how the isolation model allows to address th industrial needs\todo{TBD}
+
+
+\section{Conclusion}
+The conclusion goes here.
+
+Next steps : implementation and performance evaluation
+
+
+
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgment
+\section*{Acknowledgment}
+This article was done in the scope of the European Celtic-Plus project ODSI.  
+
+
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that the IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command,
+% and the \label for the overall figure must come after \caption.
+% \hfil is used as a separator to get equal spacing.
+% Watch out that the combined width of all the subfigures on a 
+% line do not exceed the text width or a line break will occur.
+%
+%\begin{figure*}[!t]
+%\centering
+%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
+%\label{fig_second_case}}
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat[]), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
+% labels, the optional argument to \subfloat must be present. If a
+% subcaption is not desired, just leave its contents blank,
+% e.g., \subfloat[].
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
+
+
+
+
+% that's all folks
+\end{document}
+
+
