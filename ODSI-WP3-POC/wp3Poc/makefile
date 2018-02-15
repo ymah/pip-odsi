@@ -1,4 +1,4 @@
-export NW_TARGET = Scenario ###NW_TARGET= WIN32 or Scenario
+NW_TARGET="WIN32"##Network target is either Scenario or WIN32
 
 CC = gcc
 AR = ar
@@ -104,8 +104,7 @@ lib/libcom_simple.a:
 ####### NW Manager
 
 lib/libmanageNW.a:
-	cd NWManager && $(MAKE) install
-#	cd NWManager && $(MAKE) TARGET="WIN32" install
+	cd NWManager && $(MAKE) install TARGET=$(NW_TARGET)
 
 
 ######SimpleAdaptors

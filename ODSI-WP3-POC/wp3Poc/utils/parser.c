@@ -156,14 +156,14 @@ incomingMessage_t deserialize_incomingMessage(char* data, uint32_t size_total){
 		size_data=myntohl(ID);
 		data += sizeof(ID);
 
-		mymemcpy(&(message.command.data), data, size_data);
+		mymemcpy(message.command.data, data, size_data);
 		data += size_data;
 
 		mymemcpy(&ID, data, sizeof(ID));
 		message.tokenSize=myntohl(ID);
 		data += sizeof(ID);
 
-		mymemcpy(&(message.token), data, message.tokenSize);
+		mymemcpy(message.token, data, message.tokenSize);
 		data += message.tokenSize;
 
 	}	else {

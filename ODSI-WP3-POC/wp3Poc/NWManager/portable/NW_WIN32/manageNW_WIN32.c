@@ -136,7 +136,7 @@ uint32_t ext_receive(void* ClientSocket, char* data){
 			DEBUG(TRACE,"Buffer content : %s\n", data);
 			DEBUG(INFO,"Buffer content:");
 			for (i=0;i<recvbuflen2;i++){
-				debug1("%X",data[i]);
+				debug1("%02X",data[i]);
 			}
 			debug1("\n");
 
@@ -171,7 +171,7 @@ void ext_send(void* ClientSocket, char* outData, uint32_t size){
 	DEBUG(INFO,"Bytes sent: %d\n", iSendResult);
 	DEBUG(INFO,"Buffer content:");
 	for (i=0;i<size;i++){
-		debug1("%X",outData[i]);
+		debug1("%02X",outData[i]);
 	}
 	debug1("\n");
 }

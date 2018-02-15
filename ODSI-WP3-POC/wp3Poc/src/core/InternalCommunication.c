@@ -55,7 +55,7 @@ void InternalCommunicationTask( void *pvParameters )
 
 		DEBUG(INFO,"Token:");
 		for(j=0 ; j<Check.tokenSize ; j++){
-			debug1("%X", Check.token[j]);
+			debug1("%02X", Check.token[j]);
 		}
 		debug1("\n");
 
@@ -67,7 +67,8 @@ void InternalCommunicationTask( void *pvParameters )
 		case RESPONSE:
 			eventcpy(&MessageToReturn,&EventResponse);
 
-			DEBUG(TRACE,"IntComm-Response code: %#004X. Data: %s \n", MessageToReturn.eventData.response.responsecode, MessageToReturn.eventData.response.data );
+			DEBUG(INFO,"IntComm-Response code: %#04X \n", MessageToReturn.eventData.response.responsecode);
+			DEBUG(INFO, "Data: %s \n", MessageToReturn.eventData.response.data );
 
 			/* Send Data to Network manager*/
 			sizeout=serialize_response(EventResponse.eventData.response, OUTMES);
