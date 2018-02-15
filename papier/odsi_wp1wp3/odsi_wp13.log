@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  15 FEB 2018 20:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  15 FEB 2018 23:20
 entering extended mode
 **./odsi_wp13.tex
 (odsi_wp13.tex
@@ -458,6 +458,10 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty"
+Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
+\c@lips@count=\count119
+)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\cite\cite.sty"
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
@@ -473,32 +477,32 @@ Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 ) (odsi_wp13.aux)
 \openout1 = `odsi_wp13.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
 
 -- Lines per column: 56 (exact).
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count119
+\scratchcounter=\count120
 \scratchdimen=\dimen178
 \scratchbox=\box39
-\nofMPsegments=\count120
-\nofMParguments=\count121
+\nofMPsegments=\count121
+\nofMParguments=\count122
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count122
+\MPscratchCnt=\count123
 \MPscratchDim=\dimen179
-\MPnumerator=\count123
-\makeMPintoPDFobject=\count124
+\MPnumerator=\count124
+\makeMPintoPDFobject=\count125
 \everyMPtoPDFconversion=\toks31
 ) ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
 Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
@@ -545,25 +549,16 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-ABD: EveryShipout initializing macros
-Underfull \hbox (badness 10000) in paragraph at lines 174--175
-
- []
+ABD: EveryShipout initializing macros [1{C:/ProgramData/MiKTeX/2.9/pdftex/confi
+g/pdftex.map}
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
-
- []
-
-
+] [2]
 Underfull \hbox (badness 10000) in paragraph at lines 178--179
 
  []
 
-[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
-
-]
 Underfull \hbox (badness 10000) in paragraph at lines 180--181
 
  []
@@ -578,38 +573,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+[]\OT1/ptm/m/n/10 The re-spon-si-bil-i-ties de-scribed in this sec-tion are
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
+
+ []
+
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 196.
+(Font)              <8> on input line 200.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 196.
+(Font)              <6> on input line 200.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 196.
+(Font)              <5> on input line 200.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 255.
+[3] [4]
+Underfull \vbox (badness 1895) has occurred while \output is active []
 
-Underfull \hbox (badness 1546) in paragraph at lines 202--202
-[]|\OT1/ptm/m/n/8 Provide drivers com-pat-i-ble with
- []
-
-
-Overfull \hbox (8.19987pt too wide) in paragraph at lines 282--282
-[][][][]\OT1/ptm/m/n/10 TBD  
- []
-
-
-Overfull \hbox (8.19987pt too wide) in paragraph at lines 282--282
-[][][][]\OT1/ptm/m/n/10 TBD  
- []
-
-
-Overfull \hbox (8.19987pt too wide) in paragraph at lines 282--282
-[][][][]\OT1/ptm/m/n/10 TBD  
- []
-
-
-Overfull \hbox (8.19987pt too wide) in paragraph at lines 282--282
-[][][][]\OT1/ptm/m/n/10 TBD  
- []
-
-(odsi_wp13.bbl)
+ [5]
+[6] [7] (odsi_wp13.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -621,23 +612,24 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[2] [3] (odsi_wp13.aux) ) 
+[8] (odsi_wp13.aux) ) 
 Here is how much of TeX's memory you used:
- 13037 strings out of 493323
- 263523 string characters out of 3139057
- 318160 words of memory out of 3000000
- 16331 multiletter control sequences out of 15000+200000
+ 13196 strings out of 493323
+ 265158 string characters out of 3139057
+ 413776 words of memory out of 3000000
+ 16486 multiletter control sequences out of 15000+200000
  37661 words of font info for 71 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
  62i,10n,80p,736b,759s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.e
-nc}<C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ti
-mes/utmri8a.pfb>
-Output written on odsi_wp13.pdf (3 pages, 64007 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<
+C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Progra
+m Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/ur
+w/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on odsi_wp13.pdf (8 pages, 100640 bytes).
 PDF statistics:
- 32 PDF objects out of 1000 (max. 8388607)
+ 53 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

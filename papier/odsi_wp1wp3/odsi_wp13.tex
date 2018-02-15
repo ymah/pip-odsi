@@ -2,6 +2,7 @@
 \usepackage{todonotes}
 %\todo{Make a cake}
 \usepackage{url}
+\usepackage{lipsum}
 % Basically, \url{my_url_here}.
 
 % *** CITATION PACKAGES ***
@@ -83,7 +84,7 @@ University of Lille\\
 address in Lille\\
 Email: yyy@yyy.com}
 \and
-\IEEEauthorblockN{Chrystel Gaber \\ and Xiao Han}
+\IEEEauthorblockN{Chrystel Gaber \\ and Xiao Han \\ and Vicente Sanchez-Leighton}
 \IEEEauthorblockA{Orange Labs,\\
 Ch\^{a}tillon, France\\
 Email: firstname.lastname@orange.com\\}
@@ -118,6 +119,7 @@ Email: firstname.lastname@orange.com\\}
 % in the abstract
 \begin{abstract}
 Abstract \todo[inline]{TBD}
+\lipsum[1]
 \end{abstract}
 
 % no keywords
@@ -140,19 +142,21 @@ Abstract \todo[inline]{TBD}
 \section{Introduction}
 \label{sec:Intro}
 % no \IEEEPARstart
-Introduction to be written. \todo[inline]{TBD}
-
+\todo[inline]{TBD}
+\lipsum[1-2]
 \hfill mds
  
 \hfill March 05, 2018
 
 \section{Isolation model}
 \label{sec:Isolation_model}
-Part for Lille \todo[inline]{Lille}
+\todo[inline]{TBD by Lille}
+\lipsum[1-10]
 
 \section{Industrial ecosystem}
 \label{sec:Industrial_ecosystem}
-This section aims at identifying and defining stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described. In this section, we consider that a domain is an isolated area which belongs to an entity. The notion of domain is further precised in section \ref{sec:Domain_def}.
+This section aims at describing the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.
+In this section, we consider that a domain is an isolated area which belongs to an entity. The notion of domain is further precised in section \ref{sec:Domain_def}.
 
 \subsection{Actors}
 \label{sec:Actors}
@@ -166,13 +170,11 @@ The device belongs to the Owner who defines an access policy to authorize which 
 \subsubsection{Administrator}
 It enforces the policy defined by the owner for his fleet of devices. If any modification, such as adding a new entity or modifying its granted permissions,  is required, it requests a decision from the owner. This role can either be assumed or delegated to a third party by the owner. 
 \subsubsection{Service Provider}
-It delivers a user-friedly service on one or multiple devices using the ressources authorized by the Owner. It installs or activates a service within the device. Muliple Service Providers can co-exist on the same device. 
+It delivers a user-friendly service on one or multiple devices using the ressources authorized by the Owner. It installs or activates a service within the device. Muliple Service Providers can co-exist on the same device. 
 \subsubsection{User}
 Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article we focus on platform users. 
 \subsection{Responsibilities model}
 \label{sec:Resp_model}
-The responsibilities described in this section are described in table \ref{tab:resp_table}.\\
-
 The manufacturer provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The manufacturer is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The manufacturer provides a platform in a safe state to the owner and does not keep any access to the manufacturer domain. In particular, the manufacturer does not manage access control to the drivers.\\
 
 The Owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
@@ -182,6 +184,8 @@ If the owner delegates his tasks to an administrator, then the administrator can
 The maintainer keeps the firmware, driver or any software in his perimeter up to date. This responsibility is key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to the commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the Internet Of Things (IoT) Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
 
 Any entity which owns a partition (administrator, service provider, and maintainer) has to authenticate the machine (or user) who is sending the commands to the partition. This entity can choose to not perform and access control verification, thus reducing the security of the system. Any entity which owns a partition (administrator, service provider, and maintainer) is responsible for modifying the temporary credentials of its associated domains.\\
+
+The responsibilities described in this section are summarized in table \ref{tab:resp_table}.\\
 
 \begin{table*}[!ht]
 % increase table row spacing, adjust to taste
@@ -193,7 +197,7 @@ Any entity which owns a partition (administrator, service provider, and maintain
 \centering
 % Some packages, such as MDW tools, offer better commands for making tables
 % than the plain LaTeX2e tabular which is used here.
-\begin{tabular}{|p{7cm}||c|c|c|c|c|c|}
+\begin{tabular}{|p{8cm}||c|c|c|c|c|c|}
 \hline
 Requirements & Manufacturer & Maintainer & Owner & Administrator & Service Provider\\
 \hline
@@ -230,24 +234,34 @@ Keep the service applications up to date & & & & & X \\
 \label{sec:Arch_req}
 
 \subsubsection{Domain isolation}
+Two services which run in two isolated domains should not be able to access the memory of one another, gain information about each other or interfere with each other's execution. 
 
 \subsubsection{Owner non-interference}
-In particular, the owner or the administrator who have access to a privileged domain must not have any control or visibility on the actions performed by other entities if these actions do not involve device ressources which are under the responsibility of the owner.
-
+Although the owner or the administrator have access to a privileged domain, they must not have any control or visibility on the actions performed by other entities if these actions do not involve device ressources which are under the responsibility of the owner.
 
 \subsubsection{Ressource access control}
 A device ressource access policy under the control of the owner or the administrator is mandatory. For each domain, a domain ressource access policy under the control of the domain owner (maintainer, service provider) is optional. 
-\todo[inline]{TBD}
 
-\section{Architecture \& Security model proposed}
+\subsubsection{Minimal on-device processing}
+The processing required to authorize an action in the device must be minimal. 
+
+\section{Proposed Security model and architecture}
 \label{sec:Architecture}
-To be done by Orange \& Lille
+This section describes the architecture and the security model proposed in the ODSI project. First, we define the notion of domain in this architecture as well as its components. Then, we describe the communication and management models.
 \subsection{Definition of a domain}
 \label{sec:Domain_def}
+In this architecture, the device is shared between several parties with different roles (described in section \ref{sec:Actors}). As one party can execute various code in different space, the following vocabulary is used:
+\begin{itemize}
+    \item A partition is a piece of code managed by one party with its own memory
+    \item A domain is the union of all partitions managed by one party.
+\end{itemize}
+\todo[inline]{Do we design ODSI platform \& ODSI Mesovisor specifically in this article ?}
+Domains are implemented in ODSI Mesovisor via the hierarchical memory model. As the memory space of partition can contain the (disjoint) memory space of several sub-partitions (which can themselves contains others sub-sub-partitions), the parent partition controller by one party is the party domain and every enclosed partitions are controlled by the same party.
+
 
 \subsection{Components of a domain}
 \label{sec:Domain_comp}
-
+This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture is also based on the use of virtual sensors and actuators. 
 \subsubsection{Configuration Manager}
 \label{sec:Config_Mgr}
 The Configuration Manager can be divided into two functions and sub-components, the isolation manager and the internal communication manager. The isolation manager provides the tools to create, read, modify or delete a domain. This module also contains a security policy which indicates which tasks and partitions should be started when the domain is started. This security policy also creates the communication channels between the tasks and partitions in the domain. The internal communication manager is the unique entry point of the domain. 
@@ -258,10 +272,11 @@ The drivers are provided by the manufacturer of the device and are stored in a s
 
 \subsubsection{Administration Manager}
 \label{sec:Admin_Mgr}
-This module exposes the domain's ressources to an external server managed by the entity which owns the domain. It routes the command to read, write, execute the ressource to the expected manager or virtual sensor, actuator. It sends each command received to the Token \& Security Validator. 
+This module exposes the domain's ressources to an external server managed by the entity which owns the domain. It routes the command to read, write, execute the ressource to the expected manager or virtual sensor, actuator. It sends each command received to the Token \& Security Validator (T\&S Validator). 
 
 \subsubsection{Token \& Security Validator}
 \label{sec:Token_Validator}
+The Token \& Security Validator (T\&S Validator) validates each device management command against the token provided in the command and optionnally an internal security policy. For example, the security policy defines which ressources require a token verification to be accessed or whether a specific command can be processed accordaccording to the device battery status. 
 
 \subsubsection{Key Vault}
 \label{sec:Key_Vault}
@@ -270,23 +285,30 @@ This module stores the keys that are used by the domain. In particular, the keys
 
 \subsection{Communication model}
 \label{sec:Communication_model}
-Section to be completed by Lille
-\todo[inline]{Lille}
-
+\todo[inline]{TBD. Section to be described by Lille}
+\subsubsection{Internal communication}
+\lipsum[1-6]
+\subsubsection{External communication}
+\lipsum[1-6]
 
 \subsection{Management model}
 \label{sec:Management_model}
+\todo[inline]{TBD. Describe the management model}
+\subsubsection{Domain ressources management}
+\lipsum[1-6]
+\subsubsection{Device ressources management}
+\lipsum[1-6]
+\subsubsection{Token generator}
+\lipsum[1-6]
 
 
 \section{Evaluation}
-section to show how the isolation model allows to address th industrial needs\todo{TBD}
-
+\todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
+\lipsum[1-4]
 
 \section{Conclusion}
-The conclusion goes here.
-
-Next steps : implementation and performance evaluation
-
+\todo[inline]{TBD. The conclusion goes here. Next steps : implementation and performance evaluation}
+\lipsum[1-2]
 
 
 
