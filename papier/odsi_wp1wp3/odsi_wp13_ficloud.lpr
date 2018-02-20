@@ -1,6 +1,6 @@
 [Files\0]
 ActiveFilters=
-Bookmark#0=282
+Bookmark#0=289
 Bookmark#1=0
 Bookmark#2=0
 Bookmark#3=0
@@ -10,15 +10,15 @@ Bookmark#6=0
 Bookmark#7=0
 Bookmark#8=0
 Bookmark#9=0
-CaretPos.X=43
-CaretPos.Y=298
+CaretPos.X=78
+CaretPos.Y=302
 CharSet=def
 FileName=odsi_wp13.tex
 FoldedLines=
 IsMainFile=yes
 Opened=yes
 ScrollPos.X=0
-ScrollPos.Y=356
+ScrollPos.Y=404
 SearchListCount=0
 ShowSyntax=yes
 SpellChecking=yes

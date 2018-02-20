@@ -119,7 +119,7 @@ Email: firstname.lastname@orange.com\\}
 % in the abstract
 \begin{abstract}
 Abstract \todo[inline]{TBD}
-\lipsum[1]
+%%\lipsum[1]
 \end{abstract}
 
 % no keywords
@@ -143,7 +143,7 @@ Abstract \todo[inline]{TBD}
 \label{sec:Intro}
 % no \IEEEPARstart
 \todo[inline]{TBD}
-\lipsum[1-2]
+%\lipsum[1-2]
 \hfill mds
  
 \hfill March 05, 2018
@@ -151,12 +151,15 @@ Abstract \todo[inline]{TBD}
 \section{Isolation model}
 \label{sec:Isolation_model}
 \todo[inline]{TBD by Lille}
-\lipsum[1-10]
+%\lipsum[1-10]
 
 \section{Industrial ecosystem}
 \label{sec:Industrial_ecosystem}
-This section aims at describing the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.
-In this section, we consider that a domain is an isolated area which belongs to an entity. The notion of domain is further precised in section \ref{sec:Domain_def}.
+This section aims at describing the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.\\
+
+In this section, we consider that a domain is an isolated area which belongs to an entity. The notion of domain is further precised in section \ref{sec:Domain_def}.\\
+
+We distinguish device ressources and domain ressources. Device ressources correspond to the isolated partitions (domains) and the ressources exposed by software installed in the manufacturer or owner domains or the sensors \& actuators drivers. Domain ressources correspond to the ressources that are exposed by a particular domain and created by applications or services in this domain.\\
 
 \subsection{Actors}
 \label{sec:Actors}
@@ -175,6 +178,7 @@ It delivers a user-friendly service on one or multiple devices using the ressour
 Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article we focus on platform users. 
 \subsection{Responsibilities model}
 \label{sec:Resp_model}
+
 The manufacturer provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The manufacturer is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The manufacturer provides a platform in a safe state to the owner and does not keep any access to the manufacturer domain. In particular, the manufacturer does not manage access control to the drivers.\\
 
 The Owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
@@ -247,7 +251,7 @@ The processing required to authorize an action in the device must be minimal.
 
 \section{Proposed Security model and architecture}
 \label{sec:Architecture}
-This section describes the architecture and the security model proposed in the ODSI project. First, we define the notion of domain in this architecture as well as its components. Then, we describe the communication and management models.
+This section describes the architecture based on the use of tokens proposed in the ODSI project. First, we define the notion of domain in this architecture as well as its components. Then, we describe the communication and management models.
 \subsection{Definition of a domain}
 \label{sec:Domain_def}
 In this architecture, the device is shared between several parties with different roles (described in section \ref{sec:Actors}). As one party can execute various code in different space, the following vocabulary is used:
@@ -262,6 +266,7 @@ Domains are implemented in ODSI Mesovisor via the hierarchical memory model. As 
 \subsection{Components of a domain}
 \label{sec:Domain_comp}
 This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture is also based on the use of virtual sensors and actuators. 
+
 \subsubsection{Configuration Manager}
 \label{sec:Config_Mgr}
 The Configuration Manager can be divided into two functions and sub-components, the isolation manager and the internal communication manager. The isolation manager provides the tools to create, read, modify or delete a domain. This module also contains a security policy which indicates which tasks and partitions should be started when the domain is started. This security policy also creates the communication channels between the tasks and partitions in the domain. The internal communication manager is the unique entry point of the domain. 
@@ -280,35 +285,51 @@ The Token \& Security Validator (T\&S Validator) validates each device managemen
 
 \subsubsection{Key Vault}
 \label{sec:Key_Vault}
-This module stores the keys that are used by the domain. In particular, the keys used by the Token \& Security Valdiator are stored here. It also provides the functions to add a new key, modify or delete an existing key. 
+This module stores the keys that are used by the domain. In particular, the keys used by the Token \& Security Valdiator are stored here. It also provides the functions to add a new key, modify or delete an existing key.
 
+\subsection{Management model}
+\label{sec:Management_model}
+\todo[inline]{Image ?}
+The model proposed is based on a master/agent model. Each domain contains an agent, the administration manager which receives commands from a master, generally an application in a server.
+\subsubsection{Token scheme}
+The token format should contain at minimum a payload and a signature of this payload. Compatible token formats include JWT (JSON Web Token) \cite{rfc7519_jwt_2015} and CWT (CBOR Web Token) \cite{rfc_CWT_2017}.\\
+
+The token's objectives are to 1) ensure that any command will reach the intended destination, 2) give the rights to request some operations on ressources, 3) prove that the entity initiating the command has been authenticated authorized and protect against replay.
+
+In order to achieve these goals, the token should contain at minimum:
+\begin{itemize}
+    \item the ID of the partition to which this token is destined,
+    \item the rights granted,
+    \item a proof ensuring that the token was generated by the token provider,
+    \item a token ID and/or an expiration date.
+\end{itemize}
+
+The proof can either be a digital signature, such as ANS X9.31, ANS X9.62 or PKCS\#1 as recommended by NIST \cite{nist_dss_2013} or a Keyed-hash Message Authentication Codes (HMACS) compliant NIST recommendations and using a NIST-approved hash algorithm such as SHA-256 \cite{nist_hmac_2008, nist_hash_2012}, depending on the level of security and non-repudiation required.
+The token ID and expiration date are used to prevent replay. The token ID can be compared to a set of previously used IDs stored in a cache. The size of the cache should be adapted to the memory constraints of the partition and device. The combination of the size of the cache and the expiration date allows achieving best effort replay detection. Therefore, it is strongly recommended to use both elements and to tune them carefully. 
+
+\subsubsection{Domain ressources management}
+%\lipsum[1-6]
+\subsubsection{Device ressources management}
+%\lipsum[1-6]
 
 \subsection{Communication model}
 \label{sec:Communication_model}
 \todo[inline]{TBD. Section to be described by Lille}
-\subsubsection{Internal communication}
-\lipsum[1-6]
-\subsubsection{External communication}
-\lipsum[1-6]
+The main requirement for the communication protocol is to allow master/agent communication and the transport of a payload with the command content and an associated token. Protocols such as TCP/IP or CoAP are eligible. LwM2M \cite{oma_lwm2M_2017} cannot be used as such because it does not allow adding the token in its payload.
 
-\subsection{Management model}
-\label{sec:Management_model}
-\todo[inline]{TBD. Describe the management model}
-\subsubsection{Domain ressources management}
-\lipsum[1-6]
-\subsubsection{Device ressources management}
-\lipsum[1-6]
-\subsubsection{Token generator}
-\lipsum[1-6]
+\subsubsection{Internal communication}
+%\lipsum[1-6]
+\subsubsection{External communication}
+%\lipsum[1-6]
 
 
 \section{Evaluation}
 \todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
-\lipsum[1-4]
+%\lipsum[1-4]
 
 \section{Conclusion}
 \todo[inline]{TBD. The conclusion goes here. Next steps : implementation and performance evaluation}
-\lipsum[1-2]
+%\lipsum[1-2]
 
 
 
