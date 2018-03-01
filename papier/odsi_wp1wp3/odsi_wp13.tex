@@ -152,7 +152,9 @@ Abstract \todo[inline]{TBD}
 
 \section{Internet of Things security issues}
 
-Oravec and co \cite{Oravec2017} described in their paper the increase of utilization of devices and applications dedicated to Internet of Things, particularly in the case of household appliances and house management. They wished to demonstrated the new issues that should be considered with the expansion of IoT into the house. One of their main concern is the security and privacy integrity. They descried some scenario about attack or other information leak due to fallible devices. In the case before us, Sivaraman and co\cite{Sivaraman2016}, described a scenario based on an attack of all house IoT devices via a smartphone application. After scanning all available devices in the house with the smartphone, they show how they can get control of each IoT device into the house. With this attack, they show that even if there is strong network security mechanisms, if any component of the House IoT has any application level "problem", the security and privacy is no more guaranteed into the house. This attack works with a smartphone, but we can also imagine a scenario where an another connected to internet device (Webcam, connected TV..) can be a perfect attack vector. 
+Oravec and co \cite{Oravec2017} described in their paper the increase of utilization of devices and applications dedicated to Internet of Things, particularly in the case of household appliances and house management. They wished to demonstrated the new issues that should be considered with the expansion of IoT into the house. One of their main concern is the security and privacy integrity of users. They descried scenario about different attacks or other information due to fallible household devices and non-secure softwares. 
+
+In that kind of environment, Sivaraman and co\cite{Sivaraman2016} described a scenario based on an attack on all house IoT devices via a smartphone application. By using the smartphone and network accesses into the house, they found all available IoT devices. In their paper, they show how it is possible to get control of each device. With this attack, they show that even if there is strong network security mechanisms (like router equipped with firewalls) if any component of the House IoT has an application level issue, the security and privacy is no more guaranteed into the house. This attack works with a smartphone, but we can also imagine a scenario where an another connected device (Webcam, connected TV..) can be an attack vector. 
 
 
 
@@ -237,8 +239,9 @@ To manage interruptions, PIP has two different behaviours depending of the kind 
 The hierarchic isolation model approach offers a hierarchic \textbf{security} model: a child parent partition can only access physical memory pages delegated by its parent. Furthermore, a parent receives all software interruptions from its children%\footnote{With the notable exception of the PIP system calls, as a partition can create sub-partitions only based on a (sub)set of its own memory space, thus not breaking the hierarchic isolation model.}
 , thus controlling which interactions have its children with the system.
 
-\subsection{Message passing}
-Due to Pip isolation mechanism, the only way for a partition to communicate with others is to use Pip interrupt mechanism. Pip provide to partitions a function called \textit{dispatch()} which permit to send a signal with datas to its parent or one of its child partition. This function is a call to Pip API, and after some verification, Pip send the signal to destination. This Pip call is the only requirement to implement an IPC between partitions.
+\subsection{IPC mechanism}
+
+Due to Pip isolation mechanism, the only way for a partition to send signals is through Pip interrupt mechanism. Pip manage sending signal and data between parent and child. In order to do it, Pip provides for all partitions a function called \textit{dispatch()}. After some verification in order to prevent any memory leak, Pip send the signal to destination. The IPC mechanism can therefore be implemented in userland.
 
 
 
@@ -407,7 +410,7 @@ The token ID and expiration date are used to prevent replay. The token ID can be
 The main requirement for the communication protocol is to allow master/agent communication and the transport of a payload with the command content and an associated token. Protocols such as TCP/IP or CoAP are eligible. LwM2M \cite{oma_lwm2M_2017} cannot be used as such because it does not allow adding the token in its payload.
 
 \subsubsection{Internal communication}
-%\lipsum[1-6]
+
 \subsubsection{External communication}
 %\lipsum[1-6]
 
@@ -415,11 +418,28 @@ The main requirement for the communication protocol is to allow master/agent com
 \section{Evaluation}
 \todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
 
-For the scenario described above\cite{Sivaraman2016}, we can use our proposed security architecture and Pip to avoid this kind attack on any household devices. 
+From the scenario described above\cite{Sivaraman2016}, we can use our proposed ODSI security architecture and Pip to avoid this kind attack on any household devices.
 
-The memory isolation provided by Pip avoid any memory leak or other attacks based on memory issues or hardware access. The only way for any Partition to have an interaction with others, is to use the communication mechanism provided by Pip. If any malicious partition wants to threaten an other one, the only attack vector available is through the communication mechanism, a partition can . However, with the token mechanism provided by the ODSI architecture, there is only authorized command that can be send to others partitions. That's why, the attacker has less possibilities to take access or execute unwanted commands into others partitions.
+We can take the example presented in figure \ref{fig:houseiot}. Each device is connected to a service provider hosted by the ODSI platform, and it has not a direct connexion to other devices. We can illustrate this architecture with figure \ref{fig:odsiplatform}. If the Smartphone wants to start a music on the music provider, it has to use the application available into the ODSI platform.
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/HouseIOT}
+	\caption[House IoT installation example]{House IoT installation example}
+	\label{fig:houseiot}
+\end{figure}
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/ODSIplatform}
+	\caption{ODSI Platform}
+	\label{fig:odsiplatform}
+\end{figure}
 
 
+Now, with the same attack scenario as described above, if the music application is not secure and can give access to attacker from outside the house, how the ODSI platform 
+can prevent from the attack propagation ? 
+
+As explained, memory isolation provided by Pip has the ability to avoid for music app to access to other domain's memory spaces (Video game app, Owner domain...). The only way for this application to contact other available devices is to use the internal communication mechanism provided by Pip and the ODSI platform. The token mechanism allows only a set of authorized message to a specific service. This list of these commands are provided by the service provider itself. For example, for the music service, it can only authorize three commands : find song/singer, play music, stop music. If any malicious application running into the ODSI platform, it can not send corrupted command to the music service. Moreover, any corrupted service can not access to the hardware due to Pip and it can not use the network devicein order to find more fallible devices. 
 
 %\lipsum[1-4]
 
