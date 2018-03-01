@@ -27,7 +27,8 @@
 
 % *** ALIGNMENT PACKAGES ***
 \usepackage{array}
-
+\usepackage{tikz,tabularx,amsthm,amsmath,amssymb,amsfonts,listings,xcolor,enumerate,url,array,
+	multirow,forest}
 
 % *** SUBFIGURE PACKAGES ***
 %\ifCLASSOPTIONcompsoc
@@ -148,10 +149,101 @@ Abstract \todo[inline]{TBD}
  
 \hfill March 05, 2018
 
+
+\section{Internet of Things security issues}
+
+Oravec and co \cite{Oravec2017} described in their paper the increase of utilization of devices and applications dedicated to Internet of Things, particularly in the case of household appliances and house management. They wished to demonstrated the new issues that should be considered with the expansion of IoT into the house. One of their main concern is the security and privacy integrity of users. They descried scenario about different attacks or other information due to fallible household devices and non-secure softwares. 
+
+In that kind of environment, Sivaraman and co\cite{Sivaraman2016} described a scenario based on an attack on all house IoT devices via a smartphone application. By using the smartphone and network accesses into the house, they found all available IoT devices. In their paper, they show how it is possible to get control of each device. With this attack, they show that even if there is strong network security mechanisms (like router equipped with firewalls) if any component of the House IoT has an application level issue, the security and privacy is no more guaranteed into the house. This attack works with a smartphone, but we can also imagine a scenario where an another connected device (Webcam, connected TV..) can be an attack vector. 
+
+
+
+
+
 \section{Isolation model}
 \label{sec:Isolation_model}
 \todo[inline]{TBD by Lille}
 %\lipsum[1-10]
+\subsection{Memory isolation proto-kernel}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[baseline=0, scale=2.6]
+	% Draw rectangles
+	\draw(-1, -2) rectangle (1, -1.5);
+	\draw(-1, -1.25) rectangle (1, -0.75);
+	\draw(-1, -0.5) rectangle (-0.2, 0);
+	\draw(0.2, -0.5) rectangle (1, 0);
+	
+	% Draw kernel-user separation
+	\draw[-] (-1,-1.375) -- (1, -1.375);
+	
+	% Draw text
+	\draw (0,-1.75) node{\texttt{Pip}} ;
+	\draw (0,-1) node{\texttt{Root}} ;
+	\draw (-0.6,-0.25) node{\texttt{Child 1}} ;
+	\draw (0.6,-0.25) node{\texttt{Child 2}} ;
+	\end{tikzpicture}
+	\caption{Pip architecture view} 
+	\label{fig:PipArchBase}
+\end{figure}
+
+
+
+PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from hypervisors to monolithic kernels, to be developed as user mode applications (figure \ref{fig:PipArchBase}). This means that only PIP is executed in kernel mode (i.e., the privileged mode of the hardware)(figure . Indeed, code running in kernel mode has direct access to the whole memory and hardware. It is thus clearly better, from a security point of view, to keep this code as minimal as possible. This stems from the general principle that the trusted computing base (TCB) should be kept minimal. One of the PIP key design is to have a minimal number of functionalities while ensuring strong isolation. More precisely, PIP only manages memory isolation and redirection of interruptions to user space code, and has only 10 system calls. Contrary to micro-kernel, it means that components like scheduler, IPC and authorization are not included in the PIP kernel, neither other mechanism available in monolithic kernel like device abstraction layer, file systems, network stack, etc.
+
+
+
+\begin{figure}[h!]
+	%	\begin{minipage}[c]{5.1cm}
+	%	\end{minipage}
+	\hfill
+	%	\begin{minipage}[c]{0.65\linewidth}
+	
+	\centering
+	\begin{forest}
+		for tree={grow=east,reversed,minimum height=0.7cm}
+		[P$_{\mbox{root}}$
+		[P$_1$
+		[P$_{1.1}$
+		[P$_{1.1.1}$]
+		[P$_{1.1.2}$]
+		[P$_{1.1.3}$]
+		]
+		[P$_{1.2}$
+		[P$_{1.2.1}$]
+		[P$_{1.2.2}$]
+		]
+		]
+		[P$_2$
+		[P$_{2.1}$]
+		[P$_{2.2}$]
+		]
+		]
+	\end{forest}
+	\caption{The view by Pip of the partition tree}
+	\label{abstree:fig}
+	%	\end{minipage}
+\end{figure}
+PIP proposes a hierarchic  memory isolation model (figure \ref{abstree:fig}) to partition the available memory among several memory-limited space called partition. A partition is a set of physical memory pages mapped to virtual address. At start, all the available memory (as defined inside PIP configuration) makes up the ROOT partition. The root partition can include mapped registers from hardware devices, thus providing access to hardware functionalities. Code executed in a parent partition can request (via system calls to PIP) segregation to its memory space: a new child partition is created on which the parent partition can mapped a subset of its own mapped physical memory pages, thus \textit{delegating} part of its memory space to the child partition. This model is recursive: any partition can create a child partition and delegate part of its memory space. While a partition can read and write in the memory of its child partition (we call this property vertical sharing), sibling partitions cannot access each other's memory (we call this property horizontal isolation).
+\subsection{Pip API}
+In order to deal with partitions mechanisms, Pip provides a set of function for creation and deletion.
+
+\subsection{Interrupt management}
+To manage interruptions, PIP has two different behaviours depending of the kind of interruption:
+\begin{itemize}
+	\item Software interrupts (fault or system calls) are relayed to the parent partition (with the exception of the PIP system calls).
+	\item Hardware interrupts are relayed to the ROOT partition which is in charge to forward it to, for instance, a network card driver.
+\end{itemize}
+
+The hierarchic isolation model approach offers a hierarchic \textbf{security} model: a child parent partition can only access physical memory pages delegated by its parent. Furthermore, a parent receives all software interruptions from its children%\footnote{With the notable exception of the PIP system calls, as a partition can create sub-partitions only based on a (sub)set of its own memory space, thus not breaking the hierarchic isolation model.}
+, thus controlling which interactions have its children with the system.
+
+\subsection{IPC mechanism}
+
+Due to Pip isolation mechanism, the only way for a partition to send signals is through Pip interrupt mechanism. Pip manage sending signal and data between parent and child. In order to do it, Pip provides for all partitions a function called \textit{dispatch()}. After some verification in order to prevent any memory leak, Pip send the signal to destination. The IPC mechanism can therefore be implemented in userland.
+
+
 
 \section{Industrial ecosystem}
 \label{sec:Industrial_ecosystem}
@@ -341,13 +433,37 @@ The token ID and expiration date are used to prevent replay. The token ID can be
 The main requirement for the communication protocol is to allow master/agent communication and the transport of a payload with the command content and an associated token. Protocols such as TCP/IP or CoAP are eligible. LwM2M \cite{oma_lwm2M_2017} cannot be used as such because it does not allow adding the token in its payload.
 
 \subsubsection{Internal communication}
-%\lipsum[1-6]
+
 \subsubsection{External communication}
 %\lipsum[1-6]
 
 
 \section{Illustration \& discussion}
 \todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
+
+From the scenario described above\cite{Sivaraman2016}, we can use our proposed ODSI security architecture and Pip to avoid this kind attack on any household devices.
+
+We can take the example presented in figure \ref{fig:houseiot}. Each device is connected to a service provider hosted by the ODSI platform, and it has not a direct connexion to other devices. We can illustrate this architecture with figure \ref{fig:odsiplatform}. If the Smartphone wants to start a music on the music provider, it has to use the application available into the ODSI platform.
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/HouseIOT}
+	\caption[House IoT installation example]{House IoT installation example}
+	\label{fig:houseiot}
+\end{figure}
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/ODSIplatform}
+	\caption{ODSI Platform}
+	\label{fig:odsiplatform}
+\end{figure}
+
+
+Now, with the same attack scenario as described above, if the music application is not secure and can give access to attacker from outside the house, how the ODSI platform 
+can prevent from the attack propagation ? 
+
+As explained, memory isolation provided by Pip has the ability to avoid for music app to access to other domain's memory spaces (Video game app, Owner domain...). The only way for this application to contact other available devices is to use the internal communication mechanism provided by Pip and the ODSI platform. The token mechanism allows only a set of authorized message to a specific service. This list of these commands are provided by the service provider itself. For example, for the music service, it can only authorize three commands : find song/singer, play music, stop music. If any malicious application running into the ODSI platform, it can not send corrupted command to the music service. Moreover, any corrupted service can not access to the hardware due to Pip and it can not use the network devicein order to find more fallible devices. 
+
 %\lipsum[1-4]
 
 \section{Conclusion}
