@@ -251,7 +251,23 @@ The processing required to authorize an action in the device must be minimal.
 
 \section{Proposed Security model and architecture}
 \label{sec:Architecture}
-This section describes the architecture based on the use of tokens proposed in the ODSI project. First, we define the notion of domain in this architecture as well as its components. Then, we describe the communication and management models.
+This section describes the architecture proposed in the ODSI project. First, we describe the overall architecture. Then, we define the notion of domain in this architecture as well as its components. Finally, we describe the communication and management models.
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=9cm]{figures/mem_layout.png}
+\caption{Proposed architecture - Memory layer view}
+\label{fig:Arch_mem}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=9cm]{figures/soft_layer.png}
+\caption{Proposed architecture - Software layer view}
+\label{fig:Arch_soft}
+\end{figure}
+
 \subsection{Definition of a domain}
 \label{sec:Domain_def}
 In this architecture, the device is shared between several parties with different roles (described in section \ref{sec:Actors}). As one party can execute various code in different space, the following vocabulary is used:
@@ -265,11 +281,18 @@ Domains are implemented in ODSI Mesovisor via the hierarchical memory model. As 
 
 \subsection{Components of a domain}
 \label{sec:Domain_comp}
-This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture is also based on the use of virtual sensors and actuators. 
+This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture proposed is also based on the use of virtual sensors and actuators. 
 
 \subsubsection{Configuration Manager}
 \label{sec:Config_Mgr}
-The Configuration Manager can be divided into two functions and sub-components, the isolation manager and the internal communication manager. The isolation manager provides the tools to create, read, modify or delete a domain. This module also contains a security policy which indicates which tasks and partitions should be started when the domain is started. This security policy also creates the communication channels between the tasks and partitions in the domain. The internal communication manager is the unique entry point of the domain. 
+The Configuration Manager is part of the 
+
+\subsubsection{Internal Communicator}
+\label{sec:Int_Com}
+The Internal Communicator is the unique entry point of the domain. It verifies incoming messages whether they come from the network or another domain, similarly to a firewall.
+
+%\subsubsection{Domain manager}
+%The domain manager allows remote management of the domain to create, read, modify or delete tasks or partitions within a domain. This module also contains a security policy which indicates which tasks and partitions should be started when the domain is started. This security policy also creates the communication channels between the tasks and partitions in the domain. 
 
 \subsubsection{Virtual sensors or actuators}
 \label{sec:virtual_sensor}
@@ -323,7 +346,7 @@ The main requirement for the communication protocol is to allow master/agent com
 %\lipsum[1-6]
 
 
-\section{Evaluation}
+\section{Illustration \& discussion}
 \todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
 %\lipsum[1-4]
 

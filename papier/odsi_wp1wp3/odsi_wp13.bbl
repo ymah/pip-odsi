@@ -12,4 +12,37 @@ Mark Warner, Gardner, Wyden, and Senate of the United~States Daines.
 \newblock \url{https://www.congress.gov/115/bills/s1691/BILLS-115s1691is.pdf},
   August 2017.
 
+\bibitem{rfc7519_jwt_2015}
+M.~Jones, J.~Bradley, and N.~Sakimura.
+\newblock Json web token (jwt).
+\newblock Technical report, IETF, 2015.
+
+\bibitem{rfc_CWT_2017}
+M.~Jones, E.~Wahlstroem, S.~Erdtman, and H.~Tschofenigs.
+\newblock Cbor web token (cwt).
+\newblock draft version.
+
+\bibitem{nist_dss_2013}
+Cameron F.Kerry and Patrick D.CGallagher.
+\newblock Digital signature standard.
+\newblock Technical report, National Institute of Standards and Technology,
+  July 2013.
+
+\bibitem{nist_hmac_2008}
+Carlos Gutierrez and James M.Turner.
+\newblock The keyed-hash message authentication code (hmac).
+\newblock Technical report, National Institute of Standards and Technology,
+  July 2008.
+
+\bibitem{nist_hash_2012}
+Quynh Dang.
+\newblock Recommendation for applications using approved hash algorithms.
+\newblock Technical report, National Institute of Standards and Technology,
+  2012.
+
+\bibitem{oma_lwm2M_2017}
+OMA.
+\newblock Lightweight machine to machine technical specification.
+\newblock Technical report, Open Mobile Alliance, 2017.
+
 \end{thebibliography}

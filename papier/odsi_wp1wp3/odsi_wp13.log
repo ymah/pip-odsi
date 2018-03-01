@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  15 FEB 2018 23:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  23 FEB 2018 00:34
 entering extended mode
 **./odsi_wp13.tex
 (odsi_wp13.tex
@@ -549,17 +549,28 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-ABD: EveryShipout initializing macros [1{C:/ProgramData/MiKTeX/2.9/pdftex/confi
-g/pdftex.map}
-
-
-] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
+ABD: EveryShipout initializing macros
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--181
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+
+ []
+
+
+Underfull \hbox (badness 2990) in paragraph at lines 162--163
+\OT1/ptm/m/n/10 De-vice ressources cor-re-spond to the iso-lated par-ti-tions
+ []
+
+
+Underfull \hbox (badness 2617) in paragraph at lines 162--163
+\OT1/ptm/m/n/10 ac-tu-a-tors drivers. Do-main ressources cor-re-spond to the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
 
  []
 
@@ -568,7 +579,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 182--183
 
  []
 
+[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
+
+]
 Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
@@ -580,27 +594,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 188--189
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
 []\OT1/ptm/m/n/10 The re-spon-si-bil-i-ties de-scribed in this sec-tion are
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 188--189
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 200.
+(Font)              <8> on input line 204.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 200.
+(Font)              <6> on input line 204.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 200.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 255.
-[3] [4]
-Underfull \vbox (badness 1895) has occurred while \output is active []
+(Font)              <5> on input line 204.
+<figures/mem_layout.png, id=12, 892.33376pt x 455.7025pt>
+File: figures/mem_layout.png Graphic file (type png)
 
- [5]
-[6] [7] (odsi_wp13.bbl)
+<use figures/mem_layout.png>
+Package pdftex.def Info: figures/mem_layout.png used on input line 259.
+(pdftex.def)             Requested size: 256.0748pt x 130.77354pt.
+
+Overfull \hbox (4.0748pt too wide) in paragraph at lines 259--260
+ [][] 
+ []
+
+<figures/soft_layer.png, id=13, 952.55875pt x 510.90875pt>
+File: figures/soft_layer.png Graphic file (type png)
+
+<use figures/soft_layer.png>
+Package pdftex.def Info: figures/soft_layer.png used on input line 266.
+(pdftex.def)             Requested size: 256.0748pt x 137.34692pt.
+
+Overfull \hbox (4.0748pt too wide) in paragraph at lines 266--267
+ [][] 
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 275.
+[2 <./figures/mem_layout.png (PNG copy)> <./figures/soft_layer.png (PNG copy)>]
+
+Underfull \hbox (badness 3525) in paragraph at lines 318--319
+ \OT1/ptm/m/it/10 1) To-ken scheme: [][] \OT1/ptm/m/n/10 The to-ken for-mat sho
+uld con-tain
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 318--319
+
+ []
+
+[3] (odsi_wp13.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -612,24 +666,26 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8] (odsi_wp13.aux) ) 
+[4
+
+] (odsi_wp13.aux) ) 
 Here is how much of TeX's memory you used:
- 13196 strings out of 493323
- 265158 string characters out of 3139057
- 413776 words of memory out of 3000000
- 16486 multiletter control sequences out of 15000+200000
+ 13218 strings out of 493323
+ 265555 string characters out of 3139057
+ 411825 words of memory out of 3000000
+ 16504 multiletter control sequences out of 15000+200000
  37661 words of font info for 71 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
  62i,10n,80p,736b,759s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/ur
-w/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.p
-fb>
-Output written on odsi_wp13.pdf (8 pages, 100640 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
+times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb
+>
+Output written on odsi_wp13.pdf (4 pages, 128448 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
+ 41 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 23 words of extra memory for PDF output out of 10000 (max. 10000000)
 
