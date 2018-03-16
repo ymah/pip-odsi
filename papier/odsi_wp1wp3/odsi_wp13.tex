@@ -226,8 +226,33 @@ PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from 
 	%	\end{minipage}
 \end{figure}
 PIP proposes a hierarchic  memory isolation model (figure \ref{abstree:fig}) to partition the available memory among several memory-limited space called partition. A partition is a set of physical memory pages mapped to virtual address. At start, all the available memory (as defined inside PIP configuration) makes up the ROOT partition. The root partition can include mapped registers from hardware devices, thus providing access to hardware functionalities. Code executed in a parent partition can request (via system calls to PIP) segregation to its memory space: a new child partition is created on which the parent partition can mapped a subset of its own mapped physical memory pages, thus \textit{delegating} part of its memory space to the child partition. This model is recursive: any partition can create a child partition and delegate part of its memory space. While a partition can read and write in the memory of its child partition (we call this property vertical sharing), sibling partitions cannot access each other's memory (we call this property horizontal isolation).
-\subsection{Pip API}
-In order to deal with partitions mechanisms, Pip provides a set of function for creation and deletion.
+\subsection{Pip memory management}
+
+\begin{figure}[h!]
+	\centerline{\includegraphics[height=3.5cm]{figures/properties.eps}}
+	\caption{Isolation model}
+	\label{props:fig}
+\end{figure}
+
+Pip model ensure formal isolation between partitions. This isolation is guaranteed by two properties :
+
+
+\begin{itemize}
+	\item \textbf{Horizontal isolation} : Two distinct partitions (ex: \textit{child 1} and \textit{child 2} in figure \ref{props:fig}) can not share the same memory pages.
+	\item \textbf{Vertical sharing} : All pages used by a child are mapped into its parent. 
+\end{itemize}
+
+
+As seen in figure \ref{props:fig}, for partition creation, a parent gives the required amount of memory pages from its own pages to its child, and theses pages belong to this new partition.
+
+In order to create partition and manage each child memory, Pip provide a set a function available for each partition.
+\begin{itemize}
+	\item \textbf{createPartition} : create a new partition.
+	\item \textbf{deletePartition} : delete a new partition.
+	\item \textbf{addVAddr} : gives a page to a child partition (no more available into the parent).
+	\item \textbf{removeVAddr} : reclaims a page from a child partition (no more available into the parent).
+\end{itemize}
+
 
 \subsection{Interrupt management}
 To manage interruptions, PIP has two different behaviours depending of the kind of interruption:
@@ -236,13 +261,33 @@ To manage interruptions, PIP has two different behaviours depending of the kind 
 	\item Hardware interrupts are relayed to the ROOT partition which is in charge to forward it to, for instance, a network card driver.
 \end{itemize}
 
-The hierarchic isolation model approach offers a hierarchic \textbf{security} model: a child parent partition can only access physical memory pages delegated by its parent. Furthermore, a parent receives all software interruptions from its children%\footnote{With the notable exception of the PIP system calls, as a partition can create sub-partitions only based on a (sub)set of its own memory space, thus not breaking the hierarchic isolation model.}
+Furthermore, a parent receives all software interruptions from its children%\footnote{With the notable exception of the PIP system calls, as a partition can create sub-partitions only based on a (sub)set of its own memory space, thus not breaking the hierarchic isolation model.}
 , thus controlling which interactions have its children with the system.
 
+In addition, Pip API provides two function for software interrupt between partitions :
+\begin{itemize}
+	\item \textbf{dispatch} : send an interrupt signal to a given partition.
+	\item \textbf{resume} : restores a previous interrupted partition.
+\end{itemize}
+
+Any partition can send and receive a signal only from its parent, one of its child and from Pip. For example, in figure \ref{props:fig} There is no available signal transmission between \textit{p1} and \textit{p2} or \textit{p3} and \textit{p2}.
+
+
 \subsection{IPC mechanism}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/IPCDispatch}
+	\caption{Simple IPC mechanism}
+	\label{fig:ipcdispatch}
+\end{figure}
 
-Due to Pip isolation mechanism, the only way for a partition to send signals is through Pip interrupt mechanism. Pip manage sending signal and data between parent and child. In order to do it, Pip provides for all partitions a function called \textit{dispatch()}. After some verification in order to prevent any memory leak, Pip send the signal to destination. The IPC mechanism can therefore be implemented in userland.
 
+Pip does not provide IPC between two distinct partitions. However, this mechanism can be implemented in userland, by using software interrupt or Pip API dispatch function. For example (figure \ref{fig:ipcdispatch}), if \textit{Child 1} wants to send a message to \textit{Child 2}, it has to send a dispatch to its \textit{parent} (step A). The parent handles this software interrupt and transmit the signal to \textit{Child 2} (step B).
+
+For more complex architecture (like figure \ref{abstree:fig}), this mechanism can be recursively used to send signal between any partitions (ex : P1.1 to P.1.2.2).
+
+
+ 
 
 
 \section{Industrial ecosystem}
@@ -346,14 +391,14 @@ The processing required to authorize an action in the device must be minimal.
 This section describes the architecture proposed in the ODSI project. First, we describe the overall architecture. Then, we define the notion of domain in this architecture as well as its components. Finally, we describe the communication and management models.
 
 
-\begin{figure}[t]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=9cm]{figures/mem_layout.png}
 \caption{Proposed architecture - Memory layer view}
 \label{fig:Arch_mem}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=9cm]{figures/soft_layer.png}
 \caption{Proposed architecture - Software layer view}
@@ -364,8 +409,8 @@ This section describes the architecture proposed in the ODSI project. First, we 
 \label{sec:Domain_def}
 In this architecture, the device is shared between several parties with different roles (described in section \ref{sec:Actors}). As one party can execute various code in different space, the following vocabulary is used:
 \begin{itemize}
-    \item A partition is a piece of code managed by one party with its own memory
-    \item A domain is the union of all partitions managed by one party.
+    \item A partition is a piece of code managed by one party with its own memory space
+    \item A domain is the union of all partitions managed and code by one party.
 \end{itemize}
 \todo[inline]{Do we design ODSI platform \& ODSI Mesovisor specifically in this article ?}
 Domains are implemented in ODSI Mesovisor via the hierarchical memory model. As the memory space of partition can contain the (disjoint) memory space of several sub-partitions (which can themselves contains others sub-sub-partitions), the parent partition controller by one party is the party domain and every enclosed partitions are controlled by the same party.
@@ -434,9 +479,32 @@ The main requirement for the communication protocol is to allow master/agent com
 
 \subsubsection{Internal communication}
 
+
+
 \subsubsection{External communication}
 %\lipsum[1-6]
 
+
+\section{Pip and ODSI architecture}
+The aim of ODSI architecture is to provide a safe environment for each service provider. In other words, the aim of ODSI and Pip is how to preserve the trust between each service provider and between the platform and the service provider.  
+\subsection{Trust between service providers}
+
+Each service provider has to trust the platform and the platform has to guarantee to each 
+
+\todo[inline]{TOD0: 
+- Confiance entre service, chaque service doit se voir garantir que son état ne peut être altéré par un autre service, potentiellement concurent
+
+- Chaque service doit faire confiance à la platforme, étant donnée qu'elle est dans sa TCB.}
+
+
+
+
+
+\subsection{Need in separation}
+
+\todo[inline]{TOD0: 
+	- Pip fourni l'isolation recherchée par les service pour garantir leur espace de travail/ espace d'adressage
+	- Le mechanisme de token garantie que chaque service ne peut être accdédé que via l'API qu'il aura exposée et sans plus}
 
 \section{Illustration \& discussion}
 \todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
@@ -445,13 +513,13 @@ From the scenario described above\cite{Sivaraman2016}, we can use our proposed O
 
 We can take the example presented in figure \ref{fig:houseiot}. Each device is connected to a service provider hosted by the ODSI platform, and it has not a direct connexion to other devices. We can illustrate this architecture with figure \ref{fig:odsiplatform}. If the Smartphone wants to start a music on the music provider, it has to use the application available into the ODSI platform.
 
-\begin{figure}[!t]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{figures/HouseIOT}
 	\caption[House IoT installation example]{House IoT installation example}
 	\label{fig:houseiot}
 \end{figure}
-\begin{figure}[t!]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=1\linewidth]{figures/ODSIplatform}
 	\caption{ODSI Platform}
@@ -460,7 +528,7 @@ We can take the example presented in figure \ref{fig:houseiot}. Each device is c
 
 
 Now, with the same attack scenario as described above, if the music application is not secure and can give access to attacker from outside the house, how the ODSI platform 
-can prevent from the attack propagation ? 
+can prevent from any attack propagation ? 
 
 As explained, memory isolation provided by Pip has the ability to avoid for music app to access to other domain's memory spaces (Video game app, Owner domain...). The only way for this application to contact other available devices is to use the internal communication mechanism provided by Pip and the ODSI platform. The token mechanism allows only a set of authorized message to a specific service. This list of these commands are provided by the service provider itself. For example, for the music service, it can only authorize three commands : find song/singer, play music, stop music. If any malicious application running into the ODSI platform, it can not send corrupted command to the music service. Moreover, any corrupted service can not access to the hardware due to Pip and it can not use the network devicein order to find more fallible devices. 
 
