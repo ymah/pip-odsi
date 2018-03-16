@@ -1,3 +1,5 @@
+NW_TARGET="WIN32"##Network target is either Scenario or WIN32
+
 CC = gcc
 AR = ar
 CFLAGS = -std=c99 -Wall -g
@@ -23,14 +25,14 @@ INTCOM_OBJ = obj/InternalCommunication_SimpleAdaptor.o
 
 APP_OBJ= obj/main.o obj/main_myapp.o obj/Run-time-stats-utils.o $(CORE_OBJ) $(CLIENT_OBJ) $(CONFIG_OBJ) $(KEY_OBJ) $(TOKEN_OBJ) $(INTCOM_OBJ)
 APP_LIB= lib/libfreertos.a lib/libfreertos_trace.a lib/libutils.a lib/libtoken_simple.a lib/libclient_simple.a lib/libconfig_simple.a lib/libkey_simple.a lib/libmanageNW.a lib/libcom_simple.a
-APP_LLIB=  -lfreertos -lfreertos_trace -lutils -ltoken_simple -lclient_simple -lconfig_simple -lkey_simple -lmanageNW -lcom_simple -lwinmm -Llib 
+APP_LLIB=  -lfreertos -lfreertos_trace -lutils -ltoken_simple -lclient_simple -lconfig_simple -lkey_simple -lmanageNW -lcom_simple -lwinmm -lws2_32 -Llib 
 
 CORE_INCLUDE = -Isrc/include
 CORE_OBJ = obj/AdminManager.o obj/ConfigManager.o obj/KeyManager.o obj/InternalCommunication.o obj/TokenValidator.o
 
 ####ALL
 all: bin/wp3app_freertos
-	rm -f lib/*
+	#rm -f lib/*
 
 ####CLEAN
 clean:
@@ -63,46 +65,46 @@ obj/Run-time-stats-utils.o: src/Run-time-stats-utils.c
 ####### FREERTOS
 
 lib/libfreertos.a:
-	cd FreeRTOS && make install
+	cd FreeRTOS && $(MAKE) install
 
 ######## FreeRTOS Plus Trace
 
 lib/libfreertos_trace.a:
-	cd FreeRTOSPlusTrace && make install
+	cd FreeRTOSPlusTrace && $(MAKE) install
 
 ######## Utils
 
 lib/libutils.a:
-	cd utils && make install
+	cd utils && $(MAKE) install
 	
 ######## Simple Token validator
 
 lib/libtoken_simple.a:
-	cd TokenSimple && make install
+	cd TokenSimple && $(MAKE) install
 	
 ####### Simple Client	
 lib/libclient_simple.a:
-	cd Client_Simple && make install
+	cd Client_Simple && $(MAKE) install
 
 ####### Simple Config Manager	
 
 lib/libconfig_simple.a:
-	cd Config_Simple && make install
+	cd Config_Simple && $(MAKE) install
 
 ####### Simple Key Vault	
 
 lib/libkey_simple.a:
-	cd KeyVault_Simple && make install
+	cd KeyVault_Simple && $(MAKE) install
 	
 ####### Internal Compunication
 
 lib/libcom_simple.a:
-	cd Communicate_Simple && make install
+	cd Communicate_Simple && $(MAKE) install
 	
 ####### NW Manager
 
 lib/libmanageNW.a:
-	cd NWManager && make TARGET="Simple" install
+	cd NWManager && $(MAKE) install TARGET=$(NW_TARGET)
 
 
 ######SimpleAdaptors

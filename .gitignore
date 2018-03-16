@@ -50,6 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+<<<<<<< HEAD
 
 #latex & bib temporary files
 *.bak
@@ -57,3 +58,13 @@ dkms.conf
 *.bbl
 *.undo
 *.sav
+=======
+/.metadata/
+
+# related to Eclipse
+.metadata/
+RemoteSystemsTempFiles
+wp3Poc/bin
+*.xml
+
+>>>>>>> Network_messages_&_formats

@@ -35,11 +35,12 @@ void InternalCommunicationTask( void *pvParameters )
 	event_t EventPartition;
 	event_t EventResponse;
 	event_t MessageToReturn;
+	incomingMessage_t Check;
 
-	char buffer[8*sizeof(uint32_t)];
 	char INMES[IN_MAX_MESSAGE_SIZE];
 	char OUTMES[OUT_MAX_MESSAGE_SIZE];
 	uint32_t sizeout;
+	uint32_t j;
 
 	/* Remove compiler warning in the case that configASSERT() is not
 	defined. */
@@ -49,6 +50,15 @@ void InternalCommunicationTask( void *pvParameters )
 		/* Receive data from Network manager or from Administration Manager*/
 		EventPartition=myreceive(INMES, xQueue_P2IC);
 
+		incomingMessagecpy(&Check, &(EventPartition.eventData.incomingMessage) );
+		DEBUG(INFO,"UserID: %lu, DeviceID: %lu, DomainID: %lu, Instruction: %lu, Command Data: %s\n", Check.userID, Check.deviceID, Check.domainID, Check.command.instruction, Check.command.data);
+
+		DEBUG(INFO,"Token:");
+		for(j=0 ; j<Check.tokenSize ; j++){
+			debug1("%02X", Check.token[j]);
+		}
+		debug1("\n");
+
 		xQueueSend( xQueue_2AM, &EventPartition, 0U );
 
 		xQueueReceive( xQueue_2IC, &EventResponse, portMAX_DELAY );
@@ -57,11 +67,8 @@ void InternalCommunicationTask( void *pvParameters )
 		case RESPONSE:
 			eventcpy(&MessageToReturn,&EventResponse);
 
-			debug("IntComm-Response code: ");
-			debug(itoa(MessageToReturn.eventData.response.responsecode,buffer,16));
-			debug(" and data: ");
-			debug(MessageToReturn.eventData.response.data);
-			debug("\n");
+			DEBUG(INFO,"IntComm-Response code: %#04X \n", MessageToReturn.eventData.response.responsecode);
+			DEBUG(INFO, "Data: %s \n", MessageToReturn.eventData.response.data );
 
 			/* Send Data to Network manager*/
 			sizeout=serialize_response(EventResponse.eventData.response, OUTMES);
@@ -74,7 +81,7 @@ void InternalCommunicationTask( void *pvParameters )
 			break;
 
 		default:
-			debug("Internal Communication: Unknown Event Type\n");
+			DEBUG(TRACE,"Internal Communication: Unknown Event Type\n");
 			/*Reinitialize events*/
 			eventreset(&MessageToReturn);
 			eventreset(&EventResponse);

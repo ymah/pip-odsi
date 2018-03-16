@@ -5,6 +5,7 @@
  *      Author: hzgf0437
  */
 
+#include <stdio.h>
 
 /* Standard includes. */
 #include "CommonStructure.h"
@@ -37,59 +38,77 @@ void* get_connection(void* ListenSocket){
 	return NULL;
 }
 
-uint32_t ext_listen(void* ClientSocket, char* data)
+uint32_t ext_listen( void* LSocket){
+	return 0;
+}
+
+uint32_t ext_receive(void* ClientSocket, char* data)
 {
 
 	TickType_t xNextWakeTime;
 	incomingMessage_t VTS[12];
-	//incomingMessage_t Check;
+	incomingMessage_t Check;
 
 	const TickType_t xBlockTime = pdMS_TO_TICKS( NW_MANAGER_SEND_FREQUENCY_MS );
 
 	//event_t EventResponse;
 	//response_t MessageToReturn;
 
-	char buffer[8*sizeof(uint32_t)];
+	char token_f[TOKEN_SIZE];
+	char token_p[TOKEN_SIZE];
 
-	uint32_t i=0;
+	uint32_t i,j=0;
 	uint32_t size=0;
+
+	for(j=0;j<TOKEN_SIZE;j++){
+		token_f[j]=0xf;
+		token_p[j]=0x0;
+	}
+	DEBUG(INFO, "VALID TOKEN:");
+	j=0;
+	for(j=0 ; j<TOKEN_SIZE ; j++){
+		debug1("%X", token_f[j]);
+	}
+	debug1("\n");
+	DEBUG(INFO, "INVALID TOKEN: ");
+	j=0;
+	for(j=0 ; j<TOKEN_SIZE ; j++){
+		debug1("%X", token_p[j]);
+	}
+	debug1("\n");
 
 	/*Reset & Inititialize the messages to be sent*/
 	for (i=0;i<12;i++){
 		incomingMessagereset(&VTS[i]);
 	}
 
-	incomingMessageinit(&VTS[0], 1, 1, 1, "Friend\0","\0",READ_DOMID);
-	incomingMessageinit(&VTS[1], 1, 1, 1, "Friend\0", DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[2], 1, 1, 1, "Friend\0","\0", READ_DOMID);
-	incomingMessageinit(&VTS[3], 1, 1, 1, "Pirate\0",DOM_ID_UPDATE, UPDATE_DOMID);
-	incomingMessageinit(&VTS[4], 1, 1, 1, "Friend\0","1:\0",READ_KEY);
-	incomingMessageinit(&VTS[5], 1, 1, 1, "Friend\0","2:",READ_KEY);
-	incomingMessageinit(&VTS[6], 1, 1, 1, "Friend\0","2:18", ADD_KEY);
-	incomingMessageinit(&VTS[7], 1, 1, 1, "Friend\0","2:", READ_KEY);
-	incomingMessageinit(&VTS[8], 1, 1, 1, "Friend\0","2:", DELETE_KEY);
-	incomingMessageinit(&VTS[9], 1, 1, 1, "Friend\0","2:",READ_KEY);
-	incomingMessageinit(&VTS[10], 1, 1, 1, "Friend\0","1:18",UPDATE_KEY);
-	incomingMessageinit(&VTS[11], 1, 1, 1, "Friend\0","1:",READ_KEY);
+
+
+	incomingMessageinit(&VTS[0], 1, 1, 1, TOKEN_SIZE, token_f,"\0",READ_DOMID);
+	incomingMessageinit(&VTS[1], 1, 1, 1, TOKEN_SIZE, token_f, DOM_ID_UPDATE, UPDATE_DOMID);
+	incomingMessageinit(&VTS[2], 1, 1, 1, TOKEN_SIZE, token_f,"\0", READ_DOMID);
+	incomingMessageinit(&VTS[3], 1, 1, 1, TOKEN_SIZE, token_p, DOM_ID_UPDATE, UPDATE_DOMID);
+	incomingMessageinit(&VTS[4], 1, 1, 1, TOKEN_SIZE, token_f,"1:\0",READ_KEY);
+	incomingMessageinit(&VTS[5], 1, 1, 1, TOKEN_SIZE, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[6], 1, 1, 1, TOKEN_SIZE, token_f,"2:18", ADD_KEY);
+	incomingMessageinit(&VTS[7], 1, 1, 1, TOKEN_SIZE, token_f,"2:", READ_KEY);
+	incomingMessageinit(&VTS[8], 1, 1, 1, TOKEN_SIZE, token_f,"2:", DELETE_KEY);
+	incomingMessageinit(&VTS[9], 1, 1, 1, TOKEN_SIZE, token_f,"2:",READ_KEY);
+	incomingMessageinit(&VTS[10], 1, 1, 1, TOKEN_SIZE, token_f,"1:18",UPDATE_KEY);
+	incomingMessageinit(&VTS[11], 1, 1, 1, TOKEN_SIZE, token_f,"1:",READ_KEY);
+
 
 	/* Initialise xNextWakeTime - this only needs to be done once. */
 	xNextWakeTime = xTaskGetTickCount();
 
-	debug("NW Manager started\n");
+	DEBUG(TRACE,"NW Manager started\n");
 
-	debug("iteration ");
-	debug(itoa(iteration,buffer,10));
-	debug("\n");
+	DEBUG(INFO,"iteration %lu\n", iteration);
 
 	size=serialize_incomingMessage(VTS[iteration], data);
-	//Check=deserialize_incomingMessage(data, size);
 
-	/*debug("Command Data: ");
-	debug(Check.command.data);
-	debug("\n");
-	debug("Token: ");
-	debug(Check.token);
-	debug("\n");*/
+	Check=deserialize_incomingMessage(data, size);
+	DEBUG(TRACE,"UserID: %lu, DeviceID: %lu, DomainID: %lu, Instructin: %lu, Command Data: %s, Token: %X, \n", Check.userID, Check.deviceID, Check.domainID, Check.command.instruction, Check.command.data, Check.token);
 
 	iteration=(iteration+1)%12 ;
 
@@ -103,17 +122,12 @@ uint32_t ext_listen(void* ClientSocket, char* data)
 
 void ext_send(void* ClientSocket, char* outData, uint32_t size){
 	response_t response;
-	char buffer[8*sizeof(uint32_t)];
 
 	response=deserialize_response(outData, size);
 
-	debug("NW-Response code: ");
-	debug(itoa(response.responsecode,buffer,16));
-	debug(" and data: ");
-	debug(response.data);
-	debug("\n\n");
+	DEBUG(INFO,"Response code: %04X Data : %s \n\n", response.responsecode, response.data);
 }
 
-void close(void* Socket){
+void mycloseSocket(void* Socket){
 
 }

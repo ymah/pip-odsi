@@ -38,7 +38,7 @@ uint32_t routeCommandSimple(event_t ReceivedValue, QueueHandle_t xQ_2CM, QueueHa
 	case READ_DOMID :
 	case UPDATE_DOMID :
 	case CREATE_DOM :
-		debug("call config manager\n");
+		DEBUG(TRACE,"call config manager\n");
 		xQueueSend( xQueue_AM2CM, &ValueToSend, 0U );
 		return SUCCESS;
 		break;
@@ -46,7 +46,7 @@ uint32_t routeCommandSimple(event_t ReceivedValue, QueueHandle_t xQ_2CM, QueueHa
 	case READ_KEY:
 	case UPDATE_KEY:
 	case DELETE_KEY:
-		debug("call key ring manager\n");
+		DEBUG(TRACE,"call key ring manager\n");
 		xQueueSend( xQueue_AM2KM, &ValueToSend, 0U );
 		return SUCCESS;
 		break;

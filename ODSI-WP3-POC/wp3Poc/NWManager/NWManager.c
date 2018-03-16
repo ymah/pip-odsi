@@ -9,7 +9,6 @@
 /* Standard includes. */
 #include "CommonStructure.h"
 #include "MyAppConfig.h"
-#include "validateToken_Interface.h"
 #include "ResponseCode.h"
 #include "debug.h"
 #include "mystdlib.h"
@@ -34,37 +33,40 @@ void NW_Task( void *pvParameters )
 	char InValue[IN_MAX_MESSAGE_SIZE]={};
 	char OutValue[OUT_MAX_MESSAGE_SIZE]={};
 
-	uint32_t size_in=0, sizeout=0;
+	uint32_t size_in=0, sizeout=0, l_result=1;
 
 	void* ServerSocket;
 	void* ClientSocket;
 
 	ServerSocket=initialize();
+	l_result=ext_listen( ServerSocket);
+	if (l_result ==1 ){
+		DEBUG(INFO, "Error when listening\n");
+	}
 
 	for(;;){
+		DEBUG(INFO, "Listening\n");
 		ClientSocket=get_connection(ServerSocket);
 
 		mymemset(InValue, 0, IN_MAX_MESSAGE_SIZE*sizeof(char));
-		size_in=ext_listen(ClientSocket, InValue);
+		size_in=ext_receive(ClientSocket, InValue);
 
 		EventRequest.eventType=NW_IN;
-		memcpy(&EventRequest.eventData.nw.stream, InValue, size_in);
+		mymemcpy(&EventRequest.eventData.nw.stream, InValue, size_in);
 		EventRequest.eventData.nw.size=size_in;
 
 		xQueueSend( xQueue_2IC, &EventRequest, 0U );
-		//xSemaphoreGive(xSem_2IC);
-		debug("I am the NW manager. I will send the message\n");
 
 		/* Receive Response data*/
 		xQueueReceive( xQueue_2NW, &ICEvent, portMAX_DELAY );
 
 		if(ICEvent.eventType == NW_OUT){
 			sizeout=ICEvent.eventData.nw.size;
-			memcpy(OutValue, ICEvent.eventData.nw.stream, sizeout);
+			mymemcpy(OutValue, ICEvent.eventData.nw.stream, sizeout);
 			ext_send(ClientSocket, OutValue, sizeout);
 		}
 
-		close(ClientSocket);
+		mycloseSocket(ClientSocket);
 	}
 
 

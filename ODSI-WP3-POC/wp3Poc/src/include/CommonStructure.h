@@ -14,7 +14,7 @@
 #define DOMID_SIZE                           ( 4+1 )
 #define KEY_SIZE                             ( 256+1 )
 #define KEYID_SIZE                           ( 4+1 )
-#define TOKEN_SIZE                           ( 4+1 )
+#define TOKEN_SIZE                           ( 64+1 )
 #define DATA_SIZE                            ( 512+1 )
 #define REQID_SIZE                           ( 4+1 )
 #define INS_SIZE                             ( 4+1 )
@@ -43,6 +43,7 @@ typedef struct incomingMessage{
 	uint32_t userID;
 	uint32_t deviceID;
 	uint32_t domainID;
+	uint32_t tokenSize;
 	char token[TOKEN_SIZE];
 	command_t command;
 }incomingMessage_t;

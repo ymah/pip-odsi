@@ -33,11 +33,12 @@ command_t *commandreset(command_t* dest){
 	return dest;
 }
 
-incomingMessage_t *incomingMessageinit(incomingMessage_t *dest, uint32_t userID, uint32_t deviceID, uint32_t domainID, char* token, char* data, uint32_t ins){
+incomingMessage_t *incomingMessageinit(incomingMessage_t *dest, uint32_t userID, uint32_t deviceID, uint32_t domainID, uint32_t tokenSize, char* token, char* data, uint32_t ins){
 	dest->userID = userID;
-	dest->deviceID=deviceID;
+	dest->deviceID = deviceID;
 	dest->domainID = domainID;
-	strcpy(dest->token, token);
+	dest->tokenSize = tokenSize;
+	mymemcpy(dest->token, token, TOKEN_SIZE);
 	commandinit(&dest->command, data, ins, userID);
 
 	return dest;
@@ -47,7 +48,8 @@ incomingMessage_t *incomingMessagecpy(incomingMessage_t *dest, incomingMessage_t
 	dest->userID=src->userID;
 	dest->deviceID=src->deviceID;
 	dest->domainID =src->domainID;
-	strcpy(dest->token,src->token);
+	dest->tokenSize = src->tokenSize;
+	mymemcpy(dest->token,src->token, TOKEN_SIZE);
 	commandcpy(&dest->command, &src->command);
 
 	return dest;
@@ -57,6 +59,7 @@ incomingMessage_t *incomingMessagereset(incomingMessage_t *dest){
 	dest->userID=0;
 	dest->deviceID = 0;
 	dest->domainID = 0;
+	dest->tokenSize = 0;
 	mymemset(dest->token, 0, TOKEN_SIZE);
 	commandreset(&dest->command);
 	return dest;
@@ -64,7 +67,7 @@ incomingMessage_t *incomingMessagereset(incomingMessage_t *dest){
 
 response_t* responseinit(response_t *dest, int responsecode, char* data, uint32_t userID){
 	dest->responsecode=responsecode;
-	strcpy(dest->data,data);
+	mymemcpy(dest->data,data, DATA_SIZE);
 	dest->userID= userID;
 	return dest;
 }

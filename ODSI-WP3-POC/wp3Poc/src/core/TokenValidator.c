@@ -44,7 +44,7 @@ void TokenValidateTask( void *pvParameters )
 		FreeRTOSConfig.h. */
 		//xSemaphoreTake( xSem_2TV, portMAX_DELAY );
 		xQueueReceive( xQueue_2TV, &ReceivedValue, portMAX_DELAY );
-		debug("Hello! I am the token Validator !\n");
+		DEBUG(TRACE,"Hello! I am the token Validator !\n");
 
 		switch(ReceivedValue.eventType){
 		case INMESSAGE:
@@ -70,7 +70,7 @@ void TokenValidateTask( void *pvParameters )
 			 * be empty at this point in the code. */
 
 			if(result == 1){
-				debug("Token is valid\n");
+				DEBUG(TRACE,"Token is valid\n");
 				EventToSend.eventType=RESPONSE;
 				EventToSend.eventData.incomingMessage.userID=ResponseToSend.userID;
 				ResponseToSend.responsecode= SUCCESS ;
@@ -80,7 +80,7 @@ void TokenValidateTask( void *pvParameters )
 				xQueueSend( xQueue_2AM, &EventToSend, 0U );
 			}
 			else{
-				debug("Token is not valid\n");
+				DEBUG(TRACE,"Token is not valid\n");
 				ResponseToSend.userID=ReceivedValue.eventData.incomingMessage.userID;
 				strcpy(ResponseToSend.data, "");
 				ResponseToSend.responsecode= INVALID_TOKEN ;
@@ -95,7 +95,7 @@ void TokenValidateTask( void *pvParameters )
 		case RESPONSE :
 		case GET_KEY :
 		default :
-			debug("TOKEN_VALIDATOR: Unknown Event Type\n");
+			DEBUG(TRACE,"TOKEN_VALIDATOR: Unknown Event Type\n");
 			break;
 		}
 	}

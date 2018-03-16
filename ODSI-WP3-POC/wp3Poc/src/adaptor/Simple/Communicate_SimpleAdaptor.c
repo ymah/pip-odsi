@@ -34,6 +34,7 @@ event_t myreceive(char* data, QueueHandle_t xQueue_P2IC){
 	if (result != 0){
 		EventToReturn.eventData.incomingMessage=deserialize_incomingMessage(data, result);
 		EventToReturn.eventType=INMESSAGE;
+
 		return EventToReturn;
 	}
 	else

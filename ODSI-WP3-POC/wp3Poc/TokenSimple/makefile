@@ -9,7 +9,7 @@ OBJ = obj/validateTokenSimple.o
 clean:
 	rm obj/*
 
-install : obj/libtoken_simple.a
+install : obj/libtoken_simple.a 
 	mv obj/libtoken_simple.a ../lib/libtoken_simple.a
 
 obj/libtoken_simple.a: $(OBJ)
