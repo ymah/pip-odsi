@@ -1,4 +1,25 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Oravec2017}
+Jo~Ann Oravec.
+\newblock {Kill switches, remote deletion, and intelligent agents: Framing
+  everyday household cybersecurity in the internet of things}.
+\newblock {\em Technology in Society}, 51:189--198, 2017.
+
+\bibitem{Sivaraman2016}
+Vijay Sivaraman, Dominic Chan, Dylan Earl, and Roksana Boreli.
+\newblock {Smart-Phones Attacking Smart-Homes}.
+\newblock In {\em Proceedings of the 9th ACM Conference on Security {\&}
+  Privacy in Wireless and Mobile Networks - WiSec '16}, pages 195--200, New
+  York, New York, USA, 2016. ACM Press.
+
+\bibitem{bergougnoux2017}
+Quentin Bergougnoux, Julien Iguchi-Cartigny, and Gilles Grimaud.
+\newblock {Pip, un proto-noyau fait pour renforcer la s{\'e}curit{\'e} dans les
+  objets connect{\'e}s}.
+\newblock In {\em {Conf{\'e}rence d'informatique en Parall{\'e}lisme,
+  Architecture et Syst{\`e}me (ComPAS)}}, Sophia Antipolis, France, June 2017.
+  {Universit{\'e} Sophia Antipolis}.
 
 \bibitem{enisa_iot_2017}
 ENISA.
