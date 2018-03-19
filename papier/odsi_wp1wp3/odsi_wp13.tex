@@ -300,11 +300,13 @@ We distinguish device ressources and domain ressources. Device ressources corres
 
 \subsection{Actors}
 \label{sec:Actors}
-We identify 6 stakeholders, namely the manufacturer, maintainer, owner, administrator, service provider and user, which interact with the IOT ot M2M device.
+We identify 7 stakeholders, namely the manufacturer, packager, maintainer, owner, administrator, service provider and user, which interact with the IOT ot M2M device. One device may be associated to 1 packager, 1 owner, 1 administrator and several manufacturers, maintainers and service providers. One actor may hold several roles. For example, one actor can be at the same time a manufacturer, a packager and a maintainer.
 \subsubsection{Manufacturer}
+Manufacturers provide at least one component of the device, either a physical component with its driver, an operating system or an isolation solution. Manufacturers also provide updates \& patches for the component and the driver to the packager and/or maintainers. 
+\subsubsection{Packager}
 It issues the device and the isolation solution. It also provides each device an identifier that will subsequently allow it to be identified as well as intial secrets that will allow the owner to access the device. It may also provide the drivers and software components for the sensors or actuators on the device. 
 \subsubsection{Maintainer}
-It maintains the device, monitors the hardware components status and applies the patches deliveres by the manufacturer. This role can either be assumed or delegated to a third party by the manufacturer. 
+It maintains the device, monitors the hardware components status and deploys the patches delivered by the manufacturer. 
 \subsubsection{Owner}
 The device belongs to the Owner who defines an access policy to authorize which other entities are authorized to use or manage the device or domains within the device. The Owner can possess several devices. It receives initial credentials from the manufacturer that allows it to access each device in his fleet. 
 \subsubsection{Administrator}
@@ -312,17 +314,17 @@ It enforces the policy defined by the owner for his fleet of devices. If any mod
 \subsubsection{Service Provider}
 It delivers a user-friendly service on one or multiple devices using the ressources authorized by the Owner. It installs or activates a service within the device. Muliple Service Providers can co-exist on the same device. 
 \subsubsection{User}
-Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article we focus on platform users. 
+Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article we focus on platform users.
+ 
 \subsection{Responsibilities model}
 \label{sec:Resp_model}
+The packager provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The packager is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The packager provides a platform in a safe state to the owner and does not keep any access to the owner domain. In particular, the packager does not manage access control to the drivers.\\
 
-The manufacturer provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The manufacturer is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The manufacturer provides a platform in a safe state to the owner and does not keep any access to the manufacturer domain. In particular, the manufacturer does not manage access control to the drivers.\\
-
-The Owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
+The owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
 
 If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.\\
 
-The maintainer keeps the firmware, driver or any software in his perimeter up to date. This responsibility is key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to the commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the Internet Of Things (IoT) Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
+The maintainers keep the firmware, driver or any software in their perimeter up to date. This responsibility is key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to the commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the Internet Of Things (IoT) Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
 
 Any entity which owns a partition (administrator, service provider, and maintainer) has to authenticate the machine (or user) who is sending the commands to the partition. This entity can choose to not perform and access control verification, thus reducing the security of the system. Any entity which owns a partition (administrator, service provider, and maintainer) is responsible for modifying the temporary credentials of its associated domains.\\
 
@@ -338,35 +340,37 @@ The responsibilities described in this section are summarized in table \ref{tab:
 \centering
 % Some packages, such as MDW tools, offer better commands for making tables
 % than the plain LaTeX2e tabular which is used here.
-\begin{tabular}{|p{8cm}||c|c|c|c|c|c|}
+\begin{tabular}{|p{7cm}||c|c|c|c|c|c|c|}
 \hline
-Requirements & Manufacturer & Maintainer & Owner & Administrator & Service Provider\\
+Responsibilities & Manufacturer & Packager & Maintainer & Owner & Administrator & Service Provider\\
 \hline
-Provide mechanisms \& temporary credentials for initial device personalization before delivery to the owner & X & & & &\\
+Provide device components (hardware \& drviers, OS, isolation solution) & X & & & & &\\
 \hline
-Provide drivers compatible with virtualization \& multi-tenant usage & X & & & &\\
+Provide mechanisms \& temporary credentials for initial device personalization before delivery to the owner & & X & & & &\\
 \hline
-Provide temporary credentials for initial domain personalization to entities after delivery to the owner & & & X & X & \\
+Provide virtualization \& multi-tenant compatible components & & X & & & &\\
 \hline
-Update regularly the credentials to access the domain under its responsibility & X & X & X & X & X\\
+Provide temporary credentials for initial domain personalization to entities after delivery to the owner & & X & & X & X & \\
 \hline
-Provide the device to owner without a remote backdoor access & X & & & & \\
+Update regularly the credentials to access its domain & & & X & X & X & X\\
 \hline
-Create / Modify / Delete a domain before delivery to owner & X & & & & \\
+Provide components or device to owner without remote backdoor access & X & X & & & & \\
 \hline
-Create / Modify / Delete a domain after delivery to owner & & & X & X & \\
+Create / Modify / Delete a domain before delivery to owner & & X & & & & \\
 \hline
-Configure the access policy of the device ressources & & & X & & \\
+Create / Modify / Delete a domain after delivery to owner & & & & X & X & \\
 \hline
-Enforce the device ressource access policy & & & X & X & \\
+Configure the access policy of the device ressources & & & & X & X & \\
 \hline
-Configure the domain ressource access policy & X & X & X & X & X \\
+Enforce the device ressource access policy & & & & X & X & \\
 \hline
-Enforce the domain ressource access policy & X & X & X & X & X \\
+Configure its domain ressource access policy & & & X & X & X & X \\
 \hline
-Keep the firmware \& drivers up to date & X & X & & & \\
+Enforce its domain ressource access policy & & & X & X & X & X \\
 \hline
-Keep the service applications up to date & & & & & X \\
+Keep the firmware \& drivers up to date & & & X & & & \\
+\hline
+Keep the service applications up to date & & & & & & X \\
 \hline
 \end{tabular}
 \end{table*}
@@ -378,7 +382,7 @@ Keep the service applications up to date & & & & & X \\
 Two services which run in two isolated domains should not be able to access the memory of one another, gain information about each other or interfere with each other's execution. 
 
 \subsubsection{Owner non-interference}
-Although the owner or the administrator have access to a privileged domain, they must not have any control or visibility on the actions performed by other entities if these actions do not involve device ressources which are under the responsibility of the owner.
+Although the owner or the administrator have access to a privileged domain, they must not have any control or visibility on the actions performed by other entities unless these actions involve device ressources under the responsibility of the owner.
 
 \subsubsection{Ressource access control}
 A device ressource access policy under the control of the owner or the administrator is mandatory. For each domain, a domain ressource access policy under the control of the domain owner (maintainer, service provider) is optional. 
