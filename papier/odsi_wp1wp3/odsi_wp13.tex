@@ -394,6 +394,16 @@ The processing required to authorize an action in the device must be minimal.
 \label{sec:Architecture}
 This section describes the architecture proposed in the ODSI project. First, we describe the overall architecture. Then, we define the notion of domain in this architecture as well as its components. Finally, we describe the communication and management models.
 
+\subsection{Definition of a domain}
+\label{sec:Domain_def}
+In this architecture, the device is shared between several parties with different roles (described in section \ref{sec:Actors}). As one party can execute various pieces of code in different spaces, the following vocabulary is used:
+\begin{itemize}
+    \item A partition is a piece of code managed by one party with its own memory space
+    \item A domain is the union of all partitions managed and developped by one party.
+\end{itemize}
+
+Figure \ref{fig:Arch_mem} illustrates an example of memory layout with 3 domains. The owner domain is the most privileged and the parent of domains 2 (maintainer) and 3 (service provider).
+In each domain, subpartitions allow to further isolate components. For example, in the owner domain (Dom0), the drivers (sensor driver, actuator driver, network driver) and the managers which allow to virtualise them are isolated from each others. They are also isolated from the scheduler, the configuration manager and the components Admin Manager, Key Vault, Token \& Security Validator and Internal Communicator which enforce the security management model described in this article. 
 
 \begin{figure}[h!]
 \centering
@@ -402,6 +412,13 @@ This section describes the architecture proposed in the ODSI project. First, we 
 \label{fig:Arch_mem}
 \end{figure}
 
+
+\subsection{Components of a domain}
+\label{sec:Domain_comp}
+This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture proposed is also based on the use of virtual sensors and actuators.\\
+
+Figure \ref{fig:Arch_soft} represents the software layer which corresponds to the example used in figure \ref{fig:Arch_mem}. The PIP kernel exposes isolation services to an OS on which domains and partitions are created. The OS layer contains a scheduler which organizes the time and operations of the domains and partitions and each domain configuration manager. The application layer contains the drivers and all the modules of the architecture defined here. The OS and application layers both belong to user land. 
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=9cm]{figures/soft_layer.png}
@@ -409,35 +426,21 @@ This section describes the architecture proposed in the ODSI project. First, we 
 \label{fig:Arch_soft}
 \end{figure}
 
-\subsection{Definition of a domain}
-\label{sec:Domain_def}
-In this architecture, the device is shared between several parties with different roles (described in section \ref{sec:Actors}). As one party can execute various code in different space, the following vocabulary is used:
-\begin{itemize}
-    \item A partition is a piece of code managed by one party with its own memory space
-    \item A domain is the union of all partitions managed and code by one party.
-\end{itemize}
-\todo[inline]{Do we design ODSI platform \& ODSI Mesovisor specifically in this article ?}
-Domains are implemented in ODSI Mesovisor via the hierarchical memory model. As the memory space of partition can contain the (disjoint) memory space of several sub-partitions (which can themselves contains others sub-sub-partitions), the parent partition controller by one party is the party domain and every enclosed partitions are controlled by the same party.
-
-
-\subsection{Components of a domain}
-\label{sec:Domain_comp}
-This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture proposed is also based on the use of virtual sensors and actuators. 
-
 \subsubsection{Configuration Manager}
 \label{sec:Config_Mgr}
-The Configuration Manager is part of the 
+The Configuration Manager contains a description of the domain's sub partitions, the associated code and the authorized communication channels between two partitions. It enforces the communications mechanism based on shared memory and described in section \ref{sec:Communication_model}. It is provided as a service of the FreeRTOS version ported over PIP.\todo[inline]{Is this sentence OK for you Mahieddine ?}
 
 \subsubsection{Internal Communicator}
 \label{sec:Int_Com}
 The Internal Communicator is the unique entry point of the domain. It verifies incoming messages whether they come from the network or another domain, similarly to a firewall.
 
-%\subsubsection{Domain manager}
-%The domain manager allows remote management of the domain to create, read, modify or delete tasks or partitions within a domain. This module also contains a security policy which indicates which tasks and partitions should be started when the domain is started. This security policy also creates the communication channels between the tasks and partitions in the domain. 
+\subsubsection{Virtual sensors or actuators managers}
+\label{sec:virtual_sensor} 
+These managers provides synthetic sensor and actuator support to the virtual sensors and actuators over the internal communication module.
 
 \subsubsection{Virtual sensors or actuators}
 \label{sec:virtual_sensor}
-The drivers are provided by the manufacturer of the device and are stored in a separate domain. Each domain contains a virtual sensor or actuator which exposes the functions of the actual sensor or actuator and acts as an interface with it. This allows the entity which owns the domain to see his domain as an actual device without knowledge of the isolation. The instruction and response are transmitted to and from the real driver using the internal communication mechanism.  
+Only the owner domain can manage the machine-level functions such as the drivers or the physical memory. Each domain contains a virtual sensor or actuator which are a synthetic sensor or actuator instance. It consumes the hardware ressources provided by the virtual sensor or actuator manager and requires and forwards a token to the owner domain if required. This allows the entity which owns the domain to see his domain as an actual device without knowledge of the isolation. The instruction and response are transmitted to and from the real driver using the internal communication mechanism. The virtual sensor or actuator updater is specific and allows the update of the related sensor or actuator driver in the owner domain. 
 
 \subsubsection{Administration Manager}
 \label{sec:Admin_Mgr}
@@ -452,15 +455,46 @@ The Token \& Security Validator (T\&S Validator) validates each device managemen
 This module stores the keys that are used by the domain. In particular, the keys used by the Token \& Security Valdiator are stored here. It also provides the functions to add a new key, modify or delete an existing key.
 
 \subsection{Management model}
+
+As depicted in figure \ref{fig:Mgt_model}, the model proposed is based on master/agent model. Each domain receives commands from a server which authenticates the origin of the command and authorizes it. The administration manager in the domain is an agent which expects requests from its master, the administration application in the server. The Token \& Security Validator validates the token generated according to the access policy on the server side. For simplicity's sake, only the components \& modules related to the owner domain are detailed in figure \ref{fig:Mgt_model}.\\
+
 \label{sec:Management_model}
-\todo[inline]{Image ?}
-The model proposed is based on a master/agent model. Each domain contains an agent, the administration manager which receives commands from a master, generally an application in a server.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{figures/management_model.png}
+\caption{Proposed architecture - Management model}
+\label{fig:Mgt_model}
+\end{figure}
+
+Each entity is responsible for managing and authorizing the access of its own domain ressources (e.g. domain token keys, application installation) to its users. The owner also manages and authorizes the access to device ressources (e.g. sensor drivers \& virtual managers) to its users and to other entities (e.g. maintainer or service provider).\\
+
+\subsubsection{Domain ressources management}
+An example of domain ressource management is the modification of the URL from which to retrieve the package which contains a driver update. This parameter is in the perimeter of the maintainer and does not require any modification on the drivers or parameters controled by the owner. Therefore, it is the maintainer's responsiblity to ensure that this modification can be performed only by authenticated \& authorized users.\\
+
+Figure \ref{fig:DomRes_AP} illustrates the steps necessary for this operation. First, the client which requests the modification is authenticated. Then, it choses an operation prposed by the administration manager and the access policy evaluates whether this particular user is authorized to perform the selected operation. If yes, the token A is generated and the maintainer sends the command and the token are sent to the maintainer's domain where the command is processed.
+\label{sec:DomRes_AP}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{figures/DomRes_AP.png}
+\caption{Management of domain ressources}
+\label{fig:DomRes_AP}
+\end{figure}
+\subsubsection{Device ressources management}
+An example of device ressource management is the download, deployment \& installation of a package with a driver udpate. In this case, the maintaier authenticates the user which requests this operation and then requests the owner the authorization to perform it.\\
+
+Figure \ref{fig:DevRes_AP} illustrates the steps necessary for this operation. First, the client which requests the update is authenticated and authorized by the maintainer server. Then, the maintainer server forwards the request to the owner. The owner authenticates the maintainer server which initiates the request and which will deploy the update package, authorizes the operation according to its own access policy and generates token B. The maintainer server now sends the command, token A and token B to the maintainer's domain. Once token A is verified by the maintainer Token \& Security Validator, the virtual sensor updator sends the command and token B to the Owner domain. If the owner validates token B, the update is authorized.
+\label{sec:DevRes_AP}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{figures/DevRes_AP.png}
+\caption{Management of device ressources}
+\label{fig:DevRes_AP}
+\end{figure}
+
 \subsubsection{Token scheme}
 The token format should contain at minimum a payload and a signature of this payload. Compatible token formats include JWT (JSON Web Token) \cite{rfc7519_jwt_2015} and CWT (CBOR Web Token) \cite{rfc_CWT_2017}.\\
 
-The token's objectives are to 1) ensure that any command will reach the intended destination, 2) give the rights to request some operations on ressources, 3) prove that the entity initiating the command has been authenticated authorized and protect against replay.
-
-In order to achieve these goals, the token should contain at minimum:
+The token's objectives are to 1) ensure that any command will reach the intended destination, 2) give the rights to request some operations on ressources, 3) prove that the entity initiating the command has been authenticated authorized and protect against replay. To achieve these goals, the token should contain at minimum:
 \begin{itemize}
     \item the ID of the partition to which this token is destined,
     \item the rights granted,
@@ -471,15 +505,10 @@ In order to achieve these goals, the token should contain at minimum:
 The proof can either be a digital signature, such as ANS X9.31, ANS X9.62 or PKCS\#1 as recommended by NIST \cite{nist_dss_2013} or a Keyed-hash Message Authentication Codes (HMACS) compliant NIST recommendations and using a NIST-approved hash algorithm such as SHA-256 \cite{nist_hmac_2008, nist_hash_2012}, depending on the level of security and non-repudiation required.
 The token ID and expiration date are used to prevent replay. The token ID can be compared to a set of previously used IDs stored in a cache. The size of the cache should be adapted to the memory constraints of the partition and device. The combination of the size of the cache and the expiration date allows achieving best effort replay detection. Therefore, it is strongly recommended to use both elements and to tune them carefully. 
 
-\subsubsection{Domain ressources management}
-%\lipsum[1-6]
-\subsubsection{Device ressources management}
-%\lipsum[1-6]
-
 \subsection{Communication model}
 \label{sec:Communication_model}
 \todo[inline]{TBD. Section to be described by Lille}
-The main requirement for the communication protocol is to allow master/agent communication and the transport of a payload with the command content and an associated token. Protocols such as TCP/IP or CoAP are eligible. LwM2M \cite{oma_lwm2M_2017} cannot be used as such because it does not allow adding the token in its payload.
+The main requirement for the communication protocol is to allow master/agent communication and the transport of a payload with the command content and an associated token. Protocols such as TCP/IP or CoAP are eligible. LwM2M \cite{oma_lwm2M_2017} would require some modification to add a token to the message.
 
 \subsubsection{Internal communication}
 
@@ -496,9 +525,9 @@ The aim of ODSI architecture is to provide a safe environment for each service p
 Each service provider has to trust the platform and the platform has to guarantee to each 
 
 \todo[inline]{TOD0: 
-- Confiance entre service, chaque service doit se voir garantir que son Ã©tat ne peut Ãªtre altÃ©rÃ© par un autre service, potentiellement concurent
+- Confiance entre service, chaque service doit se voir garantir que son état ne peut être altéré par un autre service, potentiellement concurent
 
-- Chaque service doit faire confiance Ã  la platforme, Ã©tant donnÃ©e qu'elle est dans sa TCB.}
+- Chaque service doit faire confiance à la platforme, étant donnée qu'elle est dans sa TCB.}
 
 
 
@@ -507,8 +536,8 @@ Each service provider has to trust the platform and the platform has to guarante
 \subsection{Need in separation}
 
 \todo[inline]{TOD0: 
-	- Pip fourni l'isolation recherchÃ©e par les service pour garantir leur espace de travail/ espace d'adressage
-	- Le mechanisme de token garantie que chaque service ne peut Ãªtre accdÃ©dÃ© que via l'API qu'il aura exposÃ©e et sans plus}
+	- Pip fournit l'isolation recherchée par les services pour garantir leur espace de travail/ espace d'adressage
+	- Le méchanisme de token garantit que chaque service ne peut être accédé que via l'API qu'il aura exposé et sans plus}
 
 \section{Illustration \& discussion}
 \todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
