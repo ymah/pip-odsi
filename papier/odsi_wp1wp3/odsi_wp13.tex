@@ -287,16 +287,13 @@ Pip does not provide IPC between two distinct partitions. However, this mechanis
 For more complex architecture (like figure \ref{abstree:fig}), this mechanism can be recursively used to send signal between any partitions (ex : P1.1 to P.1.2.2).
 
 
- 
-
-
 \section{Industrial ecosystem}
 \label{sec:Industrial_ecosystem}
-This section aims at describing the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.\\
+This section describes the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.\\
 
-In this section, we consider that a domain is an isolated area which belongs to an entity. The notion of domain is further precised in section \ref{sec:Domain_def}.\\
+We consider that a domain is an isolated area which belongs to an entity. The notion of domain is precised in section \ref{sec:Domain_def}.\\
 
-We distinguish device ressources and domain ressources. Device ressources correspond to the isolated partitions (domains) and the ressources exposed by software installed in the manufacturer or owner domains or the sensors \& actuators drivers. Domain ressources correspond to the ressources that are exposed by a particular domain and created by applications or services in this domain.\\
+We distinguish device ressources and domain ressources. Device ressources correspond to the isolated partitions (domains) and the ressources exposed by software, actuators or sensors drivers installed by the packager in the owner domain and which are related to the device. Domain ressources correspond to any ressource not related to the device and created within the given domain. En example of device ressource is the firmware or its updater. An example of a domain ressource is a key to create an SSL channel between a remote platform and a given domain.\\
 
 \subsection{Actors}
 \label{sec:Actors}
@@ -314,19 +311,10 @@ It enforces the policy defined by the owner for his fleet of devices. If any mod
 \subsubsection{Service Provider}
 It delivers a user-friendly service on one or multiple devices using the ressources authorized by the Owner. It installs or activates a service within the device. Muliple Service Providers can co-exist on the same device. 
 \subsubsection{User}
-Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article we focus on platform users.
+Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article, we focus on platform users.
  
 \subsection{Responsibilities model}
 \label{sec:Resp_model}
-The packager provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The packager is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The packager provides a platform in a safe state to the owner and does not keep any access to the owner domain. In particular, the packager does not manage access control to the drivers.\\
-
-The owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
-
-If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.\\
-
-The maintainers keep the firmware, driver or any software in their perimeter up to date. This responsibility is key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to the commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the Internet Of Things (IoT) Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
-
-Any entity which owns a partition (administrator, service provider, and maintainer) has to authenticate the machine (or user) who is sending the commands to the partition. This entity can choose to not perform and access control verification, thus reducing the security of the system. Any entity which owns a partition (administrator, service provider, and maintainer) is responsible for modifying the temporary credentials of its associated domains.\\
 
 The responsibilities described in this section are summarized in table \ref{tab:resp_table}.\\
 
@@ -346,15 +334,17 @@ Responsibilities & Manufacturer & Packager & Maintainer & Owner & Administrator 
 \hline
 Provide device components (hardware \& drviers, OS, isolation solution) & X & & & & &\\
 \hline
-Provide mechanisms \& temporary credentials for initial device personalization before delivery to the owner & & X & & & &\\
+Gather components into a device & & X & & & &\\
 \hline
-Provide virtualization \& multi-tenant compatible components & & X & & & &\\
+Use or provide virtualization \& multi-tenant compatible components & & X & & & &\\
+\hline
+Provide mechanisms \& temporary credentials for initial device personalization before delivery to the owner & & X & & & &\\
 \hline
 Provide temporary credentials for initial domain personalization to entities after delivery to the owner & & X & & X & X & \\
 \hline
 Update regularly the credentials to access its domain & & & X & X & X & X\\
 \hline
-Provide components or device to owner without remote backdoor access & X & X & & & & \\
+Provide components or devices to owner without remote backdoor access & X & X & & & & \\
 \hline
 Create / Modify / Delete a domain before delivery to owner & & X & & & & \\
 \hline
@@ -368,12 +358,24 @@ Configure its domain ressource access policy & & & X & X & X & X \\
 \hline
 Enforce its domain ressource access policy & & & X & X & X & X \\
 \hline
-Keep the firmware \& drivers up to date & & & X & & & \\
+Provide updates \& patches of components & X & & & & & \\
+\hline
+Follow up, deploy updates of firmware or drivers & & & X & & & \\
 \hline
 Keep the service applications up to date & & & & & & X \\
 \hline
 \end{tabular}
 \end{table*}
+
+The packager gathers hardware, drivers and OS from various manufacturers and creates a device with this collection of components. It provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The packager is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The packager provides a platform in a safe state to the owner and does not keep any access to the owner domain. In particular, the packager does not manage access control to the drivers.\\
+
+The owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
+
+If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.\\
+
+The maintainers keep the firmware, driver or any software in their perimeter up to date. Their role is to keep track of the latest updates and changes provided by manufacturers and deploy them on the field. Both responsibilities (correcting software and deploying updates) are key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the Internet Of Things (IoT) Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
+
+Any entity which owns a partition (administrator, service provider, and maintainer) has to authenticate the machine (or user) who is sending the commands to the partition. This entity can choose to not perform and access control verification, thus reducing the security of the system. Any entity which owns a partition (administrator, service provider, and maintainer) is responsible for modifying the temporary credentials of its associated domains.
 
 \subsection{Architecture requirements}
 \label{sec:Arch_req}
@@ -417,7 +419,7 @@ In each domain, subpartitions allow to further isolate components. For example, 
 \label{sec:Domain_comp}
 This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture proposed is also based on the use of virtual sensors and actuators.\\
 
-Figure \ref{fig:Arch_soft} represents the software layer which corresponds to the example used in figure \ref{fig:Arch_mem}. The PIP kernel exposes isolation services to an OS on which domains and partitions are created. The OS layer contains a scheduler which organizes the time and operations of the domains and partitions and each domain configuration manager. The application layer contains the drivers and all the modules of the architecture defined here. The OS and application layers both belong to user land. 
+Figure \ref{fig:Arch_soft} represents the software layers which correspond to the example used in figure \ref{fig:Arch_mem}. The PIP kernel exposes isolation services to an OS on which domains and partitions are created. The OS layer contains a scheduler which organizes the time and operations of the domains and partitions and each domain configuration manager. The application layer contains the drivers and all the modules of the architecture defined here. The OS and application layers both belong to user land. 
 
 \begin{figure}[h!]
 \centering
@@ -428,7 +430,7 @@ Figure \ref{fig:Arch_soft} represents the software layer which corresponds to th
 
 \subsubsection{Configuration Manager}
 \label{sec:Config_Mgr}
-The Configuration Manager contains a description of the domain's sub partitions, the associated code and the authorized communication channels between two partitions. It enforces the communications mechanism based on shared memory and described in section \ref{sec:Communication_model}. It is provided as a service of the FreeRTOS version ported over PIP.\todo[inline]{Is this sentence OK for you Mahieddine ?}
+The Configuration Manager contains a description of the domain's sub partitions, the associated code and the authorized communication channels between two partitions. It enforces the communications mechanism based on shared memory and described in section \ref{sec:Communication_model}.
 
 \subsubsection{Internal Communicator}
 \label{sec:Int_Com}
@@ -469,9 +471,9 @@ As depicted in figure \ref{fig:Mgt_model}, the model proposed is based on master
 Each entity is responsible for managing and authorizing the access of its own domain ressources (e.g. domain token keys, application installation) to its users. The owner also manages and authorizes the access to device ressources (e.g. sensor drivers \& virtual managers) to its users and to other entities (e.g. maintainer or service provider).\\
 
 \subsubsection{Domain ressources management}
-An example of domain ressource management is the modification of the URL from which to retrieve the package which contains a driver update. This parameter is in the perimeter of the maintainer and does not require any modification on the drivers or parameters controled by the owner. Therefore, it is the maintainer's responsiblity to ensure that this modification can be performed only by authenticated \& authorized users.\\
+An example is the modification of the URL from which to retrieve the package which contains a driver update. This parameter is in the perimeter of the maintainer and does not require any modification on the drivers or parameters controled by the owner. Therefore, it is the maintainer's responsiblity to ensure that this modification can be performed only by authenticated \& authorized users.\\
 
-Figure \ref{fig:DomRes_AP} illustrates the steps necessary for this operation. First, the client which requests the modification is authenticated. Then, it choses an operation prposed by the administration manager and the access policy evaluates whether this particular user is authorized to perform the selected operation. If yes, the token A is generated and the maintainer sends the command and the token are sent to the maintainer's domain where the command is processed.
+As illustrated in figure \ref{fig:DomRes_AP}, first, the client which requests the modification is authenticated. Then, it choses an operation proposed by the administration manager and the access policy evaluates whether this particular user is authorized to perform the selected operation. If yes, the token A is generated and the maintainer sends the command and the token are sent to the maintainer's domain where the command is processed.
 \label{sec:DomRes_AP}
 \begin{figure}[h!]
 \centering
@@ -479,10 +481,11 @@ Figure \ref{fig:DomRes_AP} illustrates the steps necessary for this operation. F
 \caption{Management of domain ressources}
 \label{fig:DomRes_AP}
 \end{figure}
-\subsubsection{Device ressources management}
-An example of device ressource management is the download, deployment \& installation of a package with a driver udpate. In this case, the maintaier authenticates the user which requests this operation and then requests the owner the authorization to perform it.\\
 
-Figure \ref{fig:DevRes_AP} illustrates the steps necessary for this operation. First, the client which requests the update is authenticated and authorized by the maintainer server. Then, the maintainer server forwards the request to the owner. The owner authenticates the maintainer server which initiates the request and which will deploy the update package, authorizes the operation according to its own access policy and generates token B. The maintainer server now sends the command, token A and token B to the maintainer's domain. Once token A is verified by the maintainer Token \& Security Validator, the virtual sensor updator sends the command and token B to the Owner domain. If the owner validates token B, the update is authorized.
+\subsubsection{Device ressources management}
+An example is the download, deployment \& installation of a package with a driver udpate. In this case, the maintaier authenticates the user which requests this operation and then requests the owner the authorization to perform it.\\
+
+Figure \ref{fig:DevRes_AP} illustrates the steps necessary for this operation. First, the client which requests the update is authenticated and authorized by the maintainer server. Then, the maintainer server forwards the request to the owner. The owner authenticates the maintainer server which initiates the request and which will deploy the update package, authorizes the operation according to its own access policy and generates token B. The maintainer server now sends the command, token A and token B to the maintainer's domain. Once token A is verified by the maintainer's Token \& Security Validator, the virtual sensor updator sends the command and token B to the Owner domain. If the owner validates token B, the update is authorized.
 \label{sec:DevRes_AP}
 \begin{figure}[h!]
 \centering
@@ -528,9 +531,6 @@ Each service provider has to trust the platform and the platform has to guarante
 - Confiance entre service, chaque service doit se voir garantir que son état ne peut être altéré par un autre service, potentiellement concurent
 
 - Chaque service doit faire confiance à la platforme, étant donnée qu'elle est dans sa TCB.}
-
-
-
 
 
 \subsection{Need in separation}
