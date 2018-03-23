@@ -560,8 +560,7 @@ We can take the example presented in figure \ref{fig:houseiot}. Each device is c
 \end{figure}
 
 
-Now, with the same attack scenario as described above, if the music application is not secure and can give access to attacker from outside the house, how the ODSI platform 
-can prevent from any attack propagation ? 
+Now, with the same attack scenario as described above, if the music application is not secure and can give access to attacker from outside the house, how the ODSI platform can prevent from any attack propagation ? 
 
 As explained, memory isolation provided by Pip has the ability to avoid for music app to access to other domain's memory spaces (Video game app, Owner domain...). The only way for this application to contact other available devices is to use the internal communication mechanism provided by Pip and the ODSI platform. The token mechanism allows only a set of authorized message to a specific service. This list of these commands are provided by the service provider itself. For example, for the music service, it can only authorize three commands : find song/singer, play music, stop music. If any malicious application running into the ODSI platform, it can not send corrupted command to the music service. Moreover, any corrupted service can not access to the hardware due to Pip and it can not use the network devicein order to find more fallible devices. 
 

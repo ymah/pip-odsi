@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  20 MAR 2018 16:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  22 MAR 2018 11:00
 entering extended mode
 **./odsi_wp13.tex
 (odsi_wp13.tex
@@ -1186,12 +1186,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 461--462
 
  []
 
-<figures/management_model.png, id=39, 909.3975pt x 429.605pt>
+<figures/management_model.png, id=39, 946.53625pt x 429.605pt>
 File: figures/management_model.png Graphic file (type png)
 
 <use figures/management_model.png>
 Package pdftex.def Info: figures/management_model.png used on input line 466.
-(pdftex.def)             Requested size: 256.0748pt x 120.97032pt.
+(pdftex.def)             Requested size: 256.0748pt x 116.22432pt.
 
 Overfull \hbox (4.0748pt too wide) in paragraph at lines 466--467
  [][] 
@@ -1215,12 +1215,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 474--475
 
 [5 <./figures/mem_layout.png (PNG copy)> <./figures/soft_layer.png (PNG copy)> 
 <./figures/management_model.png (PNG copy)>]
-<figures/DomRes_AP.png, id=43, 785.93625pt x 465.74pt>
+<figures/DomRes_AP.png, id=43, 846.16125pt x 475.7775pt>
 File: figures/DomRes_AP.png Graphic file (type png)
 
 <use figures/DomRes_AP.png>
 Package pdftex.def Info: figures/DomRes_AP.png used on input line 480.
-(pdftex.def)             Requested size: 256.0748pt x 151.74745pt.
+(pdftex.def)             Requested size: 256.0748pt x 143.98302pt.
 
 Overfull \hbox (4.0748pt too wide) in paragraph at lines 480--481
  [][] 
@@ -1231,12 +1231,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 486--487
 
  []
 
-<figures/DevRes_AP.png, id=44, 791.95876pt x 467.7475pt>
+<figures/DevRes_AP.png, id=44, 853.1875pt x 489.83pt>
 File: figures/DevRes_AP.png Graphic file (type png)
 
 <use figures/DevRes_AP.png>
 Package pdftex.def Info: figures/DevRes_AP.png used on input line 492.
-(pdftex.def)             Requested size: 256.0748pt x 151.2453pt.
+(pdftex.def)             Requested size: 256.0748pt x 147.0174pt.
 
 Overfull \hbox (4.0748pt too wide) in paragraph at lines 492--493
  [][] 
@@ -1323,7 +1323,7 @@ rier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><
 C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files
 /MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/urw/times/utmri8a.pfb>
-Output written on odsi_wp13.pdf (8 pages, 489124 bytes).
+Output written on odsi_wp13.pdf (8 pages, 491564 bytes).
 PDF statistics:
  86 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
