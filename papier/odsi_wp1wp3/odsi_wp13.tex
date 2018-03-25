@@ -522,7 +522,7 @@ The main requirement for the communication protocol is to allow master/agent com
 
 
 \section{Pip and ODSI architecture}
-The aim of ODSI architecture is to provide a safe environment for each service provider. In other words, the aim of ODSI and Pip is how to preserve the trust between each service provider and between the platform and the service provider.  
+The aim of ODSI and PIP is to provide an isolation which allows multiple applications to coexist he aim of ODSI architecture is to provide a safe environment for each service provider. In other words, the aim of ODSI and Pip is to preserve the trust between each service provider and between the platform and the service provider.  
 \subsection{Trust between service providers}
 
 Each service provider has to trust the platform and the platform has to guarantee to each 
@@ -542,9 +542,11 @@ Each service provider has to trust the platform and the platform has to guarante
 \section{Illustration \& discussion}
 \todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
 
-From the scenario described above\cite{Sivaraman2016}, we can use our proposed ODSI security architecture and Pip to avoid this kind attack on any household devices.
+An example of application of the proposed architecture is illustrated in figures \ref{fig:houseiot}, \ref{fig:ODSIGateway} and \ref{fig:ODSIDevice}. One or several home smart devices are associated to a domain in the gateway, \ref{fig:houseiot}. Each domain in the gateway exposes the associated small devices ressources to the outside worlds \ref{fig:ODSIGateway}. The devices are managed by only one entity and contains only one domain. Several partitions are created to isolate functions of the device.\\
 
-We can take the example presented in figure \ref{fig:houseiot}. Each device is connected to a service provider hosted by the ODSI platform, and it has not a direct connexion to other devices. We can illustrate this architecture with figure \ref{fig:odsiplatform}. If the Smartphone wants to start a music on the music provider, it has to use the application available into the ODSI platform.
+As depicted in figure \ref{fig:ODSIGateway}, domain 1 is managed by an audiovisual Service Provider which proposes an application to control a connected TV and audio device. Domain 2 is managed by an electronic device management which proposes an application to control a game console, electric outlets and connected lamps. These applications forward the commands and their token to the associated devices. The authentication and token generation can be done by the a service in the domain (e.g. domain 2) or by a service in the cloud (e.g. domain1). The NAT functionality is also isolated from other services in the gateway. Similary to small devices, all applications the three domains perform actions only if they are authenticated and authorized by a token issued by an application in the cloud.\\
+
+As depicted in figure \ref{fig:ODSIDevice}, small devices only have one domain and several isolated functionalities. For example, network drivers which are a potential entry point for attacks are isolated from other drivers and applications in the device. 
 
 \begin{figure}[h]
 	\centering
@@ -554,15 +556,20 @@ We can take the example presented in figure \ref{fig:houseiot}. Each device is c
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1\linewidth]{figures/ODSIplatform}
-	\caption{ODSI Platform}
-	\label{fig:odsiplatform}
+	\includegraphics[width=1\linewidth]{figures/ODSIGateway}
+	\caption{ODSI Gateway}
+	\label{fig:ODSIGateway}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/ODSIDevice}
+	\caption{Two examples of smart home devices (connected lamp and connected TV)}
+	\label{fig:ODSIDevice}
 \end{figure}
 
+The proposed security architecture avoids the attack described by Sivaraman et.al.\cite{Sivaraman2016}. Indeed, the token mechanism is used to authenticate each command sent to the devices or to the NAT configuration service in the router.\\
 
-Now, with the same attack scenario as described above, if the music application is not secure and can give access to attacker from outside the house, how the ODSI platform can prevent from any attack propagation ? 
-
-As explained, memory isolation provided by Pip has the ability to avoid for music app to access to other domain's memory spaces (Video game app, Owner domain...). The only way for this application to contact other available devices is to use the internal communication mechanism provided by Pip and the ODSI platform. The token mechanism allows only a set of authorized message to a specific service. This list of these commands are provided by the service provider itself. For example, for the music service, it can only authorize three commands : find song/singer, play music, stop music. If any malicious application running into the ODSI platform, it can not send corrupted command to the music service. Moreover, any corrupted service can not access to the hardware due to Pip and it can not use the network devicein order to find more fallible devices. 
+Using Pip enhances the protection against this attack by creating isolated partitions in the router and in the devices. Therefore, a successful attack against a domain in the gateway or a partition in the home smart devices can be contained. \\
 
 %\lipsum[1-4]
 

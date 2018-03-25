@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  22 MAR 2018 11:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  25 MAR 2018 21:46
 entering extended mode
 **./odsi_wp13.tex
 (odsi_wp13.tex
@@ -1271,24 +1271,67 @@ Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 Missing character: There is no é in font ptmr7t!
 
+Underfull \hbox (badness 10000) in paragraph at lines 545--546
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--548
+
+ []
+
 <figures/HouseIOT.png, id=48, 1535.7375pt x 923.45pt>
 File: figures/HouseIOT.png Graphic file (type png)
 
 <use figures/HouseIOT.png>
-Package pdftex.def Info: figures/HouseIOT.png used on input line 551.
+Package pdftex.def Info: figures/HouseIOT.png used on input line 553.
 (pdftex.def)             Requested size: 252.0pt x 151.51723pt.
-
-<figures/ODSIplatform.png, id=49, 1457.445pt x 908.39375pt>
-File: figures/ODSIplatform.png Graphic file (type png)
-
-<use figures/ODSIplatform.png>
-Package pdftex.def Info: figures/ODSIplatform.png used on input line 557.
-(pdftex.def)             Requested size: 252.0pt x 157.05847pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-(odsi_wp13.bbl [7 <./figures/HouseIOT.png> <./figures/ODSIplatform.png>])
+<figures/ODSIGateway.png, id=49, 644.4075pt x 429.605pt>
+File: figures/ODSIGateway.png Graphic file (type png)
+
+<use figures/ODSIGateway.png>
+Package pdftex.def Info: figures/ODSIGateway.png used on input line 559.
+(pdftex.def)             Requested size: 252.0pt x 167.99757pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/ODSIDevice.png, id=50, 460.72125pt x 508.90125pt>
+File: figures/ODSIDevice.png Graphic file (type png)
+
+<use figures/ODSIDevice.png>
+Package pdftex.def Info: figures/ODSIDevice.png used on input line 565.
+(pdftex.def)             Requested size: 126.0pt x 139.17563pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 3049) in paragraph at lines 570--571
+[]\OT1/ptm/m/n/10 The pro-posed se-cu-rity ar-chi-tec-ture avoids the at-tack
+ []
+
+
+Underfull \hbox (badness 5217) in paragraph at lines 570--571
+\OT1/ptm/m/n/10 de-scribed by Sivara-man et.al. [2]. In-deed, the to-ken
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 570--571
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 572--573
+
+ []
+
+(odsi_wp13.bbl [7 <./figures/HouseIOT.png> <./figures/ODSIGateway.png (PNG copy
+)>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1302,16 +1345,16 @@ Before submitting the final camera ready copy, remember to:
 
 [8
 
-] (odsi_wp13.aux)
+ <./figures/ODSIDevice.png (PNG copy)>] (odsi_wp13.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 35397 strings out of 493323
- 786062 string characters out of 3139057
- 926631 words of memory out of 3000000
- 38509 multiletter control sequences out of 15000+200000
+ 35403 strings out of 493323
+ 786193 string characters out of 3139057
+ 926640 words of memory out of 3000000
+ 38514 multiletter control sequences out of 15000+200000
  568920 words of font info for 96 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
  133i,10n,160p,10363b,1866s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1323,9 +1366,9 @@ rier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><
 C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files
 /MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/urw/times/utmri8a.pfb>
-Output written on odsi_wp13.pdf (8 pages, 491564 bytes).
+Output written on odsi_wp13.pdf (8 pages, 486835 bytes).
 PDF statistics:
  86 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 58 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
