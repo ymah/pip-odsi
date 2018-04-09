@@ -143,26 +143,36 @@ Abstract \todo[inline]{TBD}
 \section{Introduction}
 \label{sec:Intro}
 % no \IEEEPARstart
-\todo[inline]{TBD}
+%\todo[inline]{TBD}
+
+
+Internet of things (IoT) devices and cyber-physicals systems (CPS) are becoming ubiquitous in our modern society\cite{WOlf2018}. IoT is in the interest of many industrials issuer. We can see an increase of devices including multiples hardware and software components in order to provide more complex services\cite{Xu2014}.
+
+In that kind of environment, privacy, safety and security issues for the end-users are becoming one of the main concern of the industrial. Moreover, in one device, we can identify a certain number of distinct industrial entities which provide software and hardware services for the end-user. The IoT device is becoming a competitive environment where each service provider may have to trust in economic competitors.
+
+
+By considering the importance of trust between industrial entities, we propose in this paper a platform architecture and design based on a separation kernel and a communication mechanism control to guarantee for each service provider a trustworthy environment.
+
+This paper is structured as follow, section \ref{sec:IoTissue} describes a simple security issue into household IoT. In section \ref{sec:Isolation_model} we are going to introduce Pip, a separation kernel which provides a proved memory isolation mechanism. Section \ref{sec:Industrial_ecosystem} describes the industrial ecosystem and the responsibilite of each actor. In Section \ref{sec:Architecture}, we can find the ODSI architecture in details and in section \ref{sec:illustration_discussion} we can see how to build a real industrial example with Pip and the ODSI platform.
 %\lipsum[1-2]
-\hfill mds
+%\hfill mds
  
-\hfill March 05, 2018
+%\hfill March 05, 2018
 
 
 \section{Internet of Things security issues}
-
+\label{sec:IoTissue}
 Oravec and co \cite{Oravec2017} described in their paper the increase of utilization of devices and applications dedicated to Internet of Things, particularly in the case of household appliances and house management. They wished to demonstrated the new issues that should be considered with the expansion of IoT into the house. One of their main concern is the security and privacy integrity of users. They descried scenario about different attacks or other information due to fallible household devices and non-secure softwares. 
 
 In that kind of environment, Sivaraman and co\cite{Sivaraman2016} described a scenario based on an attack on all house IoT devices via a smartphone application. By using the smartphone and network accesses into the house, they found all available IoT devices. In their paper, they show how it is possible to get control of each device. With this attack, they show that even if there is strong network security mechanisms (like router equipped with firewalls) if any component of the House IoT has an application level issue, the security and privacy is no more guaranteed into the house. This attack works with a smartphone, but we can also imagine a scenario where an another connected device (Webcam, connected TV..) can be an attack vector. 
 
 
-
+In the past years, security and privacy was one of the main concern of the academic and industrial researchs\cite{BernalBernabe2016}\cite{Xu2014}\cite{Razzaque2016}. They have designed different architecture models in order to provide more trustworthy environments for the IoT industrial and the end-users.
 
 
 \section{Isolation model}
 \label{sec:Isolation_model}
-\todo[inline]{TBD by Lille}
+%\todo[inline]{TBD by Lille}
 %\lipsum[1-10]
 \subsection{Memory isolation proto-kernel}
 
@@ -510,37 +520,56 @@ The token ID and expiration date are used to prevent replay. The token ID can be
 
 \subsection{Communication model}
 \label{sec:Communication_model}
-\todo[inline]{TBD. Section to be described by Lille}
+%\todo[inline]{TBD. Section to be described by Lille}
 The main requirement for the communication protocol is to allow master/agent communication and the transport of a payload with the command content and an associated token. Protocols such as TCP/IP or CoAP are eligible. LwM2M \cite{oma_lwm2M_2017} would require some modification to add a token to the message.
 
 \subsubsection{Internal communication}
-
+Each domain has an internal communication mechanism. It can be implemented by the domain itself, however, it is always based on Pip sending signal mechanism. 
 
 
 \subsubsection{External communication}
+
+For external communication, only one partition is in charge of Network hardware sending and receiving functions. In order to send a external message, each domains has to use the internal communication to discuss with the Network manager, and send it the external message. 
 %\lipsum[1-6]
 
 
-\section{Pip and ODSI architecture}
-The aim of ODSI and PIP is to provide an isolation which allows multiple applications to coexist he aim of ODSI architecture is to provide a safe environment for each service provider. In other words, the aim of ODSI and Pip is to preserve the trust between each service provider and between the platform and the service provider.  
-\subsection{Trust between service providers}
 
-Each service provider has to trust the platform and the platform has to guarantee to each 
+%The aim of ODSI and PIP is to provide an isolation which allows multiple applications to coexist he aim of ODSI architecture is to provide a safe environment for each service provider. In other words, the aim of ODSI and Pip is to preserve the trust between each service provider and between the platform and the service provider.  
+%\subsection{Trust between service providers}
 
-\todo[inline]{TOD0: 
-- Confiance entre service, chaque service doit se voir garantir que son état ne peut être altéré par un autre service, potentiellement concurent
+%Each service provider has to trust the platform and the platform has to guarantee to each 
 
-- Chaque service doit faire confiance à la platforme, étant donnée qu'elle est dans sa TCB.}
+%\todo[inline]{TOD0: 
+%- Confiance entre service, chaque service doit se voir garantir que son état ne peut être altéré par un autre service, potentiellement concurent
+
+%- Chaque service doit faire confiance à la platforme, étant donnée qu'elle est dans sa TCB.}
 
 
-\subsection{Need in separation}
+%\subsection{Need in separation}
 
-\todo[inline]{TOD0: 
-	- Pip fournit l'isolation recherchée par les services pour garantir leur espace de travail/ espace d'adressage
-	- Le méchanisme de token garantit que chaque service ne peut être accédé que via l'API qu'il aura exposé et sans plus}
+%\todo[inline]{TOD0: 
+%	- Pip fournit l'isolation recherchée par les services pour garantir leur espace de travail/ espace d'adressage
+%	- Le méchanisme de token garantit que chaque service ne peut être accédé que via l'API qu'il aura exposé et sans plus}
 
 \section{Illustration \& discussion}
-\todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
+
+\label{sec:illustration_discussion}
+\subsection{Pip and ODSI architecture}
+
+The ODSI architecture can be build using Pip partition creation mechanism (figure \ref{fig:odsiplatformebypip}). The Owner is the first domain created and it is Pip root partition. For each sensitive component, a dedicated partition is created (Hardware Drivers, Administration manager). The Maintainer domain is also into a partition in order to give the owner the ability to limit the maintainer's rights. Each other services has also to be into partition, because we need to isolate them from any threat or data leak, only the Owner can access to them.
+
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/ODSIPlatformeByPip}
+	\caption{ODSI platform build with Pip partition tree}
+	\label{fig:odsiplatformebypip}
+\end{figure}
+
+
+
+%\todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
 
 An example of application of the proposed architecture is illustrated in figures \ref{fig:houseiot}, \ref{fig:ODSIGateway} and \ref{fig:ODSIDevice}. One or several home smart devices are associated to a domain in the gateway, \ref{fig:houseiot}. Each domain in the gateway exposes the associated small devices ressources to the outside worlds \ref{fig:ODSIGateway}. The devices are managed by only one entity and contains only one domain. Several partitions are created to isolate functions of the device.\\
 
@@ -560,9 +589,9 @@ As depicted in figure \ref{fig:ODSIDevice}, small devices only have one domain a
 	\caption{ODSI Gateway}
 	\label{fig:ODSIGateway}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\linewidth]{figures/ODSIDevice}
+	\includegraphics[width=0.6\linewidth]{figures/ODSIDevice}
 	\caption{Two examples of smart home devices (connected lamp and connected TV)}
 	\label{fig:ODSIDevice}
 \end{figure}
@@ -574,9 +603,9 @@ Using Pip enhances the protection against this attack by creating isolated parti
 %\lipsum[1-4]
 
 \section{Conclusion}
-\todo[inline]{TBD. The conclusion goes here. Next steps : implementation and performance evaluation}
+%\todo[inline]{TBD. The conclusion goes here. Next steps : implementation and performance evaluation}
 %\lipsum[1-2]
-
+In this paper we have described an architecture based on a separation kernel in order to provide a trustworthy environment for multiple economic competitors into the same IoT device. This architecture is defined by a set of actors which each one is limited into its capabilities, depending on its role into the platform. By using the separation kernel Pip, we can provide security and safety guarantees between each actor into the device. The Token mechanism used into the platform guarantee all external and internal communication for the IoT device. 
 
 
 % conference papers do not normally have an appendix
