@@ -119,7 +119,8 @@ Email: firstname.lastname@orange.com\\}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-Abstract \todo[inline]{TBD}
+%Abstract \todo[inline]{TBD}
+In recent years, Internet of Things devices(IoT) and Cyber-Physicals Systems(CPS) are ubiquitous and used in many situations (avionic, vehicles, household devices, smartphones...). End-user privacy and security was one of the main concerns of devices designers. Moreover, these systems are becoming more complex and opened to enable industrials to provide different services at the same time on the same device. However, the industrial worries about their data integrity and confidentiality into the devices. Each service provider is in a economic confrontation with others and End-User and service data are a significant resource. In this paper we propose an IoT device architecture based on a small separation kernel and a communication control mechanism to provide a trustworthy environment for each service provider.
 %%\lipsum[1]
 \end{abstract}
 
@@ -148,12 +149,12 @@ Abstract \todo[inline]{TBD}
 
 Internet of things (IoT) devices and cyber-physicals systems (CPS) are becoming ubiquitous in our modern society\cite{WOlf2018}. IoT is in the interest of many industrials issuer. We can see an increase of devices including multiples hardware and software components in order to provide more complex services\cite{Xu2014}.
 
-In that kind of environment, privacy, safety and security issues for the end-users are becoming one of the main concern of the industrial. Moreover, in one device, we can identify a certain number of distinct industrial entities which provide software and hardware services for the end-user. The IoT device is becoming a competitive environment where each service provider may have to trust in economic competitors.
+In that kind of environment, privacy, safety and security issues for the end-users are becoming one of the main concern of the industrial. Moreover, in one device, we can identify a certain number of distinct industrial entities which provide software and hardware services for the end-user. IoT devices are becoming opened environments where a lot of On-demand services are deployed by different providers. Due to the economic competition, each industrial service provider can not trust the others services in the device.
 
 
-By considering the importance of trust between industrial entities, we propose in this paper a platform architecture and design based on a separation kernel and a communication mechanism control to guarantee for each service provider a trustworthy environment.
+By considering the importance of data inner services, we propose in this paper a platform architecture and design based on a separation kernel and a communication mechanism control to guarantee for each service provider a trustworthy environment.
 
-This paper is structured as follow, section \ref{sec:IoTissue} describes a simple security issue into household IoT. In section \ref{sec:Isolation_model} we are going to introduce Pip, a separation kernel which provides a proved memory isolation mechanism. Section \ref{sec:Industrial_ecosystem} describes the industrial ecosystem and the responsibilite of each actor. In Section \ref{sec:Architecture}, we can find the ODSI architecture in details and in section \ref{sec:illustration_discussion} we can see how to build a real industrial example with Pip and the ODSI platform.
+This paper is structured as follow, section \ref{sec:IoTissue} describes a simple security issue into household IoT. In section \ref{sec:Isolation_model} we are going to introduce Pip, a separation kernel which provides a proved memory isolation mechanism. Section \ref{sec:Industrial_ecosystem} describes the industrial ecosystem and the responsibility of each actor. In Section \ref{sec:Architecture}, we can find the ODSI architecture in details and in section \ref{sec:illustration_discussion} we can see how to build a real industrial example with Pip and the ODSI platform.
 %\lipsum[1-2]
 %\hfill mds
  
@@ -605,7 +606,7 @@ Using Pip enhances the protection against this attack by creating isolated parti
 \section{Conclusion}
 %\todo[inline]{TBD. The conclusion goes here. Next steps : implementation and performance evaluation}
 %\lipsum[1-2]
-In this paper we have described an architecture based on a separation kernel in order to provide a trustworthy environment for multiple economic competitors into the same IoT device. This architecture is defined by a set of actors which each one is limited into its capabilities, depending on its role into the platform. By using the separation kernel Pip, we can provide security and safety guarantees between each actor into the device. The Token mechanism used into the platform guarantee all external and internal communication for the IoT device. 
+In this paper we have described an architecture based on a separation kernel in order to provide a trustworthy environment for multiple economic competitors into the same IoT device. In order to achieve this objective, we have made a classification of different roles and responsibilities found in each IoT device. On the basis of this taxonomy, we proposed an architecture defined by a set of actors where each one has its capabilities limited, depending on its role into the platform. The capabilities and roles are guaranteed by using the separation kernel Pip. With this mechanism we can guarantee data integrity and confidentiality for each service. The Token mechanism used into the platform guarantee all external and internal communication for the IoT device and avoid any data leak during services communications.
 
 
 % conference papers do not normally have an appendix
