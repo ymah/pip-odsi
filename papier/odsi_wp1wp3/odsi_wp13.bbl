@@ -1,5 +1,17 @@
 \begin{thebibliography}{10}
 
+\bibitem{WOlf2018}
+M.~Wolf and D.~Serpanos.
+\newblock Safety and security in cyber-physical systems and internet-of-things
+  systems.
+\newblock {\em Proceedings of the IEEE}, 106(1):9--20, Jan 2018.
+
+\bibitem{Xu2014}
+L.~D. Xu, W.~He, and S.~Li.
+\newblock Internet of things in industries: A survey.
+\newblock {\em IEEE Transactions on Industrial Informatics}, 10(4):2233--2243,
+  Nov 2014.
+
 \bibitem{Oravec2017}
 Jo~Ann Oravec.
 \newblock {Kill switches, remote deletion, and intelligent agents: Framing
@@ -12,6 +24,18 @@ Vijay Sivaraman, Dominic Chan, Dylan Earl, and Roksana Boreli.
 \newblock In {\em Proceedings of the 9th ACM Conference on Security {\&}
   Privacy in Wireless and Mobile Networks - WiSec '16}, pages 195--200, New
   York, New York, USA, 2016. ACM Press.
+
+\bibitem{BernalBernabe2016}
+Jorge {Bernal Bernabe}, Jose~Luis {Hernandez Ramos}, and Antonio~F. {Skarmeta
+  Gomez}.
+\newblock {TACIoT: multidimensional trust-aware access control system for the
+  Internet of Things}.
+\newblock {\em Soft Computing}, 20(5):1763--1779, may 2016.
+
+\bibitem{Razzaque2016}
+M.~A. Razzaque, M.~Milojevic-Jevric, A.~Palade, and S.~Clarke.
+\newblock Middleware for internet of things: A survey.
+\newblock {\em IEEE Internet of Things Journal}, 3(1):70--95, Feb 2016.
 
 \bibitem{bergougnoux2017}
 Quentin Bergougnoux, Julien Iguchi-Cartigny, and Gilles Grimaud.
@@ -65,5 +89,15 @@ Quynh Dang.
 OMA.
 \newblock Lightweight machine to machine technical specification.
 \newblock Technical report, Open Mobile Alliance, 2017.
+
+\bibitem{celtic-odsi}
+Celtic.
+\newblock On demand secure isolation.
+\newblock \url{https://www.celticplus.eu/project-odsi/}.
+
+\bibitem{odsi-home}
+ODSI.
+\newblock Odsi website.
+\newblock \url{http://celticplus-odsi.org/}.
 
 \end{thebibliography}

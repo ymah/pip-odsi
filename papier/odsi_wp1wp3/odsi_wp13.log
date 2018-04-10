@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  25 MAR 2018 21:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2018.2.15)  10 APR 2018 15:46
 entering extended mode
 **./odsi_wp13.tex
 (odsi_wp13.tex
@@ -1030,32 +1030,25 @@ G,.JBIG2,.JB2,.eps]
 )
 ABD: EveryShipout initializing macros
 \c@lstlisting=\count332
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 182.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 193.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-LaTeX Font Info:    Try loading font information for U+msa on input line 223.
+) [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
+
+
+]
+LaTeX Font Info:    Try loading font information for U+msa on input line 234.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 223.
+LaTeX Font Info:    Try loading font information for U+msb on input line 234.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \vbox (badness 1565) has occurred while \output is active []
-
- [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
-
-
-]
 Package epstopdf Info: Source file: <figures/properties.eps>
 (epstopdf)                    date: 2018-03-16 13:29:59
 (epstopdf)                    size: 52286 bytes
@@ -1064,96 +1057,165 @@ Package epstopdf Info: Source file: <figures/properties.eps>
 (epstopdf)                    size: 10473 bytes
 (epstopdf)             Command: <epstopdf --outfile=figures/properties-eps-conv
 erted-to.pdf figures/properties.eps>
-(epstopdf)             \includegraphics on input line 232.
+(epstopdf)             \includegraphics on input line 243.
 Package epstopdf Info: Output file is already uptodate.
 
-<figures/properties-eps-converted-to.pdf, id=13, 285.065pt x 186.6975pt>
+<figures/properties-eps-converted-to.pdf, id=12, 285.065pt x 186.6975pt>
 File: figures/properties-eps-converted-to.pdf Graphic file (type pdf)
 
 <use figures/properties-eps-converted-to.pdf>
 Package pdftex.def Info: figures/properties-eps-converted-to.pdf used on input 
-line 232.
+line 243.
 (pdftex.def)             Requested size: 152.05371pt x 99.58464pt.
 
-<figures/IPCDispatch.png, id=14, 622.325pt x 294.09875pt>
+<figures/IPCDispatch.png, id=13, 622.325pt x 294.09875pt>
 File: figures/IPCDispatch.png Graphic file (type png)
 
 <use figures/IPCDispatch.png>
-Package pdftex.def Info: figures/IPCDispatch.png used on input line 279.
+Package pdftex.def Info: figures/IPCDispatch.png used on input line 290.
 (pdftex.def)             Requested size: 176.39923pt x 83.36127pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[2 <./figures/properties-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 294--295
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
 
  []
 
 
-Underfull \hbox (badness 2990) in paragraph at lines 296--297
+Underfull \hbox (badness 2990) in paragraph at lines 307--308
 \OT1/ptm/m/n/10 De-vice ressources cor-re-spond to the iso-lated par-ti-tions
  []
 
 
-Underfull \hbox (badness 2503) in paragraph at lines 296--297
+Underfull \hbox (badness 2503) in paragraph at lines 307--308
 \OT1/ptm/m/n/10 do-main and which are re-lated to the de-vice. Do-main
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
+Underfull \hbox (badness 10000) in paragraph at lines 307--308
 
  []
 
-[2 <./figures/properties-eps-converted-to.pdf> <./figures/IPCDispatch.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
 []\OT1/ptm/m/n/10 The re-spon-si-bil-i-ties de-scribed in this sec-tion are
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
 
  []
 
 
-Overfull \hbox (1.40707pt too wide) in paragraph at lines 331--368
+Overfull \hbox (3.631pt too wide) in paragraph at lines 342--379
  [][] 
  []
 
 
-Underfull \hbox (badness 4193) in paragraph at lines 370--371
+Underfull \hbox (badness 4193) in paragraph at lines 381--382
 \OT1/ptm/m/n/10 var-i-ous man-u-fac-tur-ers and cre-ates a de-vice with this
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 372--373
+Underfull \hbox (badness 10000) in paragraph at lines 383--384
+
+ []
+
+[3 <./figures/IPCDispatch.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 385--386
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 374--375
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 376--377
-
- []
-
-[3] <figures/mem_layout.png, id=34, 892.33376pt x 455.7025pt>
+[4] <figures/mem_layout.png, id=37, 892.33376pt x 455.7025pt>
 File: figures/mem_layout.png Graphic file (type png)
 
 <use figures/mem_layout.png>
-Package pdftex.def Info: figures/mem_layout.png used on input line 412.
+Package pdftex.def Info: figures/mem_layout.png used on input line 423.
 (pdftex.def)             Requested size: 256.0748pt x 130.77354pt.
 
-Overfull \hbox (4.0748pt too wide) in paragraph at lines 412--413
+Overfull \hbox (4.0748pt too wide) in paragraph at lines 423--424
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
+
+ []
+
+<figures/soft_layer.png, id=38, 952.55875pt x 518.93875pt>
+File: figures/soft_layer.png Graphic file (type png)
+
+<use figures/soft_layer.png>
+Package pdftex.def Info: figures/soft_layer.png used on input line 437.
+(pdftex.def)             Requested size: 256.0748pt x 139.50562pt.
+
+Overfull \hbox (4.0748pt too wide) in paragraph at lines 437--438
+ [][] 
+ []
+
+[5 <./figures/mem_layout.png (PNG copy)> <./figures/soft_layer.png (PNG copy)>]
+
+Underfull \hbox (badness 2582) in paragraph at lines 472--473
+\OT1/ptm/m/n/10 ad-min-is-tra-tion ap-pli-ca-tion in the server. The To-ken &
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 472--473
+
+ []
+
+<figures/management_model.png, id=42, 946.53625pt x 429.605pt>
+File: figures/management_model.png Graphic file (type png)
+
+<use figures/management_model.png>
+Package pdftex.def Info: figures/management_model.png used on input line 477.
+(pdftex.def)             Requested size: 256.0748pt x 116.22432pt.
+
+Overfull \hbox (4.0748pt too wide) in paragraph at lines 477--478
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 482--483
+
+ []
+
+
+Underfull \hbox (badness 5417) in paragraph at lines 485--486
+ \OT1/ptm/m/it/10 1) Do-main ressources man-age-ment: [][] \OT1/ptm/m/n/10 An e
+x-am-ple is
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 485--486
+
+ []
+
+<figures/DomRes_AP.png, id=43, 846.16125pt x 475.7775pt>
+File: figures/DomRes_AP.png Graphic file (type png)
+
+<use figures/DomRes_AP.png>
+Package pdftex.def Info: figures/DomRes_AP.png used on input line 491.
+(pdftex.def)             Requested size: 256.0748pt x 143.98302pt.
+
+Overfull \hbox (4.0748pt too wide) in paragraph at lines 491--492
  [][] 
  []
 
@@ -1161,73 +1223,7 @@ Overfull \hbox (4.0748pt too wide) in paragraph at lines 412--413
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 420--421
-
- []
-
-[4] <figures/soft_layer.png, id=38, 952.55875pt x 518.93875pt>
-File: figures/soft_layer.png Graphic file (type png)
-
-<use figures/soft_layer.png>
-Package pdftex.def Info: figures/soft_layer.png used on input line 426.
-(pdftex.def)             Requested size: 256.0748pt x 139.50562pt.
-
-Overfull \hbox (4.0748pt too wide) in paragraph at lines 426--427
- [][] 
- []
-
-
-Underfull \hbox (badness 2582) in paragraph at lines 461--462
-\OT1/ptm/m/n/10 ad-min-is-tra-tion ap-pli-ca-tion in the server. The To-ken &
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 461--462
-
- []
-
-<figures/management_model.png, id=39, 946.53625pt x 429.605pt>
-File: figures/management_model.png Graphic file (type png)
-
-<use figures/management_model.png>
-Package pdftex.def Info: figures/management_model.png used on input line 466.
-(pdftex.def)             Requested size: 256.0748pt x 116.22432pt.
-
-Overfull \hbox (4.0748pt too wide) in paragraph at lines 466--467
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 471--472
-
- []
-
-
-Underfull \hbox (badness 5417) in paragraph at lines 474--475
- \OT1/ptm/m/it/10 1) Do-main ressources man-age-ment: [][] \OT1/ptm/m/n/10 An e
-x-am-ple is
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 474--475
-
- []
-
-[5 <./figures/mem_layout.png (PNG copy)> <./figures/soft_layer.png (PNG copy)> 
-<./figures/management_model.png (PNG copy)>]
-<figures/DomRes_AP.png, id=43, 846.16125pt x 475.7775pt>
-File: figures/DomRes_AP.png Graphic file (type png)
-
-<use figures/DomRes_AP.png>
-Package pdftex.def Info: figures/DomRes_AP.png used on input line 480.
-(pdftex.def)             Requested size: 256.0748pt x 143.98302pt.
-
-Overfull \hbox (4.0748pt too wide) in paragraph at lines 480--481
- [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 486--487
+Underfull \hbox (badness 10000) in paragraph at lines 497--498
 
  []
 
@@ -1235,103 +1231,96 @@ Underfull \hbox (badness 10000) in paragraph at lines 486--487
 File: figures/DevRes_AP.png Graphic file (type png)
 
 <use figures/DevRes_AP.png>
-Package pdftex.def Info: figures/DevRes_AP.png used on input line 492.
+Package pdftex.def Info: figures/DevRes_AP.png used on input line 503.
 (pdftex.def)             Requested size: 256.0748pt x 147.0174pt.
 
-Overfull \hbox (4.0748pt too wide) in paragraph at lines 492--493
+Overfull \hbox (4.0748pt too wide) in paragraph at lines 503--504
  [][] 
  []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 3525) in paragraph at lines 498--499
+Underfull \hbox (badness 3525) in paragraph at lines 509--510
  \OT1/ptm/m/it/10 3) To-ken scheme: [][] \OT1/ptm/m/n/10 The to-ken for-mat sho
 uld con-tain
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 498--499
+Underfull \hbox (badness 10000) in paragraph at lines 509--510
 
  []
 
-[6 <./figures/DomRes_AP.png (PNG copy)> <./figures/DevRes_AP.png (PNG copy)>]
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no à in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no ê in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
-Missing character: There is no é in font ptmr7t!
+[6 <./figures/management_model.png (PNG copy)> <./figures/DomRes_AP.png (PNG co
+py)> <./figures/DevRes_AP.png (PNG copy)>]
+<figures/ODSIPlatformeByPip.png, id=48, 1616.0375pt x 471.7625pt>
+File: figures/ODSIPlatformeByPip.png Graphic file (type png)
 
-Underfull \hbox (badness 10000) in paragraph at lines 545--546
+<use figures/ODSIPlatformeByPip.png>
+Package pdftex.def Info: figures/ODSIPlatformeByPip.png used on input line 566.
+
+(pdftex.def)             Requested size: 252.0pt x 73.56154pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 575--576
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 547--548
+Underfull \hbox (badness 10000) in paragraph at lines 577--578
 
  []
 
-<figures/HouseIOT.png, id=48, 1535.7375pt x 923.45pt>
+<figures/HouseIOT.png, id=49, 1535.7375pt x 923.45pt>
 File: figures/HouseIOT.png Graphic file (type png)
 
 <use figures/HouseIOT.png>
-Package pdftex.def Info: figures/HouseIOT.png used on input line 553.
+Package pdftex.def Info: figures/HouseIOT.png used on input line 583.
 (pdftex.def)             Requested size: 252.0pt x 151.51723pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<figures/ODSIGateway.png, id=49, 644.4075pt x 429.605pt>
+<figures/ODSIGateway.png, id=50, 644.4075pt x 429.605pt>
 File: figures/ODSIGateway.png Graphic file (type png)
 
 <use figures/ODSIGateway.png>
-Package pdftex.def Info: figures/ODSIGateway.png used on input line 559.
+Package pdftex.def Info: figures/ODSIGateway.png used on input line 589.
 (pdftex.def)             Requested size: 252.0pt x 167.99757pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/ODSIDevice.png, id=50, 460.72125pt x 508.90125pt>
+<figures/ODSIDevice.png, id=51, 460.72125pt x 508.90125pt>
 File: figures/ODSIDevice.png Graphic file (type png)
 
 <use figures/ODSIDevice.png>
-Package pdftex.def Info: figures/ODSIDevice.png used on input line 565.
-(pdftex.def)             Requested size: 126.0pt x 139.17563pt.
+Package pdftex.def Info: figures/ODSIDevice.png used on input line 595.
+(pdftex.def)             Requested size: 151.20154pt x 167.01387pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 3049) in paragraph at lines 570--571
+Underfull \hbox (badness 3049) in paragraph at lines 600--601
 []\OT1/ptm/m/n/10 The pro-posed se-cu-rity ar-chi-tec-ture avoids the at-tack
  []
 
 
-Underfull \hbox (badness 5217) in paragraph at lines 570--571
-\OT1/ptm/m/n/10 de-scribed by Sivara-man et.al. [2]. In-deed, the to-ken
+Underfull \hbox (badness 5217) in paragraph at lines 600--601
+\OT1/ptm/m/n/10 de-scribed by Sivara-man et.al. [4]. In-deed, the to-ken
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 570--571
+Underfull \hbox (badness 10000) in paragraph at lines 600--601
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 572--573
+Underfull \hbox (badness 10000) in paragraph at lines 602--603
 
  []
 
-(odsi_wp13.bbl [7 <./figures/HouseIOT.png> <./figures/ODSIGateway.png (PNG copy
-)>])
+[7 <./figures/ODSIPlatformeByPip.png> <./figures/HouseIOT.png>] (odsi_wp13.bbl
+Underfull \vbox (badness 1033) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1565) in paragraph at lines 94--97
+[]\OT1/ptm/m/n/8 Celtic.  On de-mand se-cure iso-la-tion.  $https : / / www . c
+elticplus . eu /
+ []
+
+)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1343,20 +1332,19 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8
-
- <./figures/ODSIDevice.png (PNG copy)>] (odsi_wp13.aux)
+[8 <./figures/ODSIGateway.png (PNG copy)> <./figures/ODSIDevice.png (PNG copy)>
+] (odsi_wp13.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 35403 strings out of 493323
- 786193 string characters out of 3139057
- 926640 words of memory out of 3000000
- 38514 multiletter control sequences out of 15000+200000
+ 35386 strings out of 493323
+ 785822 string characters out of 3139057
+ 921273 words of memory out of 3000000
+ 38499 multiletter control sequences out of 15000+200000
  568920 words of font info for 96 fonts, out of 3000000 for 9000
- 1144 hyphenation exceptions out of 8191
+ 1141 hyphenation exceptions out of 8191
  133i,10n,160p,10363b,1866s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/
@@ -1366,9 +1354,9 @@ rier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><
 C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files
 /MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/urw/times/utmri8a.pfb>
-Output written on odsi_wp13.pdf (8 pages, 486835 bytes).
+Output written on odsi_wp13.pdf (8 pages, 514163 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 88 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 63 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 68 words of extra memory for PDF output out of 10000 (max. 10000000)
 

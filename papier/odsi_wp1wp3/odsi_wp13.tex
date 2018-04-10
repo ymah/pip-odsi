@@ -62,7 +62,7 @@
 
 
 % correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
+%\hyphenation{op-tical net-works semi-conduc-tor}
 
 
 \begin{document}
@@ -85,7 +85,7 @@ University of Lille\\
 address in Lille\\
 Email: yyy@yyy.com}
 \and
-\IEEEauthorblockN{Chrystel Gaber \\ and Xiao Han \\ and Vicente Sanchez-Leighton}
+\IEEEauthorblockN{Chrystel Gaber \\ and Jean-Philippe Wary\\ and Xiao Han \\ and Vicente Sanchez-Leighton}
 \IEEEauthorblockA{Orange Labs,\\
 Ch\^{a}tillon, France\\
 Email: firstname.lastname@orange.com\\}
@@ -304,21 +304,21 @@ This section describes the industrial ecosystem and the needs for a security arc
 
 We consider that a domain is an isolated area which belongs to an entity. The notion of domain is precised in section \ref{sec:Domain_def}.\\
 
-We distinguish device ressources and domain ressources. Device ressources correspond to the isolated partitions (domains) and the ressources exposed by software, actuators or sensors drivers installed by the packager in the owner domain and which are related to the device. Domain ressources correspond to any ressource not related to the device and created within the given domain. En example of device ressource is the firmware or its updater. An example of a domain ressource is a key to create an SSL channel between a remote platform and a given domain.\\
+We distinguish device ressources and domain ressources. Device ressources correspond to the isolated partitions (domains) and the ressources exposed by software, actuators or sensors drivers installed by the integrator in the owner domain and which are related to the device. Domain ressources correspond to any ressource not related to the device and created within the given domain. An example of device ressource is the firmware or its updater. An example of a domain ressource is a key to create an SSL channel between a remote platform and a given domain.\\
 
 \subsection{Actors}
 \label{sec:Actors}
-We identify 7 stakeholders, namely the manufacturer, packager, maintainer, owner, administrator, service provider and user, which interact with the IOT ot M2M device. One device may be associated to 1 packager, 1 owner, 1 administrator and several manufacturers, maintainers and service providers. One actor may hold several roles. For example, one actor can be at the same time a manufacturer, a packager and a maintainer.
+We identify 7 stakeholders, namely the manufacturer, integrator, maintainer, owner, administrator, service provider and user, which interact with the IOT ot M2M device. One device may be associated to 1 integrator, 1 owner, 1 administrator and several manufacturers, maintainers and service providers. One actor may hold several roles. For example, one actor can be at the same time a manufacturer, an integrator and a maintainer.
 \subsubsection{Manufacturer}
-Manufacturers provide at least one component of the device, either a physical component with its driver, an operating system or an isolation solution. Manufacturers also provide updates \& patches for the component and the driver to the packager and/or maintainers. 
-\subsubsection{Packager}
-It issues the device and the isolation solution. It also provides each device an identifier that will subsequently allow it to be identified as well as intial secrets that will allow the owner to access the device. It may also provide the drivers and software components for the sensors or actuators on the device. 
+Manufacturers provide at least one component of the device, either a physical component with its driver, an operating system or an isolation solution. Manufacturers also provide updates \& patches for the component and the driver to the integrator and/or maintainers. 
+\subsubsection{Integrator}
+It issues the device and the isolation solution. It also provides each device an identifier that will subsequently allow it to be identified. It provides either intial secrets or a mechanism to initiate them automatically so that the owner is able to access the device. It may also provide the drivers and software components for the sensors or actuators on the device. 
 \subsubsection{Maintainer}
-It maintains the device, monitors the hardware components status and deploys the patches delivered by the manufacturer. 
+It maintains the device on behalf of the owner. It monitors the hardware components status and deploys the patches delivered by the manufacturer or integrator. This role can be assumed by the integrator or a third party.
 \subsubsection{Owner}
-The device belongs to the Owner who defines an access policy to authorize which other entities are authorized to use or manage the device or domains within the device. The Owner can possess several devices. It receives initial credentials from the manufacturer that allows it to access each device in his fleet. 
+The device belongs to the Owner who defines an access policy to authorize which other entities are authorized to use or manage the device or domains within the device. The Owner can possess several devices.
 \subsubsection{Administrator}
-It enforces the policy defined by the owner for his fleet of devices. If any modification, such as adding a new entity or modifying its granted permissions,  is required, it requests a decision from the owner. This role can either be assumed or delegated to a third party by the owner. 
+It enforces the policy on behalf of the owner for his fleet of devices. If any modification, such as adding a new entity or modifying its granted permissions,  is required, it requests a decision from the owner. This role can either be assumed by the owner or delegated to a third party. 
 \subsubsection{Service Provider}
 It delivers a user-friendly service on one or multiple devices using the ressources authorized by the Owner. It installs or activates a service within the device. Muliple Service Providers can co-exist on the same device. 
 \subsubsection{User}
@@ -341,7 +341,7 @@ The responsibilities described in this section are summarized in table \ref{tab:
 % than the plain LaTeX2e tabular which is used here.
 \begin{tabular}{|p{7cm}||c|c|c|c|c|c|c|}
 \hline
-Responsibilities & Manufacturer & Packager & Maintainer & Owner & Administrator & Service Provider\\
+Responsibilities & Manufacturer & Integrator & Maintainer & Owner & Administrator & Service Provider\\
 \hline
 Provide device components (hardware \& drviers, OS, isolation solution) & X & & & & &\\
 \hline
@@ -349,9 +349,9 @@ Gather components into a device & & X & & & &\\
 \hline
 Use or provide virtualization \& multi-tenant compatible components & & X & & & &\\
 \hline
-Provide mechanisms \& temporary credentials for initial device personalization before delivery to the owner & & X & & & &\\
+Provide mechanisms \& temporary credentials  or credentials creation mechanisms for initial device personalization before delivery to the owner & & X & & & &\\
 \hline
-Provide temporary credentials for initial domain personalization to entities after delivery to the owner & & X & & X & X & \\
+Provide temporary credentials or credentials creation mechanisms for initial domain personalization to entities after delivery to the owner & & X & & X & X & \\
 \hline
 Update regularly the credentials to access its domain & & & X & X & X & X\\
 \hline
@@ -369,7 +369,7 @@ Configure its domain ressource access policy & & & X & X & X & X \\
 \hline
 Enforce its domain ressource access policy & & & X & X & X & X \\
 \hline
-Provide updates \& patches of components & X & & & & & \\
+Provide updates \& patches of components & X & X & & & & \\
 \hline
 Follow up, deploy updates of firmware or drivers & & & X & & & \\
 \hline
@@ -378,9 +378,9 @@ Keep the service applications up to date & & & & & & X \\
 \end{tabular}
 \end{table*}
 
-The packager gathers hardware, drivers and OS from various manufacturers and creates a device with this collection of components. It provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The packager is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The packager provides a platform in a safe state to the owner and does not keep any access to the owner domain. In particular, the packager does not manage access control to the drivers.\\
+The integrator gathers hardware, drivers and OS from various manufacturers and creates a device with this collection of components. It provides the mechanisms or temporary credentials that allow the owner to personalize the device. The integrator provides a platform in a safe state to the owner and does not keep any access to the owner domain. In particular, the integrator does not manage access control to the drivers.\\
 
-The owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
+The owner finalizes the personalization of the device after delivery. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
 
 If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.\\
 
@@ -392,10 +392,10 @@ Any entity which owns a partition (administrator, service provider, and maintain
 \label{sec:Arch_req}
 
 \subsubsection{Domain isolation}
-Two services which run in two isolated domains should not be able to access the memory of one another, gain information about each other or interfere with each other's execution. 
+Two services which run in two isolated domains should not be able to access the memory of one another or gain information about each other. 
 
 \subsubsection{Owner non-interference}
-Although the owner or the administrator have access to a privileged domain, they must not have any control or visibility on the actions performed by other entities unless these actions involve device ressources under the responsibility of the owner.
+Each entity which owns a domain has the possibility to ensure end-to-end encryption of the commands and data received and sent by the domain. It bears the responsibility for authorizing access to its domain ressources. Although the owner or the administrator has access to a privileged domain, they agree to not use it to observe the data or control the actions performed by other entities. The only exception concerns device ressources which other entities request to the owner domain.
 
 \subsubsection{Ressource access control}
 A device ressource access policy under the control of the owner or the administrator is mandatory. For each domain, a domain ressource access policy under the control of the domain owner (maintainer, service provider) is optional. 
@@ -441,11 +441,11 @@ Figure \ref{fig:Arch_soft} represents the software layers which correspond to th
 
 \subsubsection{Configuration Manager}
 \label{sec:Config_Mgr}
-The Configuration Manager contains a description of the domain's sub partitions, the associated code and the authorized communication channels between two partitions. It enforces the communications mechanism based on shared memory and described in section \ref{sec:Communication_model}.
+The Configuration Manager (CM) contains a description of the domain's sub partitions, the associated code and the authorized communication channels between two partitions. It enforces the communications mechanism based on shared memory and described in section \ref{sec:Communication_model}.
 
 \subsubsection{Internal Communicator}
 \label{sec:Int_Com}
-The Internal Communicator is the unique entry point of the domain. It verifies incoming messages whether they come from the network or another domain, similarly to a firewall.
+The Internal Communicator (Int. Comm.) is the unique entry point of the domain. It verifies incoming messages whether they come from the network or another domain, similarly to a firewall.
 
 \subsubsection{Virtual sensors or actuators managers}
 \label{sec:virtual_sensor} 
@@ -453,7 +453,7 @@ These managers provides synthetic sensor and actuator support to the virtual sen
 
 \subsubsection{Virtual sensors or actuators}
 \label{sec:virtual_sensor}
-Only the owner domain can manage the machine-level functions such as the drivers or the physical memory. Each domain contains a virtual sensor or actuator which are a synthetic sensor or actuator instance. It consumes the hardware ressources provided by the virtual sensor or actuator manager and requires and forwards a token to the owner domain if required. This allows the entity which owns the domain to see his domain as an actual device without knowledge of the isolation. The instruction and response are transmitted to and from the real driver using the internal communication mechanism. The virtual sensor or actuator updater is specific and allows the update of the related sensor or actuator driver in the owner domain. 
+Only the owner domain can manage the machine-level functions such as the drivers or the physical memory. Each domain contains a virtual sensor or actuator (noted Virt Sens or Virt Act) which are a synthetic sensor or actuator instance. It consumes the hardware ressources provided by the virtual sensor or actuator manager, it requires and forwards a token to the owner domain if needed. This allows the entity which owns the domain to see his domain as an actual device without knowledge of the isolation. The instruction and response are transmitted to and from the real driver using the internal communication mechanism. The virtual sensor or actuator updater is specific and allows the update of the related sensor or actuator driver in the owner domain. 
 
 \subsubsection{Administration Manager}
 \label{sec:Admin_Mgr}
@@ -614,7 +614,7 @@ In this paper we have described an architecture based on a separation kernel in 
 
 % use section* for acknowledgment
 \section*{Acknowledgment}
-This article was done in the scope of the European Celtic-Plus project ODSI.  
+This article was done in the scope of the European Celtic-Plus project ODSI (Project ID: C2014/2-12) \cite{celtic-odsi}, \cite{odsi-home}.   
 
 
 
