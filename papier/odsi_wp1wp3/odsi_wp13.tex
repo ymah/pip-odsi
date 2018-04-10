@@ -62,7 +62,7 @@
 
 
 % correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
+%\hyphenation{op-tical net-works semi-conduc-tor}
 
 
 \begin{document}
@@ -85,7 +85,7 @@ University of Lille\\
 address in Lille\\
 Email: yyy@yyy.com}
 \and
-\IEEEauthorblockN{Chrystel Gaber \\ and Xiao Han \\ and Vicente Sanchez-Leighton}
+\IEEEauthorblockN{Chrystel Gaber \\ and Jean-Philippe Wary\\ and Xiao Han \\ and Vicente Sanchez-Leighton}
 \IEEEauthorblockA{Orange Labs,\\
 Ch\^{a}tillon, France\\
 Email: firstname.lastname@orange.com\\}
@@ -205,7 +205,7 @@ In the past years, security and privacy was one of the main concern of the acade
 
 
 
-PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from hypervisors to monolithic kernels, to be developed as user mode applications (figure \ref{fig:PipArchBase}). Only PIP is executed in kernel mode (i.e., the privileged mode of the hardware)(figure \ref{fig:Arch_mem}) . Indeed, code running in kernel mode has direct access to the whole memory and hardware. It is thus clearly better, from a security point of view, to keep this code as minimal as possible. This stems from the general principle that the trusted computing base (TCB) should be kept minimal. One of the PIP key design is to have a minimal number of functionalities while ensuring strong isolation. More precisely, PIP only manages memory isolation and redirection of interruptions to user space code, via 10 system calls. Contrary to micro-kernel, it means that components like scheduler, IPC and authorization are not included in the PIP kernel, neither other mechanism available in monolithic kernel like device abstraction layer, file systems, network stack, etc.
+PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from hypervisors to monolithic kernels, to be developed as user mode applications (figure \ref{fig:PipArchBase}). Pip is composed by almost 1500 lines of code (C and assembly). Only PIP is executed in kernel mode (i.e., the privileged mode of the hardware)(figure \ref{fig:Arch_mem}) . Indeed, code running in kernel mode has direct access to the whole memory and hardware. It is thus clearly better, from a security point of view, to keep this code as minimal as possible. This stems from the general principle that the trusted computing base (TCB) should be kept minimal. One of the PIP key design is to have a minimal number of functionalities while ensuring strong isolation. More precisely, PIP only manages memory isolation and redirection of interruptions to user space code, via 10 system calls. Contrary to micro-kernel, it means that components like scheduler, IPC and authorization are not included in the PIP kernel, neither other mechanism available in monolithic kernel like device abstraction layer, file systems, network stack, etc.
 
 
 
@@ -304,11 +304,11 @@ For more complex architecture (like figure \ref{abstree:fig}), this mechanism ca
 
 \section{Industrial ecosystem}
 \label{sec:Industrial_ecosystem}
-This section describes the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.\\
+This section describes the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.
 
 %We consider that a domain is an isolated area which belongs to an entity. The notion of domain is precised in section \ref{sec:Domain_def}.\\
 
-We distinguish device resources and domain resources. Device resources correspond to the isolated partitions (domains) and the resources exposed by software, actuators or sensors drivers installed by the packager in the owner domain and which are related to the device. Domain resources correspond to any resource not related to the device and created within the given domain. En example of device resource is the firmware or its updater. An example of a domain resource is a key to create an SSL channel between a remote platform and a given domain.\\
+We distinguish device resources and domain resources. Device resources correspond to the isolated partitions (domains) and the resources exposed by software, actuators or sensors drivers installed by the packager in the owner domain and which are related to the device. Domain resources correspond to any resource not related to the device and created within the given domain. En example of device resource is the firmware or its updater. An example of a domain resource is a key to create an SSL channel between a remote platform and a given domain.
 
 \subsection{Actors}
 \label{sec:Actors}
@@ -331,7 +331,7 @@ Users consume the services provided by the entities mentioned above. We can dist
 \subsection{Responsibilities model}
 \label{sec:Resp_model}
 
-The responsibilities described in this section are summarized in table \ref{tab:resp_table}.\\
+The responsibilities described in this section are summarized in table \ref{tab:resp_table}.
 
 \begin{table*}[!ht]
 % increase table row spacing, adjust to taste
@@ -382,13 +382,13 @@ Keep the service applications up to date & & & & & & X \\
 \end{tabular}
 \end{table*}
 
-The packager gathers hardware, drivers and OS from various manufacturers and creates a device with this collection of components. It provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The packager is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The packager provides a platform in a safe state to the owner and does not keep any access to the owner domain. In particular, the packager does not manage access control to the drivers.\\
+The packager gathers hardware, drivers and OS from various manufacturers and creates a device with this collection of components. It provides the mechanisms and temporary credentials to personalize the device. At delivery, it provides the keys of the owner domain. The packager is responsible for providing drivers which are compatible with virtualization and usage by multiple entities. For example, to control the position of an armed robot, it is better to literally express the coordinates of the destination. The command "go to (x=10;y=40;z=20)" leads to less confusion than "go to current position + (x=10; y=20; z=30). The packager provides a platform in a safe state to the owner and does not keep any access to the owner domain. In particular, the packager does not manage access control to the drivers.
 
-The owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.\\
+The owner finalizes the personalization of the device after delivery by the manufacturer. In particular, the owner should modify its temporary credentials. Owner authorizes the usage of the device resources. If some resources are very sensitive, he provides the access to them through the use of a token which he delivers and verifies. The owner can choose that some resources are accessible freely without the use of a token and thus reducing the security. The owner must not have any control or visibility on the actions performed by other entities unless it touches sensitive functions which the owner has decided to control through token verification.
 
-If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.\\
+If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.
 
-The maintainers keep the firmware, driver or any software in their perimeter up to date. Their role is to keep track of the latest updates and changes provided by manufacturers and deploy them on the field. Both responsibilities (correcting software and deploying updates) are key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the IoT Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
+The maintainers keep the firmware, driver or any software in their perimeter up to date. Their role is to keep track of the latest updates and changes provided by manufacturers and deploy them on the field. Both responsibilities (correcting software and deploying updates) are key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the IoT Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.
 
 Any entity which owns a partition (administrator, service provider, and maintainer) has to authenticate the machine (or user) who is sending the commands to the partition. This entity can choose to not perform and access control verification, thus reducing the security of the system. Any entity which owns a partition (administrator, service provider, and maintainer) is responsible for modifying the temporary credentials of its associated domains.
 
@@ -432,7 +432,7 @@ In each domain, subpartitions allow to further isolate components. For example, 
 
 \subsection{Components of a domain}
 \label{sec:Domain_comp}
-This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture proposed is also based on the use of virtual sensors and actuators.\\
+This section describes the role of the components which enforce the proposed security model, namely the Configuration Manager, the Administration Manager, the Token \& Security Validator and the Key Vault. The architecture proposed is also based on the use of virtual sensors and actuators.
 
 Figure \ref{fig:Arch_soft} represents the software layers which correspond to the example used in figure \ref{fig:Arch_mem}. The PIP kernel exposes isolation services to an OS on which domains and partitions are created. The OS layer contains a scheduler which organizes the time and operations of the domains and partitions and each domain configuration manager. The application layer contains the drivers and all the modules of the architecture defined here. The OS and application layers both belong to user land. 
 
@@ -473,7 +473,7 @@ This module stores the keys that are used by the domain. In particular, the keys
 
 \subsection{Management model}
 
-As depicted in figure \ref{fig:Mgt_model}, the model proposed is based on master/agent model. Each domain receives commands from a server which authenticates the origin of the command and authorizes it. The administration manager in the domain is an agent which expects requests from its master, the administration application in the server. The Token \& Security Validator validates the token generated according to the access policy on the server side. For simplicity's sake, only the components \& modules related to the owner domain are detailed in figure \ref{fig:Mgt_model}.\\
+As depicted in figure \ref{fig:Mgt_model}, the model proposed is based on master/agent model. Each domain receives commands from a server which authenticates the origin of the command and authorizes it. The administration manager in the domain is an agent which expects requests from its master, the administration application in the server. The Token \& Security Validator validates the token generated according to the access policy on the server side. For simplicity's sake, only the components \& modules related to the owner domain are detailed in figure \ref{fig:Mgt_model}.
 
 \label{sec:Management_model}
 \begin{figure}[h!]
@@ -483,10 +483,10 @@ As depicted in figure \ref{fig:Mgt_model}, the model proposed is based on master
 \label{fig:Mgt_model}
 \end{figure}
 
-Each entity is responsible for managing and authorizing the access of its own domain resources (e.g. domain token keys, application installation) to its users. The owner also manages and authorizes the access to device resources (e.g. sensor drivers \& virtual managers) to its users and to other entities (e.g. maintainer or service provider).\\
+Each entity is responsible for managing and authorizing the access of its own domain resources (e.g. domain token keys, application installation) to its users. The owner also manages and authorizes the access to device resources (e.g. sensor drivers \& virtual managers) to its users and to other entities (e.g. maintainer or service provider).
 
 \subsubsection{Domain resources management}
-An example is the modification of the URL from which to retrieve the package which contains a driver update. This parameter is in the perimeter of the maintainer and does not require any modification on the drivers or parameters controlled by the owner. Therefore, it is the maintainer's responsibility to ensure that this modification can be performed only by authenticated \& authorized users.\\
+An example is the modification of the URL from which to retrieve the package which contains a driver update. This parameter is in the perimeter of the maintainer and does not require any modification on the drivers or parameters controlled by the owner. Therefore, it is the maintainer's responsibility to ensure that this modification can be performed only by authenticated \& authorized users.
 
 As illustrated in figure \ref{fig:DomRes_AP}, first, the client which requests the modification is authenticated. Then, it chooses an operation proposed by the administration manager and the access policy evaluates whether this particular user is authorized to perform the selected operation. If yes, the token A is generated and the maintainer sends the command and the token are sent to the maintainer's domain where the command is processed.
 \label{sec:DomRes_AP}
@@ -498,7 +498,7 @@ As illustrated in figure \ref{fig:DomRes_AP}, first, the client which requests t
 \end{figure}
 
 \subsubsection{Device resource management}
-An example is the download, deployment \& installation of a package with a driver update. In this case, the maintainer authenticates the user which requests this operation and then requests the owner the authorization to perform it.\\
+An example is the download, deployment \& installation of a package with a driver update. In this case, the maintainer authenticates the user which requests this operation and then requests the owner the authorization to perform it.
 
 Figure \ref{fig:DevRes_AP} illustrates the steps necessary for this operation. First, the client which requests the update is authenticated and authorized by the maintainer server. Then, the maintainer server forwards the request to the owner. The owner authenticates the maintainer server which initiates the request and which will deploy the update package, authorizes the operation according to its own access policy and generates token B. The maintainer server now sends the command, token A and token B to the maintainer's domain. Once token A is verified by the maintainer's Token \& Security Validator, the virtual sensor updator sends the command and token B to the Owner domain. If the owner validates token B, the update is authorized.
 \label{sec:DevRes_AP}
@@ -510,7 +510,7 @@ Figure \ref{fig:DevRes_AP} illustrates the steps necessary for this operation. F
 \end{figure}
 
 \subsubsection{Token scheme}
-The token format should contain at minimum a payload and a signature of this payload. Compatible token formats include JWT (JSON Web Token) \cite{rfc7519_jwt_2015} and CWT (CBOR Web Token) \cite{rfc_CWT_2017}.\\
+The token format should contain at minimum a payload and a signature of this payload. Compatible token formats include JWT (JSON Web Token) \cite{rfc7519_jwt_2015} and CWT (CBOR Web Token) \cite{rfc_CWT_2017}.
 
 The token's objectives are to 1) ensure that any command will reach the intended destination, 2) give the rights to request some operations on resource, 3) prove that the entity initiating the command has been authenticated authorized and protect against replay. To achieve these goals, the token should contain at minimum:
 \begin{itemize}
@@ -576,9 +576,9 @@ The ODSI architecture can be build using Pip partition creation mechanism (figur
 
 %\todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
 
-An example of application of the proposed architecture is illustrated in figures \ref{fig:houseiot}, \ref{fig:ODSIGateway} and \ref{fig:ODSIDevice}. One or several home smart devices are associated to a domain in the gateway, \ref{fig:houseiot}. Each domain in the gateway exposes the associated small devices' resource to the outside worlds \ref{fig:ODSIGateway}. The devices are managed by only one entity and contains only one domain. Several partitions are created to isolate functions of the device.\\
+An example of application of the proposed architecture is illustrated in figures \ref{fig:houseiot}, \ref{fig:ODSIGateway} and \ref{fig:ODSIDevice}. One or several home smart devices are associated to a domain in the gateway, \ref{fig:houseiot}. Each domain in the gateway exposes the associated small devices' resource to the outside worlds \ref{fig:ODSIGateway}. The devices are managed by only one entity and contains only one domain. Several partitions are created to isolate functions of the device.
 
-As depicted in figure \ref{fig:ODSIGateway}, domain 1 is managed by an audiovisual Service Provider which proposes an application to control a connected TV and audio device. Domain 2 is managed by an electronic device management which proposes an application to control a game console, electric outlets and connected lamps. These applications forward the commands and their token to the associated devices. The authentication and token generation can be done by the service in the domain (e.g. domain 2) or by a service in the cloud (e.g. domain1). The NAT functionality is also isolated from other services in the gateway. Similar to small devices, all applications the three domains perform actions only if they are authenticated and authorized by a token issued by an application in the cloud.\\
+As depicted in figure \ref{fig:ODSIGateway}, domain 1 is managed by an audiovisual Service Provider which proposes an application to control a connected TV and audio device. Domain 2 is managed by an electronic device management which proposes an application to control a game console, electric outlets and connected lamps. These applications forward the commands and their token to the associated devices. The authentication and token generation can be done by the service in the domain (e.g. domain 2) or by a service in the cloud (e.g. domain1). The NAT functionality is also isolated from other services in the gateway. Similar to small devices, all applications the three domains perform actions only if they are authenticated and authorized by a token issued by an application in the cloud.
 
 As depicted in figure \ref{fig:ODSIDevice}, small devices only have one domain and several isolated functionalities. For example, network drivers which are a potential entry point for attacks are isolated from other drivers and applications in the device. 
 
@@ -601,9 +601,9 @@ As depicted in figure \ref{fig:ODSIDevice}, small devices only have one domain a
 	\label{fig:ODSIDevice}
 \end{figure}
 
-The proposed security architecture avoids the attack described by Sivaraman et.al.\cite{Sivaraman2016}. Indeed, the token mechanism is used to authenticate each command sent to the devices or to the NAT configuration service in the router.\\
+The proposed security architecture avoids the attack described by Sivaraman et.al.\cite{Sivaraman2016}. Indeed, the token mechanism is used to authenticate each command sent to the devices or to the NAT configuration service in the router.
 
-Using Pip enhances the protection against this attack by creating isolated partitions in the router and in the devices. Therefore, a successful attack against a domain in the gateway or a partition in the home smart devices can be contained. \\
+Using Pip enhances the protection against this attack by creating isolated partitions in the router and in the devices. Therefore, a successful attack against a domain in the gateway or a partition in the home smart devices can be contained. 
 
 %\lipsum[1-4]
 
@@ -618,8 +618,7 @@ In this paper we have described an architecture based on a separation kernel in 
 
 % use section* for acknowledgment
 \section*{Acknowledgment}
-This article was done in the scope of the European Celtic-Plus project ODSI.  
-
+-This article was done in the scope of the European Celtic-Plus project ODSI (Project ID: C2014/2-12) \cite{celtic-odsi}, \cite{odsi-home}.
 
 
 
