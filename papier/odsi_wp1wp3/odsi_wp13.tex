@@ -120,7 +120,7 @@ Email: firstname.lastname@orange.com\\}
 % in the abstract
 \begin{abstract}
 %Abstract \todo[inline]{TBD}
-In recent years, Internet of Things devices(IoT) and Cyber-Physicals Systems(CPS) are ubiquitous and used in many situations (avionic, vehicles, household devices, smartphones...). End-user privacy and security was one of the main concerns of devices designers. Moreover, these systems are becoming more complex and opened to enable industrials to provide different services at the same time on the same device. However, the industrial worries about their data integrity and confidentiality into the devices. Each service provider is in a economic confrontation with others and End-User and service data are a significant resource. In this paper we propose an IoT device architecture based on a small separation kernel and a communication control mechanism to provide a trustworthy environment for each service provider.
+In recent years, Internet of Things devices(IoT) and Cyber-Physicals Systems(CPS) are ubiquitous and used in many situations (e.g. avionic, vehicles, household devices, smartphones). End-user privacy and security was one of the main concerns of devices designers. Moreover, these systems are becoming more complex and opened to enable industrial to provide different services at the same time on the same device. However, the industrial worries about their data integrity and confidentiality into the devices. Each service provider is in an economic confrontation with others and End-User and service data are a significant resource. In this paper we propose an IoT device architecture based on a small separation kernel and a communication control mechanism to provide a trustworthy environment for each service provider.
 %%\lipsum[1]
 \end{abstract}
 
@@ -147,14 +147,16 @@ In recent years, Internet of Things devices(IoT) and Cyber-Physicals Systems(CPS
 %\todo[inline]{TBD}
 
 
-Internet of things (IoT) devices and cyber-physicals systems (CPS) are becoming ubiquitous in our modern society\cite{WOlf2018}. IoT is in the interest of many industrials issuer. We can see an increase of devices including multiples hardware and software components in order to provide more complex services\cite{Xu2014}.
+Internet of things (IoT) devices and cyber-physicals systems (CPS) are becoming ubiquitous in our modern society\cite{WOlf2018}. An increase of devices including multiples hardware and software components in order to provide more complex services\cite{Xu2014}.
 
-In that kind of environment, privacy, safety and security issues for the end-users are becoming one of the main concern of the industrial. Moreover, in one device, we can identify a certain number of distinct industrial entities which provide software and hardware services for the end-user. IoT devices are becoming opened environments where a lot of On-demand services are deployed by different providers. Due to the economic competition, each industrial service provider can not trust the others services in the device.
+In that kind of environment, privacy, safety and security issues for the end-users are becoming one of the main concern of the industrial. Moreover, in one device, there is more than one industrial entities which provide software and hardware services for the end-user. 
+
+IoT is in the interest of many industrials issuer. IoT devices are becoming opened environments where a lot of On-demand services are deployed by different providers. Due to the economic competition, each industrial service provider can not trust the others services in the device.
 
 
-By considering the importance of data inner services, we propose in this paper a platform architecture and design based on a separation kernel and a communication mechanism control to guarantee for each service provider a trustworthy environment.
+Considering the importance of data inner services, we propose in this paper a platform architecture and design based on a separation kernel and a communication mechanism control to guarantee for each service provider a trustworthy environment.
 
-This paper is structured as follow, section \ref{sec:IoTissue} describes a simple security issue into household IoT. In section \ref{sec:Isolation_model} we are going to introduce Pip, a separation kernel which provides a proved memory isolation mechanism. Section \ref{sec:Industrial_ecosystem} describes the industrial ecosystem and the responsibility of each actor. In Section \ref{sec:Architecture}, we can find the ODSI architecture in details and in section \ref{sec:illustration_discussion} we can see how to build a real industrial example with Pip and the ODSI platform.
+This paper is structured as follows, section \ref{sec:IoTissue} describes a simple security issue into household IoT. In section \ref{sec:Isolation_model} we introduce Pip, a separation kernel which provides a proved memory isolation mechanism. Section \ref{sec:Industrial_ecosystem} describes the industrial ecosystem and the responsibility of each actor. Section \ref{sec:Architecture} describes the ODSI architecture in details and in section \ref{sec:illustration_discussion} explains how to build a real industrial example with Pip and the ODSI platform.
 %\lipsum[1-2]
 %\hfill mds
  
@@ -163,13 +165,15 @@ This paper is structured as follow, section \ref{sec:IoTissue} describes a simpl
 
 \section{Internet of Things security issues}
 \label{sec:IoTissue}
-Oravec and co \cite{Oravec2017} described in their paper the increase of utilization of devices and applications dedicated to Internet of Things, particularly in the case of household appliances and house management. They wished to demonstrated the new issues that should be considered with the expansion of IoT into the house. One of their main concern is the security and privacy integrity of users. They descried scenario about different attacks or other information due to fallible household devices and non-secure softwares. 
-
-In that kind of environment, Sivaraman and co\cite{Sivaraman2016} described a scenario based on an attack on all house IoT devices via a smartphone application. By using the smartphone and network accesses into the house, they found all available IoT devices. In their paper, they show how it is possible to get control of each device. With this attack, they show that even if there is strong network security mechanisms (like router equipped with firewalls) if any component of the House IoT has an application level issue, the security and privacy is no more guaranteed into the house. This attack works with a smartphone, but we can also imagine a scenario where an another connected device (Webcam, connected TV..) can be an attack vector. 
 
 
-In the past years, security and privacy was one of the main concern of the academic and industrial researchs\cite{WOlf2018}\cite{BernalBernabe2016}\cite{Xu2014}\cite{Razzaque2016}. They have designed different architecture models in order to provide more trustworthy environments for the IoT industrial and the end-users.
 
+Oravec and co \cite{Oravec2017} described in their paper the increase of utilization of devices and applications dedicated to IoT, particularly in the case of household appliances and house management. They wished to demonstrate the new issues that should be considered with the expansion of IoT into the house. One of their main concern is the security and privacy integrity of users. They described scenario about different attacks or other information due to fallible household devices and non-secure softwares. 
+
+In that kind of environment, Sivaraman and co\cite{Sivaraman2016} described a scenario based on an attack on all house IoT devices via a smartphone application. By using the smartphone and network accesses into the house, they found all available IoT devices. In their paper, they show how it is possible to get control of each device. With this attack, they show that even if there is strong network security mechanisms (like router equipped with firewalls) if any component of the House IoT has an application level issue, the security and privacy is no more guaranteed into the house. This attack works with a smartphone, but a scenario where another connected device (Webcam, connected TV..) can be used by an attacker to penetrate into the house. 
+
+
+In the past years, security and privacy was one of the main concern of the academic and industrial researches \cite{Conzon2015}\cite{WOlf2018}\cite{Xu2014}\cite{Razzaque2016}. They have designed different architecture models in order to provide more trustworthy environments for the IoT industrial and the end-users and framework for secure IoT development\cite{BernalBernabe2016}.
 
 \section{Isolation model}
 \label{sec:Isolation_model}
@@ -179,7 +183,7 @@ In the past years, security and privacy was one of the main concern of the acade
 
 \begin{figure}
 	\centering
-	\begin{tikzpicture}[baseline=0, scale=2.6]
+	\begin{tikzpicture}[baseline=0, scale=2]
 	% Draw rectangles
 	\draw(-1, -2) rectangle (1, -1.5);
 	\draw(-1, -1.25) rectangle (1, -0.75);
@@ -201,7 +205,7 @@ In the past years, security and privacy was one of the main concern of the acade
 
 
 
-PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from hypervisors to monolithic kernels, to be developed as user mode applications (figure \ref{fig:PipArchBase}). This means that only PIP is executed in kernel mode (i.e., the privileged mode of the hardware)(figure . Indeed, code running in kernel mode has direct access to the whole memory and hardware. It is thus clearly better, from a security point of view, to keep this code as minimal as possible. This stems from the general principle that the trusted computing base (TCB) should be kept minimal. One of the PIP key design is to have a minimal number of functionalities while ensuring strong isolation. More precisely, PIP only manages memory isolation and redirection of interruptions to user space code, and has only 10 system calls. Contrary to micro-kernel, it means that components like scheduler, IPC and authorization are not included in the PIP kernel, neither other mechanism available in monolithic kernel like device abstraction layer, file systems, network stack, etc.
+PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from hypervisors to monolithic kernels, to be developed as user mode applications (figure \ref{fig:PipArchBase}). Only PIP is executed in kernel mode (i.e., the privileged mode of the hardware)(figure \ref{fig:Arch_mem}) . Indeed, code running in kernel mode has direct access to the whole memory and hardware. It is thus clearly better, from a security point of view, to keep this code as minimal as possible. This stems from the general principle that the trusted computing base (TCB) should be kept minimal. One of the PIP key design is to have a minimal number of functionalities while ensuring strong isolation. More precisely, PIP only manages memory isolation and redirection of interruptions to user space code, via 10 system calls. Contrary to micro-kernel, it means that components like scheduler, IPC and authorization are not included in the PIP kernel, neither other mechanism available in monolithic kernel like device abstraction layer, file systems, network stack, etc.
 
 
 
@@ -213,7 +217,7 @@ PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from 
 	
 	\centering
 	\begin{forest}
-		for tree={grow=east,reversed,minimum height=0.7cm}
+		for tree={grow=east,reversed,minimum height=0.5cm}
 		[P$_{\mbox{root}}$
 		[P$_1$
 		[P$_{1.1}$
@@ -236,7 +240,7 @@ PIP\cite{bergougnoux2017} is a protokernel: it allows for kernels, ranging from 
 	\label{abstree:fig}
 	%	\end{minipage}
 \end{figure}
-PIP proposes a hierarchic  memory isolation model (figure \ref{abstree:fig}) to partition the available memory among several memory-limited space called partition. A partition is a set of physical memory pages mapped to virtual address. At start, all the available memory (as defined inside PIP configuration) makes up the ROOT partition. The root partition can include mapped registers from hardware devices, thus providing access to hardware functionalities. Code executed in a parent partition can request (via system calls to PIP) segregation to its memory space: a new child partition is created on which the parent partition can mapped a subset of its own mapped physical memory pages, thus \textit{delegating} part of its memory space to the child partition. This model is recursive: any partition can create a child partition and delegate part of its memory space. While a partition can read and write in the memory of its child partition (we call this property vertical sharing), sibling partitions cannot access each other's memory (we call this property horizontal isolation).
+PIP proposes a hierarchic  memory isolation model (figure \ref{abstree:fig}) to partition the available memory among several memory-limited space called partition. A partition is a set of physical memory pages mapped to virtual addresses. At start, all the available memory (as defined inside PIP configuration) makes up the ROOT partition. The root partition can include mapped registers from hardware devices, thus providing access to hardware functionalities. Code executed in a parent partition can request (via system calls to PIP) segregation to its memory space: a new child partition is created on which the parent partition can mapped a subset of its own mapped physical memory pages, thus \textit{delegating} part of its memory space to the child partition. This model is recursive: any partition can create a child partition and delegate part of its memory space. While a partition can read and write in the memory of its child partition (this property is named vertical sharing), sibling partitions cannot access each other's memory (This property is horizontal isolation).
 \subsection{Pip memory management}
 
 \begin{figure}[h!]
@@ -245,7 +249,7 @@ PIP proposes a hierarchic  memory isolation model (figure \ref{abstree:fig}) to 
 	\label{props:fig}
 \end{figure}
 
-Pip model ensure formal isolation between partitions. This isolation is guaranteed by two properties :
+Pip model ensures formal isolation between partitions. This isolation is guaranteed by two properties :
 
 
 \begin{itemize}
@@ -254,19 +258,19 @@ Pip model ensure formal isolation between partitions. This isolation is guarante
 \end{itemize}
 
 
-As seen in figure \ref{props:fig}, for partition creation, a parent gives the required amount of memory pages from its own pages to its child, and theses pages belong to this new partition.
+As seen in figure \ref{props:fig}, for partition creation, a parent gives the required amount of memory pages from its own pages to its child, and these pages belong to this new partition.
 
-In order to create partition and manage each child memory, Pip provide a set a function available for each partition.
+In order to create partition and manage each child memory, Pip provides a set of functions available for each partition.
 \begin{itemize}
 	\item \textbf{createPartition} : create a new partition.
 	\item \textbf{deletePartition} : delete a new partition.
 	\item \textbf{addVAddr} : gives a page to a child partition (no more available into the parent).
-	\item \textbf{removeVAddr} : reclaims a page from a child partition (no more available into the parent).
+	\item \textbf{removeVAddr} : reclaims a page from a child partition (no more available into the child).
 \end{itemize}
 
 
 \subsection{Interrupt management}
-To manage interruptions, PIP has two different behaviours depending of the kind of interruption:
+To manage interruptions, PIP has two different behaviors depending on the kind of interruption:
 \begin{itemize}
 	\item Software interrupts (fault or system calls) are relayed to the parent partition (with the exception of the PIP system calls).
 	\item Hardware interrupts are relayed to the ROOT partition which is in charge to forward it to, for instance, a network card driver.
@@ -281,19 +285,19 @@ In addition, Pip API provides two function for software interrupt between partit
 	\item \textbf{resume} : restores a previous interrupted partition.
 \end{itemize}
 
-Any partition can send and receive a signal only from its parent, one of its child and from Pip. For example, in figure \ref{props:fig} There is no available signal transmission between \textit{p1} and \textit{p2} or \textit{p3} and \textit{p2}.
+Any partition can send and receive a signal only from its parent, one of its child and from Pip. For example, in figure \ref{props:fig} \textit{p1} and \textit{p2} or \textit{p3} and \textit{p2} can not send or receive directly a signal.
 
 
 \subsection{IPC mechanism}
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{figures/IPCDispatch}
+	\includegraphics[width=0.6\linewidth]{figures/IPCDispatch}
 	\caption{Simple IPC mechanism}
 	\label{fig:ipcdispatch}
 \end{figure}
 
 
-Pip does not provide IPC between two distinct partitions. However, this mechanism can be implemented in userland, by using software interrupt or Pip API dispatch function. For example (figure \ref{fig:ipcdispatch}), if \textit{Child 1} wants to send a message to \textit{Child 2}, it has to send a dispatch to its \textit{parent} (step A). The parent handles this software interrupt and transmit the signal to \textit{Child 2} (step B).
+Pip does not provide IPC between two distinct partitions. However, this mechanism can be implemented in userland, by using software interrupt or Pip's API dispatch function. For example (figure \ref{fig:ipcdispatch}), if \textit{Child 1} wants to send a message to \textit{Child 2}, it has to send a dispatch to its \textit{parent} (step A). The parent handles this software interrupt and transmit the signal to \textit{Child 2} (step B).
 
 For more complex architecture (like figure \ref{abstree:fig}), this mechanism can be recursively used to send signal between any partitions (ex : P1.1 to P.1.2.2).
 
@@ -302,17 +306,17 @@ For more complex architecture (like figure \ref{abstree:fig}), this mechanism ca
 \label{sec:Industrial_ecosystem}
 This section describes the industrial ecosystem and the needs for a security architecture based on isolation. First, we identify and define the stakeholders involved in the use and management of an IOT or M2M device. The responsibilities of each actor are then described and finally, the requirements for an isolation-based architecture are listed.\\
 
-We consider that a domain is an isolated area which belongs to an entity. The notion of domain is precised in section \ref{sec:Domain_def}.\\
+%We consider that a domain is an isolated area which belongs to an entity. The notion of domain is precised in section \ref{sec:Domain_def}.\\
 
-We distinguish device ressources and domain ressources. Device ressources correspond to the isolated partitions (domains) and the ressources exposed by software, actuators or sensors drivers installed by the packager in the owner domain and which are related to the device. Domain ressources correspond to any ressource not related to the device and created within the given domain. En example of device ressource is the firmware or its updater. An example of a domain ressource is a key to create an SSL channel between a remote platform and a given domain.\\
+We distinguish device resources and domain resources. Device resources correspond to the isolated partitions (domains) and the resources exposed by software, actuators or sensors drivers installed by the packager in the owner domain and which are related to the device. Domain resources correspond to any resource not related to the device and created within the given domain. En example of device resource is the firmware or its updater. An example of a domain resource is a key to create an SSL channel between a remote platform and a given domain.\\
 
 \subsection{Actors}
 \label{sec:Actors}
-We identify 7 stakeholders, namely the manufacturer, packager, maintainer, owner, administrator, service provider and user, which interact with the IOT ot M2M device. One device may be associated to 1 packager, 1 owner, 1 administrator and several manufacturers, maintainers and service providers. One actor may hold several roles. For example, one actor can be at the same time a manufacturer, a packager and a maintainer.
+We identify 7 stakeholders, namely the manufacturer, packager, maintainer, owner, administrator, service provider and user, which interact with the IOT or M2M device. One device may be associated to 1 packager, 1 owner, 1 administrator and several manufacturers, maintainers and service providers. One actor may hold several roles. For example, one actor can be at the same time a manufacturer, a packager and a maintainer.
 \subsubsection{Manufacturer}
 Manufacturers provide at least one component of the device, either a physical component with its driver, an operating system or an isolation solution. Manufacturers also provide updates \& patches for the component and the driver to the packager and/or maintainers. 
 \subsubsection{Packager}
-It issues the device and the isolation solution. It also provides each device an identifier that will subsequently allow it to be identified as well as intial secrets that will allow the owner to access the device. It may also provide the drivers and software components for the sensors or actuators on the device. 
+It issues the device and the isolation solution. It also provides each device an identifier that will subsequently allow it to be identified as well as initial secrets that will allow the owner to access the device. It may also provide the drivers and software components for the sensors or actuators on the device. 
 \subsubsection{Maintainer}
 It maintains the device, monitors the hardware components status and deploys the patches delivered by the manufacturer. 
 \subsubsection{Owner}
@@ -320,9 +324,9 @@ The device belongs to the Owner who defines an access policy to authorize which 
 \subsubsection{Administrator}
 It enforces the policy defined by the owner for his fleet of devices. If any modification, such as adding a new entity or modifying its granted permissions,  is required, it requests a decision from the owner. This role can either be assumed or delegated to a third party by the owner. 
 \subsubsection{Service Provider}
-It delivers a user-friendly service on one or multiple devices using the ressources authorized by the Owner. It installs or activates a service within the device. Muliple Service Providers can co-exist on the same device. 
+It delivers a user-friendly service on one or multiple devices using the resources authorized by the Owner. It installs or activates a service within the device. Multiple Service Providers can co-exist on the same device. 
 \subsubsection{User}
-Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article, we focus on platform users.
+Users consume the services provided by the entities mentioned above. We can distinguish platform users and technical users. Service users subscribe to the services provided by the Service Providers. Technical users are typically members of the Owner, Manufacturer, Maintainer entities, and they will perform authorized administration actions such as creating a new domain, granting rights to a new user, loading a service on the device. In the rest of this article, we focus on platform users.
  
 \subsection{Responsibilities model}
 \label{sec:Resp_model}
@@ -361,13 +365,13 @@ Create / Modify / Delete a domain before delivery to owner & & X & & & & \\
 \hline
 Create / Modify / Delete a domain after delivery to owner & & & & X & X & \\
 \hline
-Configure the access policy of the device ressources & & & & X & X & \\
+Configure the access policy of the device resources & & & & X & X & \\
 \hline
-Enforce the device ressource access policy & & & & X & X & \\
+Enforce the device resource access policy & & & & X & X & \\
 \hline
-Configure its domain ressource access policy & & & X & X & X & X \\
+Configure its domain resource access policy & & & X & X & X & X \\
 \hline
-Enforce its domain ressource access policy & & & X & X & X & X \\
+Enforce its domain resource access policy & & & X & X & X & X \\
 \hline
 Provide updates \& patches of components & X & & & & & \\
 \hline
@@ -384,7 +388,7 @@ The owner finalizes the personalization of the device after delivery by the manu
 
 If the owner delegates his tasks to an administrator, then the administrator can configure which resources need to be accessed with a token and the administrator is responsible for verifying the token and should not be able to control or visualize the actions performed by other actors unless they concern his perimeter of action.\\
 
-The maintainers keep the firmware, driver or any software in their perimeter up to date. Their role is to keep track of the latest updates and changes provided by manufacturers and deploy them on the field. Both responsibilities (correcting software and deploying updates) are key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the Internet Of Things (IoT) Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
+The maintainers keep the firmware, driver or any software in their perimeter up to date. Their role is to keep track of the latest updates and changes provided by manufacturers and deploy them on the field. Both responsibilities (correcting software and deploying updates) are key in the future as the regulators start to take actions on this point. For instance, the European Commission's overall security strategy \cite{enisa_iot_2017} requires vendors to commit to update their software in the event of newly disclosed vulnerabilities, as part of "duty of care" principle. Such initiative also exists in the United States with the IoT Cybersecurity Improvement Act of 2017 \cite{IOTAct_2017}.\\
 
 Any entity which owns a partition (administrator, service provider, and maintainer) has to authenticate the machine (or user) who is sending the commands to the partition. This entity can choose to not perform and access control verification, thus reducing the security of the system. Any entity which owns a partition (administrator, service provider, and maintainer) is responsible for modifying the temporary credentials of its associated domains.
 
@@ -395,10 +399,10 @@ Any entity which owns a partition (administrator, service provider, and maintain
 Two services which run in two isolated domains should not be able to access the memory of one another, gain information about each other or interfere with each other's execution. 
 
 \subsubsection{Owner non-interference}
-Although the owner or the administrator have access to a privileged domain, they must not have any control or visibility on the actions performed by other entities unless these actions involve device ressources under the responsibility of the owner.
+Although the owner or the administrator have access to a privileged domain, they must not have any control or visibility on the actions performed by other entities unless these actions involve device resources under the responsibility of the owner.
 
-\subsubsection{Ressource access control}
-A device ressource access policy under the control of the owner or the administrator is mandatory. For each domain, a domain ressource access policy under the control of the domain owner (maintainer, service provider) is optional. 
+\subsubsection{resource access control}
+A device resource access policy under the control of the owner or the administrator is mandatory. For each domain, a domain resource access policy under the control of the domain owner (maintainer, service provider) is optional. 
 
 \subsubsection{Minimal on-device processing}
 The processing required to authorize an action in the device must be minimal. 
@@ -412,11 +416,11 @@ This section describes the architecture proposed in the ODSI project. First, we 
 In this architecture, the device is shared between several parties with different roles (described in section \ref{sec:Actors}). As one party can execute various pieces of code in different spaces, the following vocabulary is used:
 \begin{itemize}
     \item A partition is a piece of code managed by one party with its own memory space
-    \item A domain is the union of all partitions managed and developped by one party.
+    \item A domain is the union of all partitions managed and developed by one party.
 \end{itemize}
 
 Figure \ref{fig:Arch_mem} illustrates an example of memory layout with 3 domains. The owner domain is the most privileged and the parent of domains 2 (maintainer) and 3 (service provider).
-In each domain, subpartitions allow to further isolate components. For example, in the owner domain (Dom0), the drivers (sensor driver, actuator driver, network driver) and the managers which allow to virtualise them are isolated from each others. They are also isolated from the scheduler, the configuration manager and the components Admin Manager, Key Vault, Token \& Security Validator and Internal Communicator which enforce the security management model described in this article. 
+In each domain, subpartitions allow to further isolate components. For example, in the owner domain (Dom0), the drivers (sensor driver, actuator driver, network driver) and the managers which allow to virtualize them are isolated from each other. They are also isolated from the scheduler, the configuration manager and the components Admin Manager, Key Vault, Token \& Security Validator and Internal Communicator which enforce the security management model described in this article. 
 
 \begin{figure}[h!]
 \centering
@@ -441,7 +445,7 @@ Figure \ref{fig:Arch_soft} represents the software layers which correspond to th
 
 \subsubsection{Configuration Manager}
 \label{sec:Config_Mgr}
-The Configuration Manager contains a description of the domain's sub partitions, the associated code and the authorized communication channels between two partitions. It enforces the communications mechanism based on shared memory and described in section \ref{sec:Communication_model}.
+The Configuration Manager contains a description of the domain's sub partitions, the associated code and the authorized communication channels between two partitions. It enforces the communication mechanism based on shared memory and described in section \ref{sec:Communication_model}.
 
 \subsubsection{Internal Communicator}
 \label{sec:Int_Com}
@@ -453,15 +457,15 @@ These managers provides synthetic sensor and actuator support to the virtual sen
 
 \subsubsection{Virtual sensors or actuators}
 \label{sec:virtual_sensor}
-Only the owner domain can manage the machine-level functions such as the drivers or the physical memory. Each domain contains a virtual sensor or actuator which are a synthetic sensor or actuator instance. It consumes the hardware ressources provided by the virtual sensor or actuator manager and requires and forwards a token to the owner domain if required. This allows the entity which owns the domain to see his domain as an actual device without knowledge of the isolation. The instruction and response are transmitted to and from the real driver using the internal communication mechanism. The virtual sensor or actuator updater is specific and allows the update of the related sensor or actuator driver in the owner domain. 
+Only the owner domain can manage the machine-level functions such as the drivers or the physical memory. Each domain contains a virtual sensor or actuator which are a synthetic sensor or actuator instance. It consumes the hardware resources provided by the virtual sensor or actuator manager and requires and forwards a token to the owner domain if required. This allows the entity which owns the domain to see his domain as an actual device without knowledge of the isolation. The instruction and response are transmitted to and from the real driver using the internal communication mechanism. The virtual sensor or actuator updater is specific and allows the update of the related sensor or actuator driver in the owner domain. 
 
 \subsubsection{Administration Manager}
 \label{sec:Admin_Mgr}
-This module exposes the domain's ressources to an external server managed by the entity which owns the domain. It routes the command to read, write, execute the ressource to the expected manager or virtual sensor, actuator. It sends each command received to the Token \& Security Validator (T\&S Validator). 
+This module exposes the domain's resources to an external server managed by the entity which owns the domain. It routes the command to read, write, execute the resource to the expected manager or virtual sensor, actuator. It sends each command received to the Token \& Security Validator (T\&S Validator). 
 
 \subsubsection{Token \& Security Validator}
 \label{sec:Token_Validator}
-The Token \& Security Validator (T\&S Validator) validates each device management command against the token provided in the command and optionnally an internal security policy. For example, the security policy defines which ressources require a token verification to be accessed or whether a specific command can be processed accordaccording to the device battery status. 
+The Token \& Security Validator (T\&S Validator) validates each device management command against the token provided in the command and optionnally an internal security policy. For example, the security policy defines which resources require a token verification to be accessed or whether a specific command can be processed accordaccording to the device battery status. 
 
 \subsubsection{Key Vault}
 \label{sec:Key_Vault}
@@ -479,36 +483,36 @@ As depicted in figure \ref{fig:Mgt_model}, the model proposed is based on master
 \label{fig:Mgt_model}
 \end{figure}
 
-Each entity is responsible for managing and authorizing the access of its own domain ressources (e.g. domain token keys, application installation) to its users. The owner also manages and authorizes the access to device ressources (e.g. sensor drivers \& virtual managers) to its users and to other entities (e.g. maintainer or service provider).\\
+Each entity is responsible for managing and authorizing the access of its own domain resources (e.g. domain token keys, application installation) to its users. The owner also manages and authorizes the access to device resources (e.g. sensor drivers \& virtual managers) to its users and to other entities (e.g. maintainer or service provider).\\
 
-\subsubsection{Domain ressources management}
-An example is the modification of the URL from which to retrieve the package which contains a driver update. This parameter is in the perimeter of the maintainer and does not require any modification on the drivers or parameters controled by the owner. Therefore, it is the maintainer's responsiblity to ensure that this modification can be performed only by authenticated \& authorized users.\\
+\subsubsection{Domain resources management}
+An example is the modification of the URL from which to retrieve the package which contains a driver update. This parameter is in the perimeter of the maintainer and does not require any modification on the drivers or parameters controlled by the owner. Therefore, it is the maintainer's responsibility to ensure that this modification can be performed only by authenticated \& authorized users.\\
 
-As illustrated in figure \ref{fig:DomRes_AP}, first, the client which requests the modification is authenticated. Then, it choses an operation proposed by the administration manager and the access policy evaluates whether this particular user is authorized to perform the selected operation. If yes, the token A is generated and the maintainer sends the command and the token are sent to the maintainer's domain where the command is processed.
+As illustrated in figure \ref{fig:DomRes_AP}, first, the client which requests the modification is authenticated. Then, it chooses an operation proposed by the administration manager and the access policy evaluates whether this particular user is authorized to perform the selected operation. If yes, the token A is generated and the maintainer sends the command and the token are sent to the maintainer's domain where the command is processed.
 \label{sec:DomRes_AP}
 \begin{figure}[h!]
 \centering
 \includegraphics[width=9cm]{figures/DomRes_AP.png}
-\caption{Management of domain ressources}
+\caption{Management of domain resources}
 \label{fig:DomRes_AP}
 \end{figure}
 
-\subsubsection{Device ressources management}
-An example is the download, deployment \& installation of a package with a driver udpate. In this case, the maintaier authenticates the user which requests this operation and then requests the owner the authorization to perform it.\\
+\subsubsection{Device resource management}
+An example is the download, deployment \& installation of a package with a driver update. In this case, the maintainer authenticates the user which requests this operation and then requests the owner the authorization to perform it.\\
 
 Figure \ref{fig:DevRes_AP} illustrates the steps necessary for this operation. First, the client which requests the update is authenticated and authorized by the maintainer server. Then, the maintainer server forwards the request to the owner. The owner authenticates the maintainer server which initiates the request and which will deploy the update package, authorizes the operation according to its own access policy and generates token B. The maintainer server now sends the command, token A and token B to the maintainer's domain. Once token A is verified by the maintainer's Token \& Security Validator, the virtual sensor updator sends the command and token B to the Owner domain. If the owner validates token B, the update is authorized.
 \label{sec:DevRes_AP}
 \begin{figure}[h!]
 \centering
 \includegraphics[width=9cm]{figures/DevRes_AP.png}
-\caption{Management of device ressources}
+\caption{Management of device resource}
 \label{fig:DevRes_AP}
 \end{figure}
 
 \subsubsection{Token scheme}
 The token format should contain at minimum a payload and a signature of this payload. Compatible token formats include JWT (JSON Web Token) \cite{rfc7519_jwt_2015} and CWT (CBOR Web Token) \cite{rfc_CWT_2017}.\\
 
-The token's objectives are to 1) ensure that any command will reach the intended destination, 2) give the rights to request some operations on ressources, 3) prove that the entity initiating the command has been authenticated authorized and protect against replay. To achieve these goals, the token should contain at minimum:
+The token's objectives are to 1) ensure that any command will reach the intended destination, 2) give the rights to request some operations on resource, 3) prove that the entity initiating the command has been authenticated authorized and protect against replay. To achieve these goals, the token should contain at minimum:
 \begin{itemize}
     \item the ID of the partition to which this token is destined,
     \item the rights granted,
@@ -530,7 +534,7 @@ Each domain has an internal communication mechanism. It can be implemented by th
 
 \subsubsection{External communication}
 
-For external communication, only one partition is in charge of Network hardware sending and receiving functions. In order to send a external message, each domains has to use the internal communication to discuss with the Network manager, and send it the external message. 
+For external communication, only one partition is in charge of Network hardware sending and receiving functions. In order to send an external message, each domain has to use the internal communication to discuss with the Network manager, and send it the external message. 
 %\lipsum[1-6]
 
 
@@ -572,9 +576,9 @@ The ODSI architecture can be build using Pip partition creation mechanism (figur
 
 %\todo[inline]{TBD. Section to show how the isolation model allows to address the industrial needs}
 
-An example of application of the proposed architecture is illustrated in figures \ref{fig:houseiot}, \ref{fig:ODSIGateway} and \ref{fig:ODSIDevice}. One or several home smart devices are associated to a domain in the gateway, \ref{fig:houseiot}. Each domain in the gateway exposes the associated small devices ressources to the outside worlds \ref{fig:ODSIGateway}. The devices are managed by only one entity and contains only one domain. Several partitions are created to isolate functions of the device.\\
+An example of application of the proposed architecture is illustrated in figures \ref{fig:houseiot}, \ref{fig:ODSIGateway} and \ref{fig:ODSIDevice}. One or several home smart devices are associated to a domain in the gateway, \ref{fig:houseiot}. Each domain in the gateway exposes the associated small devices' resource to the outside worlds \ref{fig:ODSIGateway}. The devices are managed by only one entity and contains only one domain. Several partitions are created to isolate functions of the device.\\
 
-As depicted in figure \ref{fig:ODSIGateway}, domain 1 is managed by an audiovisual Service Provider which proposes an application to control a connected TV and audio device. Domain 2 is managed by an electronic device management which proposes an application to control a game console, electric outlets and connected lamps. These applications forward the commands and their token to the associated devices. The authentication and token generation can be done by the a service in the domain (e.g. domain 2) or by a service in the cloud (e.g. domain1). The NAT functionality is also isolated from other services in the gateway. Similary to small devices, all applications the three domains perform actions only if they are authenticated and authorized by a token issued by an application in the cloud.\\
+As depicted in figure \ref{fig:ODSIGateway}, domain 1 is managed by an audiovisual Service Provider which proposes an application to control a connected TV and audio device. Domain 2 is managed by an electronic device management which proposes an application to control a game console, electric outlets and connected lamps. These applications forward the commands and their token to the associated devices. The authentication and token generation can be done by the service in the domain (e.g. domain 2) or by a service in the cloud (e.g. domain1). The NAT functionality is also isolated from other services in the gateway. Similar to small devices, all applications the three domains perform actions only if they are authenticated and authorized by a token issued by an application in the cloud.\\
 
 As depicted in figure \ref{fig:ODSIDevice}, small devices only have one domain and several isolated functionalities. For example, network drivers which are a potential entry point for attacks are isolated from other drivers and applications in the device. 
 
@@ -696,6 +700,7 @@ This article was done in the scope of the European Celtic-Plus project ODSI.
 % labels, the optional argument to \subfloat must be present. If a
 % subcaption is not desired, just leave its contents blank,
 % e.g., \subfloat[].
+
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
