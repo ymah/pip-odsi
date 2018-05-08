@@ -132,9 +132,14 @@ incomingMessage_t deserialize_incomingMessage(char* data, uint32_t size_total){
 	incomingMessagereset(&message);
 
 	uint32_t ID;
+	char header[HEADER_SIZE	];
 
 	if( size_total < IN_MAX_MESSAGE_SIZE){
 		DEBUG(TRACE,"Deserializing message\n");
+		mymemcpy(&header, data, HEADER_SIZE	);
+		if(header[0] == "O" && header[1] == "D" && header[2] == "S" && header[3] == "I")
+		data += sizeof(HEADER_SIZE);
+
 		mymemcpy(&ID, data, sizeof(ID));
 		message.userID=myntohl(ID);
 		message.command.userID=myntohl(ID);

@@ -200,6 +200,20 @@
 	year = {2016}
 }
 
+<<<<<<< HEAD
+@INPROCEEDINGS{Miloslavskaya2017,
+	author={N. Miloslavskaya and A. Tolstoy},
+	booktitle={2017 IEEE 5th International Conference on Future Internet of Things and Cloud (FiCloud)},
+	title={Ensuring Information Security for Internet of Things},
+	year={2017},
+	volume={},
+	number={},
+	pages={62-69},
+	keywords={Internet of Things;security of data;IoT device protection;IoT elements;IoT operational resilience;Security Intelligence approach;information security;specialized field;taxonomy;typical attacks;Cloud computing;Computer crime;Industrial control;Internet of Things;Protocols;Sensors;Internet of Things;Security Intelligence application;attacks taxonomy;big data technologies;information security},
+	doi={10.1109/FiCloud.2017.17},
+	ISSN={},
+	month={Aug},}
+=======
 @Misc{celtic-odsi,
   author       = {Celtic},
   title        = {On Demand Secure Isolation},
@@ -208,8 +222,9 @@
 
 @Misc{odsi-home,
   author       = {ODSI},
-  title        = {ODSI},
+  title        = {ODSI website},
   howpublished = {\url{http://celticplus-odsi.org/}},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
+>>>>>>> 838418de51fc25eb079bb94b76f52bd6117f455e

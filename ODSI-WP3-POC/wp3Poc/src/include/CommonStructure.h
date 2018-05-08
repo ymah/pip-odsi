@@ -10,6 +10,7 @@
 #ifndef COMMONSTRUCTURE_H_
 #define COMMONSTRUCTURE_H_
 
+#define HEADER_SIZE							 ( 4+1 )
 #define DEVICEID_SIZE                        ( 4+1 )
 #define DOMID_SIZE                           ( 4+1 )
 #define KEY_SIZE                             ( 256+1 )
@@ -21,6 +22,8 @@
 #define RESPCODE_SIZE                        ( 4+1 )
 #define IN_MAX_MESSAGE_SIZE                  ( REQID_SIZE + DEVICEID_SIZE + DOMID_SIZE + TOKEN_SIZE + INS_SIZE + DATA_SIZE + 6*3)
 #define OUT_MAX_MESSAGE_SIZE                 ( REQID_SIZE + RESPCODE_SIZE + DATA_SIZE + 3*6)
+
+#define HEADER = "ODSI";
 
 typedef struct IN_NW{
 	uint32_t size;
